@@ -1,0 +1,61 @@
+@startuml 用户群组设计
+
+class User {
+    int user_id
+    String username
+    String password
+    String email
+    String avatar
+    Timestamp created_at
+    String log_status
+    Timestamp last_login_at
+    Timestamp last_logout_at
+}
+
+class PrivateMessage {
+    int message_id
+    int sender_id
+    int receiver_id
+    String message
+    Timestamp sent_at
+}
+
+class Group {
+    int group_id
+    String group_name
+    Timestamp created_at
+}
+
+class GroupMessage {
+    int message_id
+    int group_id
+    int sender_id
+    String message
+    Timestamp sent_at
+}
+
+class GroupMember {
+    int group_id
+    int user_id
+    String power
+    Timestamp joined_at
+}
+
+class GroupJoinRequest {
+    int request_id
+    int group_id
+    int user_id
+    String request_message
+    String request_status
+    Timestamp requested_at
+}
+
+User "1" -- "0..*" PrivateMessage : 发送
+User "1" -- "0..*" PrivateMessage : 接收
+User "1" -- "0..*" GroupMember : 加入
+User "1" -- "0..*" GroupJoinRequest : 申请加入
+Group "1" -- "0..*" GroupMessage : 包含
+Group "1" -- "0..*" GroupMember : 包含
+Group "1" -- "0..*" GroupJoinRequest : 接收申请
+
+@enduml

@@ -1,0 +1,67 @@
+@startuml 用户-群组设计
+
+entity "users" {
+    * user_id : INT <<PK>>
+    --
+    username : VARCHAR(50)
+    password : VARCHAR(255)
+    email : VARCHAR(100)
+    avatar : VARCHAR(255)
+    created_at : TIMESTAMP
+    log_status : ENUM('online', 'offline')
+    last_login_at : TIMESTAMP
+    last_logout_at : TIMESTAMP
+}
+
+entity "private_messages" {
+    * message_id : INT <<PK>>
+    --
+    sender_id : INT
+    receiver_id : INT
+    message : TEXT
+    sent_at : TIMESTAMP
+}
+
+entity "user_groups" {
+    * group_id : INT <<PK>>
+    --
+    group_name : VARCHAR(100)
+    created_at : TIMESTAMP
+}
+
+entity "group_members" {
+    * group_id : INT <<PK>>
+    * user_id : INT <<PK>>
+    --
+    power : ENUM('owner', 'admin', 'member')
+    joined_at : TIMESTAMP
+}
+
+entity "group_messages" {
+    * message_id : INT <<PK>>
+    --
+    group_id : INT
+    sender_id : INT
+    message : TEXT
+    sent_at : TIMESTAMP
+}
+
+entity "group_join_requests" {
+    * request_id : INT <<PK>>
+    --
+    group_id : INT
+    user_id : INT
+    request_message : TEXT
+    request_at : TIMESTAMP
+}
+
+users ||--o{ private_messages : "sender_id"
+users ||--o{ private_messages : "receiver_id"
+users ||--o{ group_members : "user_id"
+users ||--o{ group_messages : "sender_id"
+users ||--o{ group_join_requests : "user_id"
+user_groups ||--o{ group_members : "group_id"
+user_groups ||--o{ group_messages : "group_id"
+user_groups ||--o{ group_join_requests : "group_id"
+
+@enduml
