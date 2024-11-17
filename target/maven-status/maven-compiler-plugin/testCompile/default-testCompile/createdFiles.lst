@@ -1,0 +1,11 @@
+cn\amatrix\utils\webSocketClient\ReceivedWebSocketMessageEventExample.class
+cn\amatrix\utils\webSocketClient\WebClientExample.class
+cn\amatrix\DAO\groups\mySQL\GroupJoinRequestDAOTest.class
+cn\amatrix\utils\webSocketClient\WebClientExample$1.class
+cn\amatrix\DAO\groups\mySQL\GroupMemberDAOTest.class
+cn\amatrix\DAO\groups\mySQL\GroupMessageDAOTest.class
+cn\amatrix\DAO\groups\mySQL\GroupDAOTest.class
+cn\amatrix\DAO\users\mySQL\UserDAOTest.class
+cn\amatrix\utils\webSocketClient\WebClientExample$2.class
+cn\amatrix\DAO\users\mySQL\PrivateMessageDAOTest.class
+cn\amatrix\utils\webSocketClient\WebClientClass.class
