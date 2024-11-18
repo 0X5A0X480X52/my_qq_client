@@ -55,11 +55,32 @@ entity "group_join_requests" {
     request_at : TIMESTAMP
 }
 
+entity "friend_requests" {
+    * request_id : INT <<PK>>
+    --
+    sender_id : INT
+    receiver_id : INT
+    request_message : TEXT
+    request_status : ENUM('pending', 'approved', 'rejected')
+    requested_at : TIMESTAMP
+}
+
+entity "friends" {
+    * user_id : INT <<PK>>
+    * friend_id : INT <<PK>>
+    --
+    added_at : TIMESTAMP
+}
+
 users ||--o{ private_messages : "sender_id"
 users ||--o{ private_messages : "receiver_id"
 users ||--o{ group_members : "user_id"
 users ||--o{ group_messages : "sender_id"
 users ||--o{ group_join_requests : "user_id"
+users ||--o{ friend_requests : "sender_id"
+users ||--o{ friend_requests : "receiver_id"
+users ||--o{ friends : "user_id"
+users ||--o{ friends : "friend_id"
 user_groups ||--o{ group_members : "group_id"
 user_groups ||--o{ group_messages : "group_id"
 user_groups ||--o{ group_join_requests : "group_id"

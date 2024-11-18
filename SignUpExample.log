@@ -65,3 +65,29 @@ Info: 验证码已发送至您的邮箱，请查收。
 11月 17, 2024 11:38:19 上午 cn.amatrix.controller.Login.SignUp.SignUpExample$3 actionPerformed
 信息: WebSocket received: Status: SUCCESS
 Info: 注册成功！
+11月 18, 2024 8:25:50 下午 cn.amatrix.controller.Login.SignUp.SignUpExample$4 run
+信息: SignUpExample application started
+11月 18, 2024 8:26:23 下午 cn.amatrix.controller.Login.SignUp.SignUpExample$1 actionPerformed
+信息: Sending captcha to email: 2496851959@qq.com
+11月 18, 2024 8:26:25 下午 cn.amatrix.controller.Login.SignUp.SignUpExample$1 actionPerformed
+信息: Captcha sent!
+11月 18, 2024 8:26:26 下午 cn.amatrix.controller.Login.SignUp.SignUpExample$3 actionPerformed
+信息: Received WebSocket message: {"receiver":{"id":"WaitingForVerificationCode","type":"user"},"sender":{"type":"Server"},"messageId":"msg1","type":"EmailVerificationCodeStatus","content":"EMAILED","timestamp":"2024-11-18T20:26:26.186308500+08:00[GMT+08:00]","status":"验证码已发送至您的邮箱，请查收。"}
+11月 18, 2024 8:26:32 下午 cn.amatrix.controller.Login.SignUp.SignUpExample$3 actionPerformed
+信息: WebSocket received: Status: EMAILED
+Info: 验证码已发送至您的邮箱，请查收。
+11月 18, 2024 8:26:39 下午 cn.amatrix.controller.Login.SignUp.SignUpExample$2 actionPerformed
+信息: Signing up with captcha: 414669
+11月 18, 2024 8:26:39 下午 cn.amatrix.controller.Login.SignUp.SignUpExample$3 actionPerformed
+信息: Received WebSocket message: {"receiver":{"id":"WaitingForSignUpInformation","type":"user"},"sender":{"type":"Server"},"messageId":"msg3","type":"EmailVerificationCodeStatus","content":"SUCCESS","timestamp":"2024-11-18T20:26:39.520026800+08:00[GMT+08:00]","status":"注册成功！"}
+11月 18, 2024 8:26:41 下午 cn.amatrix.controller.Login.SignUp.SignUpExample$3 actionPerformed
+信息: WebSocket received: Status: SUCCESS
+Info: 注册成功！
+11月 18, 2024 8:29:51 下午 cn.amatrix.controller.Login.SignUp.SignUpExample$4 run
+信息: SignUpExample application started
+11月 18, 2024 8:29:54 下午 cn.amatrix.controller.Login.SignUp.SignUpExample$1 actionPerformed
+信息: Sending captcha to email: 
+11月 18, 2024 8:29:59 下午 cn.amatrix.controller.Login.SignUp.SignUpExample$1 actionPerformed
+信息: Captcha sent!
+11月 18, 2024 8:30:01 下午 cn.amatrix.controller.Login.SignUp.SignUpExample$2 actionPerformed
+信息: Signing up with captcha: 

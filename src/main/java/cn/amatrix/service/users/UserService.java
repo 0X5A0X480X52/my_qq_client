@@ -2,8 +2,12 @@ package cn.amatrix.service.users;
 
 import cn.amatrix.DAO.users.mySQL.UserDAO;
 import cn.amatrix.DAO.users.mySQL.PrivateMessageDAO;
+import cn.amatrix.DAO.users.mySQL.FriendDAO;
+import cn.amatrix.DAO.users.mySQL.FriendRequestDAO;
 import cn.amatrix.model.users.User;
 import cn.amatrix.model.users.PrivateMessage;
+import cn.amatrix.model.users.Friend;
+import cn.amatrix.model.users.FriendRequest;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,6 +18,8 @@ import java.util.logging.Logger;
 public class UserService {
     private UserDAO userDAO;
     private PrivateMessageDAO privateMessageDAO;
+    private FriendDAO friendDAO;
+    private FriendRequestDAO friendRequestDAO;
     private static final Logger logger = Logger.getLogger(UserService.class.getName());
 
     /**
@@ -22,6 +28,8 @@ public class UserService {
     public UserService() {
         this.userDAO = new UserDAO();
         this.privateMessageDAO = new PrivateMessageDAO();
+        this.friendDAO = new FriendDAO();
+        this.friendRequestDAO = new FriendRequestDAO();
     }
 
     /**
@@ -217,6 +225,136 @@ public class UserService {
             return privateMessageDAO.getPrivateMessagesByReceiver(receiverId);
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error getting private messages by receiver", e);
+            return null;
+        }
+    }
+
+    /**
+     * 根据用户ID获取好友列表。
+     * @param userId 用户ID
+     * @return 好友列表
+     */
+    public List<Friend> getFriendsByUserId(int userId) {
+        try {
+            return friendDAO.getFriendsByUserId(userId);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error getting friends by user ID", e);
+            return null;
+        }
+    }
+
+    /**
+     * 添加好友。
+     * @param friend 好友信息
+     */
+    public void addFriend(Friend friend) {
+        try {
+            friendDAO.addFriend(friend);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error adding friend", e);
+        }
+    }
+
+    /**
+     * 删除好友。
+     * @param userId 用户ID
+     * @param friendId 好友ID
+     */
+    public void deleteFriend(int userId, int friendId) {
+        try {
+            friendDAO.deleteFriend(userId, friendId);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error deleting friend", e);
+        }
+    }
+
+    /**
+     * 根据好友请求ID获取好友请求。
+     * @param requestId 好友请求ID
+     * @return 好友请求
+     */
+    public FriendRequest getFriendRequestById(int requestId) {
+        try {
+            return friendRequestDAO.getFriendRequestById(requestId);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error getting friend request by ID", e);
+            return null;
+        }
+    }
+
+    /**
+     * 添加好友请求。
+     * @param request 好友请求
+     */
+    public void addFriendRequest(FriendRequest request) {
+        try {
+            friendRequestDAO.addFriendRequest(request);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error adding friend request", e);
+        }
+    }
+
+    /**
+     * 更新好友请求。
+     * @param request 好友请求
+     */
+    public void updateFriendRequest(FriendRequest request) {
+        try {
+            friendRequestDAO.updateFriendRequest(request);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error updating friend request", e);
+        }
+    }
+
+    /**
+     * 删除好友请求。
+     * @param requestId 好友请求ID
+     */
+    public void deleteFriendRequest(int requestId) {
+        try {
+            friendRequestDAO.deleteFriendRequest(requestId);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error deleting friend request", e);
+        }
+    }
+
+    /**
+     * 获取所有好友请求。
+     * @return 好友请求列表
+     */
+    public List<FriendRequest> getAllFriendRequests() {
+        try {
+            return friendRequestDAO.getAllFriendRequests();
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error getting all friend requests", e);
+            return null;
+        }
+    }
+
+    /**
+     * 根据发送者ID获取好友请求。
+     * @param senderId 发送者ID
+     * @return 好友请求列表
+     */
+    public List<FriendRequest> getFriendRequestsBySender(int senderId) {
+        try {
+            return friendRequestDAO.getFriendRequestsBySender(senderId);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error getting friend requests by sender", e);
+            return null;
+        }
+    }
+
+    /**
+     * 根据接收者ID获取好友请求。
+     * @param receiverId 接收者ID
+     * @return 好友请求列表
+     */
+    public List<FriendRequest> getFriendRequestsByReceiver(int receiverId) {
+        try {
+            return friendRequestDAO.getFriendRequestsByReceiver(receiverId);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error getting friend requests by receiver", e);
             return null;
         }
     }
