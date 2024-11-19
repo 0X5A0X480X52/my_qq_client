@@ -1,0 +1,27 @@
+@startuml 邮箱验证消息流程图
+actor User
+participant Controller
+participant Service
+participant WebSocketClient
+participant Server
+
+User -> Controller: 点击 "Send Captcha"
+Controller -> Service: getVerificationCode(email)
+Service -> WebSocketClient: sendMessage(message.toJson())
+WebSocketClient -> Server: 发送验证码请求
+
+Server -> WebSocketClient: 返回验证码状态
+WebSocketClient -> Service: handleWebSocketResponse(message)
+Service -> Controller: 返回状态信息
+Controller -> User: 显示验证码状态
+
+User -> Controller: 点击 "Sign Up"
+Controller -> Service: submitSignUpInformation(...)
+Service -> WebSocketClient: sendMessage(message.toJson())
+WebSocketClient -> Server: 发送注册信息
+
+Server -> WebSocketClient: 返回注册状态
+WebSocketClient -> Service: handleWebSocketResponse(message)
+Service -> Controller: 返回状态信息
+Controller -> User: 显示注册状态
+@enduml

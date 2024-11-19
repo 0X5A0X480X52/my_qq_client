@@ -1,0 +1,23 @@
+@startuml 好友（群组）加入申请流程图
+actor User
+participant Client
+participant Server
+participant Database
+
+== 发送加入申请 ==
+
+User -> Client: 点击 "Send Join Request"
+Client -> Server: 发送加入申请
+Server -> Database: 存储申请数据
+
+== 处理申请请求 ==
+
+User  --> Database: 获取申请数据
+Database --> User: 返回并显示申请状态
+User -> Client: 处理请求
+Client -> Server: 发送处理请求
+Server -> Server: 处理请求
+Server -> Database: 更新申请状态
+Server -> Database: 更新好友（群组）列表
+
+@enduml
