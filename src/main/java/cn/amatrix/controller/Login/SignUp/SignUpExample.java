@@ -129,14 +129,6 @@ public class SignUpExample extends JFrame implements WebSocketReceiver {
                 String email = emailField.getText();
                 logger.log(Level.INFO, "Sending captcha to email: " + email);
 
-                // MessageEndPoint receiver = new MessageEndPoint();
-                // receiver.setId("receiver1");
-                // receiver.setType("user");
-                // MessageEndPoint sender = new MessageEndPoint();
-                // sender.setId("sender1");
-                // sender.setType("user");
-                // Message message = new Message( receiver, sender,"getVerificationCode", email, "请求验证码");
-                // client.sendMessage(message.toJson());
                 signUpService.getVerificationCode(email);
 
                 JOptionPane.showMessageDialog(null, "Captcha sent!");
@@ -156,19 +148,8 @@ public class SignUpExample extends JFrame implements WebSocketReceiver {
 
                 logger.log(Level.INFO, "Signing up with captcha: " + captcha);
 
-                // MessageEndPoint receiver = new MessageEndPoint();
-                // receiver.setId("receiver1");
-                // receiver.setType("user");
-                // MessageEndPoint sender = new MessageEndPoint();
-                // sender.setId("sender1");
-                // sender.setType("user");
-                // Message message = new Message( receiver, sender,"checkVerificationCode", captcha, "请求验证码");
-                // client.sendMessage(message.toJson());
-
                 signUpService.submitSignUpInformation(captcha, username, email, password);
 
-                // // Validate and process the sign-up information
-                // JOptionPane.showMessageDialog(null, "Sign Up successful!");
             }
         });
 
@@ -182,15 +163,11 @@ public class SignUpExample extends JFrame implements WebSocketReceiver {
                         logger.log(Level.INFO, "Received WebSocket message: " + message.toJson());
 
                         if (message.getType().equals("EmailVerificationCodeStatus")) {
-                            // String status = message.getStatus();
-                            // JOptionPane.showMessageDialog(null, "Captcha received: " + status);
-                            // logger.log(Level.INFO, "Captcha received: " + status);
 
                             var status = signUpService.handleWebSocketResponse(message);
                             String info = "Status: " + status.getStatus() + "\nInfo: " + status.getAdditionalInfo();
                             JOptionPane.showMessageDialog(null, info );
                             logger.log(Level.INFO, "WebSocket received: " + info);
-
 
                         }
                     }

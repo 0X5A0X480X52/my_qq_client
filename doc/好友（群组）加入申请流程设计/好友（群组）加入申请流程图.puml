@@ -20,4 +20,8 @@ Server -> Server: 处理请求
 Server -> Database: 更新申请状态
 Server -> Database: 更新好友（群组）列表
 
+== 删除好友（群组）==
+User --> Server: 删除好友（群组）
+Server -> Database: 关系表中删除元素
+
 @enduml

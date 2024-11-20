@@ -1,0 +1,32 @@
+@startuml 登录相关流程设计
+actor User
+participant Client
+participant Server
+participant Database
+
+== 登录流程 ==
+User -> Client: 输入用户名密码
+Client -> Server: 发送登录请求
+Server -> Database: 查询用户信息
+Database -> Server: 返回用户信息
+Server -> Server: 如果登录成功，\n在服务器端保存登录状态
+Server -> Database: 如果登录成功， \n更新用户登录信息
+Server -> Client: 返回登录结果
+Client -> User: 显示登录结果
+
+== 注册，注销，修改敏感信息流程 ==
+User --> Server: 发送验证码
+Server --> User: 发送验证码
+User --> Server: 输入验证码，注册，注销，修改敏感信息申请
+Server -> Server: 验证验证码
+Server -> Database: 如果验证成功，\n操作数据库
+Database -> Server: 返回操作结果
+Server --> User: 显示操作结果
+
+== 退出登录流程 ==
+User --> Server: （发送退出登录请求，可选）
+Server -> Server: 客户端连接断开\n（触发 Server onClose）
+Server -> Server: 清除服务器端连接状态
+Server -> Database: 更新用户登录信息
+
+@enduml

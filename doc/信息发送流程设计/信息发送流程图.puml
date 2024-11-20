@@ -1,0 +1,35 @@
+@startuml 信息发送流程设计
+actor User
+participant Client
+participant Server
+participant Database
+
+== 必要前置步骤 ==
+User --> Server: 发送登录请求
+Server -> Server: 登录成功，\n在服务器端保存登录状态
+Server -> Database : 查找所有加入且活跃的群组
+Database -> Server : 返回结果
+Server -> Server : 添加到所有相关的活跃群组的连接列表中
+
+== 信息发送流程 ==
+User -> Client: 输入信息并发送
+Client -> Client: 本地缓存消息
+Client -> Server: 发送信息
+Server -> Database: 记录消息
+Server -> Server: 如果是群组消息，且群组不活跃，\n服务器端添加活跃群组连接列表
+Server -> Database: 更新群组活跃状态
+
+
+== 信息转发流程 ==
+Server -> Server: 通过ID查找接收者，转发消息\n（群组为所有群成员转发）
+Server -> Client: 发送消息
+Client -> Client: 缓存消息
+Client -> User: 显示消息
+
+== 群组转为不活跃 ==
+User --> Server :（发送退出登录请求，可选）
+Server -> Server : 客户端连接断开\n（触发 Server onClose）\n在所有相关的活跃群组的连接列表中删除连接
+Server -> Server : 如果群组的连接列表为空，删除该列表
+Server -> Database : 群组状态更新为不活跃
+
+@enduml
