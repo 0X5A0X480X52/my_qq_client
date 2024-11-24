@@ -1,12 +1,14 @@
 package cn.amatrix.model.users;
 
 import com.alibaba.fastjson2.JSON;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
  * Represents a private message between users.
  */
-public class PrivateMessage {
+public class PrivateMessage implements Serializable {
+    private static final long serialVersionUID = 1L;
     private int messageId;
     private int senderId;
     private int receiverId;

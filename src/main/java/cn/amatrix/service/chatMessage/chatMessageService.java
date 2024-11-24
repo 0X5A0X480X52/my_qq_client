@@ -2,6 +2,7 @@ package cn.amatrix.service.chatMessage;
 
 import java.awt.EventQueue;
 import java.awt.Toolkit;
+import java.io.IOException;
 
 import cn.amatrix.model.groups.Group;
 import cn.amatrix.model.message.Message;
@@ -10,10 +11,9 @@ import cn.amatrix.model.users.User;
 import cn.amatrix.utils.webSocketClient.WebSocketClient;
 import cn.amatrix.utils.webSocketClient.receivedWebSocketMessage.ReceivedWebSocketMessageEventQueue;
 
-/**
- * SignUpService 类用于处理注册相关的业务逻辑。
- */
-public class chatMessageService {
+public class ChatMessageService {
+    
+    MessageCacheService messageCacheService = new MessageCacheService("./src/main/resources/messageCache");
     
     WebSocketClient client;
     enum ChatMessageTypes {
@@ -26,7 +26,7 @@ public class chatMessageService {
      * @throws IllegalArgumentException 如果系统事件队列不是 ReceivedWebSocketMessageEventQueue 的实例
      */
 
-    public chatMessageService( WebSocketClient client ) throws IllegalArgumentException {
+    public ChatMessageService( WebSocketClient client ) throws IllegalArgumentException {
         // 检查系统事件队列是否是 ReceivedWebSocketMessageEventQueue 的实例
         EventQueue eventQueue = Toolkit.getDefaultToolkit().getSystemEventQueue();
         if ( eventQueue instanceof ReceivedWebSocketMessageEventQueue ) {
@@ -40,8 +40,9 @@ public class chatMessageService {
      * @param infoString 消息内容
      * @param messageSender 发送者
      * @param messageReceiver 接收者
+     * @throws IOException 消息写入缓存出错 
      */
-    public void sendPrivateMessage( String infoString, User messageSender, User messageReceiver) {
+    public void sendPrivateMessage( String infoString, User messageSender, User messageReceiver) throws IOException {
 
         MessageEndPoint receiver = new MessageEndPoint();
         receiver.setType("user");
@@ -53,6 +54,8 @@ public class chatMessageService {
         sender.setName(messageSender.getUsername());
         Message message = new Message( receiver, sender,"PrivateMessage", infoString, "发送用户消息");
         
+        this.messageCacheService.addPrivateMessage( messageSender.getUser_id(), messageReceiver.getUser_id(), infoString);
+
         client.sendMessage(message.toJson());
     }
 
@@ -61,8 +64,9 @@ public class chatMessageService {
      * @param infoString 消息内容
      * @param messageSender 发送者
      * @param messageReceiver 接收者
+     * @throws IOException 消息写入缓存出错 
      */
-    public void sendGroupMessage( String infoString, User messageSender, Group messageReceiver) {
+    public void sendGroupMessage( String infoString, User messageSender, Group messageReceiver) throws IOException {
 
         MessageEndPoint receiver = new MessageEndPoint();
         receiver.setType("group");
@@ -73,6 +77,8 @@ public class chatMessageService {
         sender.setId( String.valueOf(messageSender.getUser_id()));
         sender.setName(messageSender.getUsername());
         Message message = new Message( receiver, sender,"GroupMessage", infoString, "发送群组消息");
+
+        this.messageCacheService.addGroupMessage( messageSender.getUser_id(), messageReceiver.getGroupId(), infoString);
         
         client.sendMessage(message.toJson());
     }
@@ -83,8 +89,9 @@ public class chatMessageService {
      * @return 一个 Status 对象
      * @see Status 包含 发送者 ID、消息内容、消息类型和附加信息
      * @throws IllegalArgumentException 如果消息类型不是 PrivateMessage
+     * @throws IOException 消息写入缓存出错 
      */
-    public Status handleReceivedPrivateMessage(Message message) throws IllegalArgumentException {
+    public Status handleReceivedPrivateMessage(Message message) throws IllegalArgumentException, IOException {
 
         if ( !message.getType().equals("PrivateMessage") ) {
             throw new IllegalArgumentException("Message type is not PrivateMessage.");
@@ -94,6 +101,8 @@ public class chatMessageService {
         String infoString = message.getContent();
         ChatMessageTypes type = ChatMessageTypes.PrivateMessage;
         String additionalInfo = message.getStatus();
+
+        this.messageCacheService.addPrivateMessage( Integer.parseInt(message.getSender().getId()), receiver_id, infoString);
         
         return new Status(receiver_id, infoString, type, additionalInfo);
     }
@@ -104,19 +113,23 @@ public class chatMessageService {
      * @return 一个 Status 对象
      * @see Status 包含 发送者 ID、消息内容、消息类型和附加信息
      * @throws IllegalArgumentException 如果消息类型不是 GroupMessage
+     * @throws IOException 消息写入缓存出错 
      */
-    public Status handleReceivedGroupMessage(Message message) throws IllegalArgumentException {
+    public Status handleReceivedGroupMessage(Message message) throws IllegalArgumentException, IOException {
             
         if ( !message.getType().equals("GroupMessage") ) {
             throw new IllegalArgumentException("Message type is not GroupMessage.");
         }
     
-        int receiver_id = Integer.parseInt(message.getReceiver().getId());
+        int sender_id = Integer.parseInt(message.getSender().getId());
+        int group_id = Integer.parseInt(message.getReceiver().getId());
         String infoString = message.getContent();
         ChatMessageTypes type = ChatMessageTypes.GroupMessage;
         String additionalInfo = message.getStatus();
+
+        this.messageCacheService.addGroupMessage( sender_id,  group_id, infoString);
             
-        return new Status(receiver_id, infoString, type, additionalInfo);
+        return new Status(group_id, infoString, type, additionalInfo);
     }
 
     /**

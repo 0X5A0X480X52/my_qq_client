@@ -3,7 +3,7 @@ package cn.amatrix.controller.Login.SignUp;
 import javax.swing.*;
 
 import cn.amatrix.model.message.Message;
-import cn.amatrix.service.signUp.SignUpService;
+import cn.amatrix.service.emailVerfication.EmailVerficationService;
 import cn.amatrix.utils.webSocketClient.WebSocketClient;
 import cn.amatrix.utils.webSocketClient.WebSocketReceiver;
 import cn.amatrix.utils.webSocketClient.receivedWebSocketMessage.ReceivedWebSocketMessageEvent;
@@ -42,7 +42,7 @@ public class SignUpExample extends JFrame implements WebSocketReceiver {
     
     WebSocketClient client;
 
-    SignUpService signUpService;
+    EmailVerficationService signUpService;
 
     public SignUpExample() {
         URI uri = URI.create("ws://localhost:1145/demo_webapp/chat");
@@ -119,7 +119,7 @@ public class SignUpExample extends JFrame implements WebSocketReceiver {
         gbc.gridwidth = 2;
         add(signUpButton, gbc);
 
-        this.signUpService = new SignUpService(this.client);
+        this.signUpService = new EmailVerficationService(this.client);
 
         sendCaptchaButton.addActionListener(new ActionListener() {
             @Override
