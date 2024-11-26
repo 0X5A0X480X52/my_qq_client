@@ -14,7 +14,7 @@ public class MessageCacheServiceTest {
     private MessageCacheService service;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws ClassNotFoundException, IOException {
         service = new MessageCacheService("C:\\UserFiles\\CS\\Java\\my_qq_client\\src\\main\\resources\\messageCache");
     }
 

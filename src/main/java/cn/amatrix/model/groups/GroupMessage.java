@@ -1,12 +1,15 @@
 package cn.amatrix.model.groups;
 
 import com.alibaba.fastjson2.JSON;
+
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
  * Represents a message sent in a group.
  */
-public class GroupMessage {
+public class GroupMessage implements Serializable {
+    private static final long serialVersionUID = 1L; // 添加 serialVersionUID
     private int messageId;
     private int groupId;
     private int senderId;

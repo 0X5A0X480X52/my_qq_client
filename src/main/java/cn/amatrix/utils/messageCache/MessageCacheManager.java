@@ -14,12 +14,12 @@ public class MessageCacheManager {
     private Map<Integer, GroupMessageCache> groupMessageCaches;
     private Map<String, String> privateMessageCacheFiles;
     private Map<Integer, String> groupMessageCacheFiles;
-    private String defaultOutputPath;
+    private String defaultOutputPathDir;
     private String privateMessageCacheDir = "privateMessage";
     private String groupMessageCacheDir = "groupMessage";
 
     public MessageCacheManager(String defaultOutputPath) {
-        this.defaultOutputPath = defaultOutputPath;
+        this.defaultOutputPathDir = defaultOutputPath;
         privateMessageCaches = new HashMap<>();
         groupMessageCaches = new HashMap<>();
         privateMessageCacheFiles = new HashMap<>();
@@ -33,12 +33,24 @@ public class MessageCacheManager {
      * @throws IOException 如果发生I/O错误
      */
     public void addPrivateMessageCache(PrivateMessageCache cache) throws IOException {
-        String outputPath = defaultOutputPath + File.separator + this.privateMessageCacheDir;
+        String outputPath = defaultOutputPathDir + File.separator + this.privateMessageCacheDir;
         String key = cache.getSenderId() + "_" + cache.getReceiverId();
         privateMessageCaches.put(key, cache);
         String filename = cache.getSerializedFilename(outputPath);
         cache.serializeMessages(filename);
         privateMessageCacheFiles.put(key, filename);
+    }
+
+    /**
+     * 更新私信缓存并序列化到文件中。
+     * 
+     * @param cache 私信缓存
+     * @throws IOException 如果发生I/O错误
+     */
+    public void updatePrivateMessageCache(PrivateMessageCache cache) throws IOException {
+        String outputPath = defaultOutputPathDir + File.separator + this.privateMessageCacheDir;
+        String filename = cache.getSerializedFilename(outputPath);
+        cache.serializeMessages(filename);
     }
 
     /**
@@ -60,11 +72,23 @@ public class MessageCacheManager {
      * @throws IOException 如果发生I/O错误
      */
     public void addGroupMessageCache(GroupMessageCache cache) throws IOException {
-        String outputPath = defaultOutputPath + File.separator + this.groupMessageCacheDir;
+        String outputPath = defaultOutputPathDir + File.separator + this.groupMessageCacheDir;
         groupMessageCaches.put(cache.getGroupId(), cache);
         String filename = cache.getSerializedFilename(outputPath);
         cache.serializeMessages(filename);
         groupMessageCacheFiles.put(cache.getGroupId(), filename);
+    }
+
+    /**
+     * 更新群组消息缓存并序列化到文件中。
+     *
+     * @param cache 群组消息缓存
+     * @throws IOException 如果发生I/O错误
+     */
+    public void updateGroupMessageCache(GroupMessageCache cache) throws IOException {
+        String outputPath = defaultOutputPathDir + File.separator + this.groupMessageCacheDir;
+        String filename = cache.getSerializedFilename(outputPath);
+        cache.serializeMessages(filename);
     }
 
     /**
@@ -113,6 +137,19 @@ public class MessageCacheManager {
     }
 
     /**
+     * 序列化缓存管理器到文件中。
+     *
+     * @throws IOException 如果发生I/O错误
+     */
+    public void serializeCacheManager() throws IOException {
+        String outputPath = defaultOutputPathDir + File.separator + "cacheManager.ser";
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(outputPath))) {
+            oos.writeObject(privateMessageCacheFiles);
+            oos.writeObject(groupMessageCacheFiles);
+        }
+    }
+
+    /**
      * 从文件中反序列化缓存管理器。
      *
      * @param filePath 反序列化文件路径
@@ -139,6 +176,40 @@ public class MessageCacheManager {
                 cache.deserializeMessages(entry.getValue());
                 groupMessageCaches.put(entry.getKey(), cache);
             }
+        }
+    }
+
+        /**
+     * 从文件中反序列化缓存管理器。
+     *
+     * @param filePath 反序列化文件路径
+     * @throws IOException 如果发生I/O错误
+     * @throws ClassNotFoundException 如果找不到序列化对象的类
+     */
+    @SuppressWarnings("unchecked")
+    public void deserializeCacheManager() throws IOException, ClassNotFoundException {
+        String filePath = defaultOutputPathDir + File.separator + "cacheManager.ser";
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
+            privateMessageCacheFiles = (Map<String, String>) ois.readObject();
+            groupMessageCacheFiles = (Map<Integer, String>) ois.readObject();
+            privateMessageCaches = new HashMap<>();
+            groupMessageCaches = new HashMap<>();
+            for (Map.Entry<String, String> entry : privateMessageCacheFiles.entrySet()) {
+                PrivateMessageCache cache = new PrivateMessageCache(
+                    Integer.parseInt(entry.getKey().split("_")[0]),
+                    Integer.parseInt(entry.getKey().split("_")[1])
+                );
+                cache.deserializeMessages(entry.getValue());
+                privateMessageCaches.put(entry.getKey(), cache);
+            }
+            for (Map.Entry<Integer, String> entry : groupMessageCacheFiles.entrySet()) {
+                GroupMessageCache cache = new GroupMessageCache(entry.getKey());
+                cache.deserializeMessages(entry.getValue());
+                groupMessageCaches.put(entry.getKey(), cache);
+            }
+            System.out.println("Cache manager deserialized successfully.");
+            System.out.println("Private message caches: " + this.privateMessageCaches);
+            System.out.println("Group message caches: " + this.groupMessageCaches);
         }
     }
 }

@@ -91,3 +91,21 @@ Info: 注册成功！
 信息: Captcha sent!
 11月 18, 2024 8:30:01 下午 cn.amatrix.controller.Login.SignUp.SignUpExample$2 actionPerformed
 信息: Signing up with captcha: 
+11月 25, 2024 9:06:26 下午 cn.amatrix.controller.Login.SignUp.SignUpExample$4 run
+信息: SignUpExample application started
+11月 25, 2024 9:06:40 下午 cn.amatrix.controller.Login.SignUp.SignUpExample$1 actionPerformed
+信息: Sending captcha to email: 3432900546@qq.com
+11月 25, 2024 9:06:43 下午 cn.amatrix.controller.Login.SignUp.SignUpExample$3 actionPerformed
+信息: Received WebSocket message: {"receiver":{"id":"WaitingForVerificationCode","type":"user"},"sender":{"type":"Server"},"messageId":"msg1","type":"EmailVerificationCodeStatus","content":"EMAILED","timestamp":"2024-11-25T21:06:43.841218500+08:00[GMT+08:00]","status":"验证码已发送至您的邮箱，请查收。"}
+11月 25, 2024 9:06:59 下午 cn.amatrix.controller.Login.SignUp.SignUpExample$3 actionPerformed
+信息: WebSocket received: Status: EMAILED
+Info: 验证码已发送至您的邮箱，请查收。
+11月 25, 2024 9:07:00 下午 cn.amatrix.controller.Login.SignUp.SignUpExample$1 actionPerformed
+信息: Captcha sent!
+11月 25, 2024 9:07:03 下午 cn.amatrix.controller.Login.SignUp.SignUpExample$2 actionPerformed
+信息: Signing up with captcha: rgw
+11月 25, 2024 9:07:03 下午 cn.amatrix.controller.Login.SignUp.SignUpExample$3 actionPerformed
+信息: Received WebSocket message: {"receiver":{"id":"WaitingForSignUpInformation","type":"user"},"sender":{"type":"Server"},"messageId":"msg3","type":"EmailVerificationCodeStatus","content":"INVALID","timestamp":"2024-11-25T21:07:03.189321400+08:00[GMT+08:00]","status":"验证码错误，请重新输入。"}
+11月 25, 2024 9:07:16 下午 cn.amatrix.controller.Login.SignUp.SignUpExample$3 actionPerformed
+信息: WebSocket received: Status: INVALID
+Info: 验证码错误，请重新输入。

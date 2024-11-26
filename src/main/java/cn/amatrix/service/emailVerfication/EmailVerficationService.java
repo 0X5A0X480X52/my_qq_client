@@ -56,6 +56,26 @@ public class EmailVerficationService {
     }
 
     /**
+     * 发送验证码。
+     * @param captcha 验证码
+     * 
+     * @apiNote 向 client 发送的 Message 结构如下：
+     * @apiNote Message.type: "checkVerificationCode"
+     * @apiNote Message.content: 验证码
+     */
+    public void sendVerificationCode( String captcha ) {
+
+        MessageEndPoint receiver = new MessageEndPoint();
+        receiver.setType("Server");
+        MessageEndPoint sender = new MessageEndPoint();
+        sender.setId("WaitingForVerificationCode");
+        sender.setType("user");
+        Message message = new Message( receiver, sender,"checkVerificationCode", captcha, "验证验证码");
+        
+        client.sendMessage(message.toJson());
+    }
+
+    /**
      * 提交注册信息。
      * @param captcha 验证码
      * @param email 邮箱地址

@@ -12,8 +12,9 @@ import java.util.List;
 public class MessageCacheService {
     private MessageCacheManager cacheManager;
 
-    public MessageCacheService(String defaultOutputPath) {
+    public MessageCacheService(String defaultOutputPath) throws IOException, ClassNotFoundException {
         this.cacheManager = new MessageCacheManager(defaultOutputPath);
+        this.cacheManager.deserializeCacheManager();
     }
 
     /**
@@ -29,8 +30,11 @@ public class MessageCacheService {
         if (cache == null) {
             cache = new PrivateMessageCache(senderId, receiverId);
             cacheManager.addPrivateMessageCache(cache);
+            this.cacheManager.serializeCacheManager();
         }
         cache.addMessage(message);
+        cacheManager.updatePrivateMessageCache(cache);
+        System.out.println("add private message");
     }
 
     /**
@@ -58,6 +62,9 @@ public class MessageCacheService {
      */
     public List<PrivateMessage> getPrivateMessages(int senderId, int receiverId) {
         PrivateMessageCache cache = cacheManager.getPrivateMessageCache(senderId, receiverId);
+        if (cache == null) {
+            System.out.println("cache is null");
+        }
         return cache != null ? cache.getAllMessages() : new ArrayList<>();
     }
 
@@ -73,8 +80,11 @@ public class MessageCacheService {
         if (cache == null) {
             cache = new GroupMessageCache(groupId);
             cacheManager.addGroupMessageCache(cache);
+            this.cacheManager.serializeCacheManager();
         }
         cache.addMessage(message);
+        cacheManager.updateGroupMessageCache(cache);
+        System.out.println("add group message");
     }
 
     /**
@@ -100,6 +110,9 @@ public class MessageCacheService {
      */
     public List<GroupMessage> getGroupMessages(int groupId) {
         GroupMessageCache cache = cacheManager.getGroupMessageCache(groupId);
+        if (cache == null) {
+            System.out.println("cache is null");
+        }
         return cache != null ? cache.getAllMessages() : new ArrayList<>();
     }
 }
