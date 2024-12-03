@@ -121,7 +121,7 @@ public class chatDemo2 extends JFrame implements WebSocketReceiver {
                     if (e instanceof ReceivedWebSocketMessageEvent) {
                         ReceivedWebSocketMessageEvent event = (ReceivedWebSocketMessageEvent)e;
                         Message message = event.getMessage();
-                        logger.log(Level.INFO, "Received WebSocket message: " + message.toJson());
+                        // logger.log(Level.INFO, "Received WebSocket message: " + message.toJson());
 
                         if (message.getType().equals("GroupMessage")) {
 

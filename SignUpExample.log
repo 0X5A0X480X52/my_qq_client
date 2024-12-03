@@ -109,3 +109,5 @@ Info: 验证码已发送至您的邮箱，请查收。
 11月 25, 2024 9:07:16 下午 cn.amatrix.controller.Login.SignUp.SignUpExample$3 actionPerformed
 信息: WebSocket received: Status: INVALID
 Info: 验证码错误，请重新输入。
+11月 30, 2024 8:55:06 下午 cn.amatrix.controller.Login.SignUp.SignUpExample$4 run
+信息: SignUpExample application started

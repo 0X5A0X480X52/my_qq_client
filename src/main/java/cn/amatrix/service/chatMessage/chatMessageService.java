@@ -3,6 +3,7 @@ package cn.amatrix.service.chatMessage;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.List;
 
 import cn.amatrix.model.groups.Group;
@@ -62,7 +63,7 @@ public class ChatMessageService {
         sender.setName(messageSender.getUsername());
         Message message = new Message( receiver, sender,"PrivateMessage", infoString, "发送用户消息");
         
-        this.messageCacheService.addPrivateMessage( messageSender.getUser_id(), messageReceiver.getUser_id(), infoString);
+        this.messageCacheService.addPrivateMessage( messageSender.getUser_id(), messageReceiver.getUser_id(), infoString, new Timestamp(System.currentTimeMillis()));
 
         client.sendMessage(message.toJson());
     }
@@ -84,7 +85,7 @@ public class ChatMessageService {
         sender.setId(messageSenderId);
         Message message = new Message( receiver, sender,"PrivateMessage", infoString, "发送用户消息");
         
-        this.messageCacheService.addPrivateMessage( Integer.parseInt(messageReceiverId), Integer.parseInt(messageReceiverId), infoString);
+        this.messageCacheService.addPrivateMessage( Integer.parseInt(messageReceiverId), Integer.parseInt(messageReceiverId), infoString, new Timestamp(System.currentTimeMillis()));
 
         client.sendMessage(message.toJson());
     }
@@ -108,7 +109,7 @@ public class ChatMessageService {
         sender.setName(messageSender.getUsername());
         Message message = new Message( receiver, sender,"GroupMessage", infoString, "发送群组消息");
 
-        this.messageCacheService.addGroupMessage( messageSender.getUser_id(), messageReceiver.getGroupId(), infoString);
+        this.messageCacheService.addGroupMessage( messageSender.getUser_id(), messageReceiver.getGroupId(), infoString, new Timestamp(System.currentTimeMillis()));
         
         client.sendMessage(message.toJson());
     }
@@ -130,7 +131,7 @@ public class ChatMessageService {
         sender.setId(messageSenderId);
         Message message = new Message( receiver, sender,"GroupMessage", infoString, "发送群组消息");
 
-        this.messageCacheService.addGroupMessage( Integer.parseInt(messageReceiverId) , Integer.parseInt(messageReceiverId), infoString);
+        this.messageCacheService.addGroupMessage( Integer.parseInt(messageReceiverId) , Integer.parseInt(messageReceiverId), infoString, new Timestamp(System.currentTimeMillis()));
         
         client.sendMessage(message.toJson());
     }
@@ -154,8 +155,9 @@ public class ChatMessageService {
         String infoString = message.getContent();
         ChatMessageTypes type = ChatMessageTypes.PrivateMessage;
         String additionalInfo = message.getStatus();
+        Timestamp sendAt = Timestamp.from(message.getTimestamp().toInstant());
 
-        this.messageCacheService.addPrivateMessage( Integer.parseInt(message.getSender().getId()), receiver_id, infoString);
+        this.messageCacheService.addPrivateMessage( Integer.parseInt(message.getSender().getId()), receiver_id, infoString, sendAt );
         
         return new Status( sender_id, receiver_id, infoString, type, additionalInfo);
     }
@@ -179,8 +181,9 @@ public class ChatMessageService {
         String infoString = message.getContent();
         ChatMessageTypes type = ChatMessageTypes.GroupMessage;
         String additionalInfo = message.getStatus();
+        Timestamp sendAt = Timestamp.from(message.getTimestamp().toInstant());
 
-        this.messageCacheService.addGroupMessage( sender_id,  group_id, infoString);
+        this.messageCacheService.addGroupMessage( sender_id, group_id, infoString, sendAt );
             
         return new Status( sender_id, group_id, infoString, type, additionalInfo);
     }

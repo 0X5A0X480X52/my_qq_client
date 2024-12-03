@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.sql.Timestamp;
+
 public class MessageCacheService {
     private MessageCacheManager cacheManager;
 
@@ -45,11 +47,12 @@ public class MessageCacheService {
      * @param info 私信内容
      * @throws IOException 如果发生I/O错误
      */
-    public void addPrivateMessage(int senderId, int receiverId, String info) throws IOException {
+    public void addPrivateMessage(int senderId, int receiverId, String info, Timestamp sendAt) throws IOException {
         PrivateMessage message = new PrivateMessage();
         message.setSenderId(senderId);
         message.setReceiverId(receiverId);
         message.setMessage(info);
+        message.setSentAt(sendAt);
         addPrivateMessage(message);
     }
 
@@ -94,11 +97,12 @@ public class MessageCacheService {
      * @param info 群组消息内容
      * @throws IOException 如果发生I/O错误
      */
-    public void addGroupMessage( int senderId, int groupId, String info) throws IOException {
+    public void addGroupMessage( int senderId, int groupId, String info, Timestamp sendAt) throws IOException {
         GroupMessage message = new GroupMessage();
         message.setSenderId(senderId);
         message.setGroupId(groupId);
         message.setMessage(info);
+        message.setSentAt(sendAt);
         addGroupMessage(message);
     }
 

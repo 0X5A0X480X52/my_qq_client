@@ -3,6 +3,7 @@ package cn.amatrix.model.users;
 import com.alibaba.fastjson2.JSON;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Comparator;
 
 /**
  * Represents a private message between users.
@@ -14,6 +15,10 @@ public class PrivateMessage implements Serializable {
     private int receiverId;
     private String message;
     private Timestamp sentAt;
+
+    public static final Comparator<PrivateMessage> BY_SENT_AT = (m1, m2) -> m2.getSentAt().compareTo(m1.getSentAt());
+    public static final Comparator<PrivateMessage> BY_SENDER_ID = Comparator.comparingInt(PrivateMessage::getSenderId);
+    public static final Comparator<PrivateMessage> BY_RECEIVER_ID = Comparator.comparingInt(PrivateMessage::getReceiverId);
 
     /**
      * Gets the message ID.

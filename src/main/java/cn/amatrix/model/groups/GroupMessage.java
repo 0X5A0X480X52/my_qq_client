@@ -4,6 +4,7 @@ import com.alibaba.fastjson2.JSON;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Comparator;
 
 /**
  * Represents a message sent in a group.
@@ -15,6 +16,8 @@ public class GroupMessage implements Serializable {
     private int senderId;
     private String message;
     private Timestamp sentAt;
+
+    public static final Comparator<GroupMessage> BY_SENT_AT = (m1, m2) -> m2.getSentAt().compareTo(m1.getSentAt());
 
     /**
      * Gets the message ID.
@@ -100,10 +103,10 @@ public class GroupMessage implements Serializable {
     /**
      * Sets the timestamp when the message was sent.
      * 
-     * @param sentAt the timestamp to set
+     * @param sendAt the timestamp to set
      */
-    public void setSentAt(Timestamp sentAt) {
-        this.sentAt = sentAt;
+    public void setSentAt(Timestamp sendAt) {
+        this.sentAt = sendAt;
     }
 
     /**
