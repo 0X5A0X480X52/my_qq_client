@@ -1,12 +1,13 @@
 package cn.amatrix.DAO.groups.mySQL;
 
 import cn.amatrix.DAO.DataBaseConnector.MySQLConnector;
+import cn.amatrix.DAO.groups.Imp.GroupJoinRequestDAOImp;
 import cn.amatrix.model.groups.GroupJoinRequest;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroupJoinRequestDAO {
+public class GroupJoinRequestDAO implements GroupJoinRequestDAOImp {
 
     public void addGroupJoinRequest(GroupJoinRequest request) throws SQLException {
         String sql = "INSERT INTO group_join_requests (group_id, user_id, request_message, request_status, requested_at) VALUES (?, ?, ?, ?, ?)";

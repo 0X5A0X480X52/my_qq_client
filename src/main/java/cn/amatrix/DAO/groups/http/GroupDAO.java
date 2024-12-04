@@ -1,5 +1,6 @@
 package cn.amatrix.DAO.groups.http;
 
+import cn.amatrix.DAO.groups.Imp.GroupDAOImp;
 import cn.amatrix.model.groups.Group;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -12,12 +13,21 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.ArrayList;
 
-public class GroupDAO {
+public class GroupDAO implements GroupDAOImp {
     private static final String BASE_URL = "http://localhost:1145/demo_webapp/groups";
     private final HttpClient httpClient;
 
     public GroupDAO() {
         this.httpClient = HttpClient.newHttpClient();
+    }
+
+    private HttpRequest buildRequest(String type, String param) throws Exception {
+        String requestBody = "{\"type\":\"" + type + "\",\"param\":" + param + "}";
+        return HttpRequest.newBuilder()
+                .uri(new URI(BASE_URL))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                .build();
     }
 
     /**
@@ -27,11 +37,7 @@ public class GroupDAO {
      * @throws Exception 异常
      */
     public Group getGroupById(int groupId) throws Exception {
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(new URI(BASE_URL + "/" + groupId))
-                .header("Accept", "application/json")
-                .GET()
-                .build();
+        HttpRequest request = buildRequest("getById", String.valueOf(groupId));
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
         return Group.fromJson(response.body());
     }
@@ -43,11 +49,7 @@ public class GroupDAO {
      * @throws Exception 异常
      */
     public Group getGroupByName(String groupName) throws Exception {
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(new URI(BASE_URL + "/name/" + groupName))
-                .header("Accept", "application/json")
-                .GET()
-                .build();
+        HttpRequest request = buildRequest("getByName", "\"" + groupName + "\"");
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
         return Group.fromJson(response.body());
     }
@@ -58,13 +60,8 @@ public class GroupDAO {
      * @throws Exception 异常
      */
     public void addGroup(Group group) throws Exception {
-        String requestBody = group.toJson();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(new URI(BASE_URL))
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(requestBody))
-                .build();
-        System.out.println(request.toString());
+        String param = group.toJson();
+        HttpRequest request = buildRequest("add", param);
         httpClient.send(request, HttpResponse.BodyHandlers.ofString());
     }
 
@@ -74,12 +71,8 @@ public class GroupDAO {
      * @throws Exception 异常
      */
     public void updateGroup(Group group) throws Exception {
-        String requestBody = group.toJson();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(new URI(BASE_URL + "/" + group.getGroupId()))
-                .header("Content-Type", "application/json")
-                .PUT(HttpRequest.BodyPublishers.ofString(requestBody))
-                .build();
+        String param = group.toJson();
+        HttpRequest request = buildRequest("update", param);
         httpClient.send(request, HttpResponse.BodyHandlers.ofString());
     }
 
@@ -89,11 +82,7 @@ public class GroupDAO {
      * @throws Exception 异常
      */
     public void deleteGroup(int groupId) throws Exception {
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(new URI(BASE_URL + "/" + groupId))
-                .header("Accept", "application/json")
-                .DELETE()
-                .build();
+        HttpRequest request = buildRequest("delete", String.valueOf(groupId));
         httpClient.send(request, HttpResponse.BodyHandlers.ofString());
     }
 
@@ -103,15 +92,13 @@ public class GroupDAO {
      * @throws Exception 异常
      */
     public List<Group> getAllGroups() throws Exception {
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(new URI(BASE_URL))
-                .header("Accept", "application/json")
-                .GET()
-                .build();
+        HttpRequest request = buildRequest("getAll", "\"null\"");
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
         List<Group> groups = new ArrayList<Group>();
 
         String responseBody = response.body();
+
+        System.out.println(responseBody);
 
         Pattern pattern = Pattern.compile("\\{[^}]+\\}");
         Matcher matcher = pattern.matcher(responseBody);
@@ -142,19 +129,19 @@ public class GroupDAO {
             // System.out.println(retrievedGroup.toJson());
             // System.out.println(retrievedGroup.getGroupName());
             
-            // List<Group> groups = groupDAO.getAllGroups();
-            // for (Group g : groups) {
-            //     System.out.println(g.toJson());
-            // }
+            List<Group> groups = groupDAO.getAllGroups();
+            for (Group g : groups) {
+                System.out.println(g.toJson());
+            }
 
-            // Group group = new Group();
-            group.setGroupName("DeleteGroup");
-            group.setCreatedAt(new Timestamp(System.currentTimeMillis()));
-            // groupDAO.addGroup(group);
+            // // Group group = new Group();
+            // group.setGroupName("DeleteGroup");
+            // group.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+            // // groupDAO.addGroup(group);
 
-            Group retrievedGroup = groupDAO.getGroupByName("DeleteGroup");
-            System.out.println(retrievedGroup.toJson());
-            groupDAO.deleteGroup(retrievedGroup.getGroupId());
+            // Group retrievedGroup = groupDAO.getGroupByName("DeleteGroup");
+            // System.out.println(retrievedGroup.toJson());
+            // groupDAO.deleteGroup(retrievedGroup.getGroupId());
 
 
         } catch (Exception e) {

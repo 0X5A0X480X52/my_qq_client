@@ -1,6 +1,7 @@
 package cn.amatrix.DAO.users.mySQL;
 
 import cn.amatrix.DAO.DataBaseConnector.MySQLConnector;
+import cn.amatrix.DAO.users.Imp.UserDAOImp;
 import cn.amatrix.model.users.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDAO {
+public class UserDAO implements UserDAOImp {
 
     public User getUserById(int userId) throws SQLException {
         User user = null;

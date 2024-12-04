@@ -1,6 +1,7 @@
 package cn.amatrix.DAO.users.mySQL;
 
 import cn.amatrix.DAO.DataBaseConnector.MySQLConnector;
+import cn.amatrix.DAO.users.Imp.FriendDAOImp;
 import cn.amatrix.model.users.Friend;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FriendDAO {
+public class FriendDAO implements FriendDAOImp {
 
     public Friend getFriendById(int userId, int friendId) throws SQLException {
         Friend friend = null;

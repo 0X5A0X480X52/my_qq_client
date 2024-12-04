@@ -1,6 +1,7 @@
 package cn.amatrix.DAO.groups.mySQL;
 
 import cn.amatrix.DAO.DataBaseConnector.MySQLConnector;
+import cn.amatrix.DAO.groups.Imp.GroupMessageDAOImp;
 import cn.amatrix.model.groups.GroupMessage;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroupMessageDAO {
+public class GroupMessageDAO implements GroupMessageDAOImp {
     public GroupMessage getGroupMessageById(int messageId) throws SQLException {
         GroupMessage message = null;
         try (Connection connection = MySQLConnector.getConnection()) {

@@ -1,5 +1,6 @@
 package cn.amatrix.model.users;
 
+import com.alibaba.fastjson2.JSON;
 import java.sql.Timestamp;
 
 /**
@@ -63,4 +64,22 @@ public class Friend {
     public void setAddedAt(Timestamp addedAt) {
         this.addedAt = addedAt;
     }
+
+    /**
+     * 通过 JSON 字符串创建 Friend 对象。
+     * @param json JSON 字符串
+     * @return Group 对象
+     */
+    public static Friend fromJson(String json) {
+        return JSON.parseObject(json, Friend.class);
+    }
+
+    /**
+     * 将 Friend 对象序列化为 JSON 字符串。
+     * @return JSON 字符串
+     */
+    public String toJson() {
+        return JSON.toJSONString(this);
+    }
+
 }

@@ -2,6 +2,8 @@ package cn.amatrix.model.users;
 
 import java.sql.Timestamp;
 
+import com.alibaba.fastjson2.JSON;
+
 /**
  * Represents a friend request between users.
  */
@@ -119,5 +121,22 @@ public class FriendRequest {
      */
     public void setRequestedAt(Timestamp requestedAt) {
         this.requestedAt = requestedAt;
+    }
+
+    /**
+     * 通过 JSON 字符串创建 FriendRequest 对象。
+     * @param json JSON 字符串
+     * @return Group 对象
+     */
+    public static FriendRequest fromJson(String json) {
+        return JSON.parseObject(json, FriendRequest.class);
+    }
+
+    /**
+     * 将 FriendRequest 对象序列化为 JSON 字符串。
+     * @return JSON 字符串
+     */
+    public String toJson() {
+        return JSON.toJSONString(this);
     }
 }

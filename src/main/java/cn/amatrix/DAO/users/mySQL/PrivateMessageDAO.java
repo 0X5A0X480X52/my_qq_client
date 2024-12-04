@@ -1,6 +1,7 @@
 package cn.amatrix.DAO.users.mySQL;
 
 import cn.amatrix.DAO.DataBaseConnector.MySQLConnector;
+import cn.amatrix.DAO.users.Imp.PrivateMessageDAOImp;
 import cn.amatrix.model.users.PrivateMessage;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PrivateMessageDAO {
+public class PrivateMessageDAO implements PrivateMessageDAOImp {
 
     public PrivateMessage getPrivateMessageById(int messageId) throws SQLException {
         PrivateMessage message = null;

@@ -22,7 +22,7 @@ public class MessagePanel extends JPanel {
     private JPanel textPanel;
 
     enum Type { OWN, OTHER }
-    private Type type = Type.OTHER;
+    private Type type = Type.OWN;
 
     public MessagePanel( String avatar, String message, String userName, JPanel parentPanel) throws IOException {
 
