@@ -2,6 +2,10 @@ package cn.amatrix.service.users;
 
 import cn.amatrix.DAO.users.mySQL.UserDAO;
 import cn.amatrix.DAO.users.mySQL.PrivateMessageDAO;
+import cn.amatrix.DAO.users.Imp.FriendDAOImp;
+import cn.amatrix.DAO.users.Imp.FriendRequestDAOImp;
+import cn.amatrix.DAO.users.Imp.PrivateMessageDAOImp;
+import cn.amatrix.DAO.users.Imp.UserDAOImp;
 import cn.amatrix.DAO.users.mySQL.FriendDAO;
 import cn.amatrix.DAO.users.mySQL.FriendRequestDAO;
 import cn.amatrix.model.users.User;
@@ -16,10 +20,10 @@ import java.util.logging.Logger;
  * UserService 类提供对用户信息和消息的管理功能。
  */
 public class UserService {
-    private UserDAO userDAO;
-    private PrivateMessageDAO privateMessageDAO;
-    private FriendDAO friendDAO;
-    private FriendRequestDAO friendRequestDAO;
+    private UserDAOImp userDAO;
+    private PrivateMessageDAOImp privateMessageDAO;
+    private FriendDAOImp friendDAO;
+    private FriendRequestDAOImp friendRequestDAO;
     private static final Logger logger = Logger.getLogger(UserService.class.getName());
 
     /**
