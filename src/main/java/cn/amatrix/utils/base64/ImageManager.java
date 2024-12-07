@@ -58,7 +58,7 @@ public class ImageManager {
      * @param image 要裁剪的图像
      * @return 圆形的 BufferedImage 对象
      */
-    private static BufferedImage cropToCircle(BufferedImage image) {
+    public static BufferedImage cropToCircle(BufferedImage image) {
         int diameter = Math.min(image.getWidth(), image.getHeight());
         BufferedImage mask = new BufferedImage(diameter, diameter, BufferedImage.TYPE_INT_ARGB);
 
@@ -108,6 +108,7 @@ public class ImageManager {
     public static void main(String[] args) {
         try {
             String base64String = imageToBase64("C:\\UserFiles\\图片\\testPictures\\v2-22e10b51194d2703d76454523ef2f42b_r.jpg", 256, 256);
+            // String base64String = imageToBase64("C:\\UserFiles\\图片\\testPictures\\tomolin.png", 256, 256);
             System.out.println(base64String);
         } catch (IOException e) {
             e.printStackTrace();

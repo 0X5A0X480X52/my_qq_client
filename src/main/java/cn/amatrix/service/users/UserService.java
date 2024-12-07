@@ -311,6 +311,45 @@ public class UserService {
     }
 
     /**
+     * 接受好友请求。
+     * @param userId 用户ID
+     * @param friendId 好友ID
+     */
+    public void acceptFriendRequest(FriendRequest request) {
+        try {
+            int userId = request.getSenderId();
+            int friendId = request.getReceiverId();
+            Friend friend = new Friend();
+            friend.setUserId(userId);
+            friend.setFriendId(friendId);
+            friendDAO.addFriend(friend);
+            friend.setUserId(friendId);
+            friend.setFriendId(userId);
+            friendDAO.addFriend(friend);
+
+            request.setRequestStatus(FriendRequest.RequestStatus.approved.toString());
+            friendRequestDAO.updateFriendRequest(request);
+
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error accepting friend request", e);
+        }
+    }
+
+    /**
+     * 拒绝好友请求。
+     * @param userId 用户ID
+     * @param friendId 好友ID
+     */
+    public void rejectFriendRequest(FriendRequest request) {
+        try {
+            request.setRequestStatus(FriendRequest.RequestStatus.rejected.toString());
+            friendRequestDAO.updateFriendRequest(request);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error rejecting friend request", e);
+        }
+    }
+
+    /**
      * 删除好友请求。
      * @param requestId 好友请求ID
      */

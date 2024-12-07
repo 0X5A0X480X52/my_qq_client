@@ -17,18 +17,21 @@ public class SendRequestDialog extends JDialog {
         setLayout(new BorderLayout());
         setSize(300, 250);
 
-        userInfoPanel userInfo = new userInfoPanel(rootPane, user, new ActionListener() {
+        UserInfoPanel userInfo = new UserInfoPanel(rootPane, user, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 FriendRequest request = new FriendRequest();
                 request.setSenderId(currentUserId);
                 request.setReceiverId(user.getUser_id());
                 request.setRequestMessage(requestMessageField.getText());
+                request.setRequestStatus(FriendRequest.RequestStatus.pending.toString());
                 userService.addFriendRequest(request);
                 JOptionPane.showMessageDialog(null, "好友请求已发送");
                 dispose();
             }
         });
+
+        userInfo.setAdditionalInfo("这个人什么也没说~");
 
         requestMessageField = new JTextArea("请加我为好友（请填写验证消息）");
         requestMessageField.setLineWrap(true); // 自动换行

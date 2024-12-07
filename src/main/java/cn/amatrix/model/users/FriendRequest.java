@@ -15,6 +15,10 @@ public class FriendRequest {
     private String requestStatus;
     private Timestamp requestedAt;
 
+    public enum RequestStatus {
+        pending, approved, rejected
+    }
+
     /**
      * Gets the request ID.
      * 
