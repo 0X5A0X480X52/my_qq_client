@@ -1,6 +1,5 @@
 package cn.amatrix.controller.friendRequest.commponent;
 
-import cn.amatrix.model.users.FriendRequest;
 import cn.amatrix.model.users.User;
 import cn.amatrix.service.users.UserService;
 
@@ -20,12 +19,7 @@ public class SendRequestDialog extends JDialog {
         UserInfoPanel userInfo = new UserInfoPanel(rootPane, user, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                FriendRequest request = new FriendRequest();
-                request.setSenderId(currentUserId);
-                request.setReceiverId(user.getUser_id());
-                request.setRequestMessage(requestMessageField.getText());
-                request.setRequestStatus(FriendRequest.RequestStatus.pending.toString());
-                userService.addFriendRequest(request);
+                userService.addFriendRequest(currentUserId, user.getUser_id(), requestMessageField.getText());
                 JOptionPane.showMessageDialog(null, "好友请求已发送");
                 dispose();
             }

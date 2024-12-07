@@ -57,7 +57,7 @@
         username VARCHAR(50) NOT NULL UNIQUE,
         password VARCHAR(255) NOT NULL,
         email VARCHAR(100) NOT NULL UNIQUE,
-        avatar VARCHAR(255),
+        avatar TEXT,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         log_status ENUM('online', 'offline') DEFAULT 'offline',
         last_login_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -97,6 +97,7 @@
     CREATE TABLE user_groups (
         group_id INT AUTO_INCREMENT PRIMARY KEY,
         group_name VARCHAR(100) NOT NULL,
+        avatar TEXT,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
 

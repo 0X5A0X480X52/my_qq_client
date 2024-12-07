@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 public class Group {
     private int groupId;
     private String groupName;
+    private String avatar;
     private Timestamp createdAt;
 
     /**
@@ -45,6 +46,24 @@ public class Group {
      */
     public void setGroupName(String groupName) {
         this.groupName = groupName;
+    }
+
+    /**
+     * Gets the avatar of the group.
+     * 
+     * @return the avatar of the group
+     */
+    public String getAvatar() {
+        return avatar;
+    }
+
+    /**
+     * Sets the avatar of the group.
+     * 
+     * @param avatar the avatar to set
+     */
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     /**

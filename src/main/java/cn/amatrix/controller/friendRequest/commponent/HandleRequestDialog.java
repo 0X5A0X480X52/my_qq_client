@@ -13,7 +13,9 @@ public class HandleRequestDialog extends JDialog {
     private JPanel messagePanel;
     private JTextArea requestMessageField;
 
-    public HandleRequestDialog(JFrame parent, int currentUserId, FriendRequest request, UserService userService) {
+    UserService userService = new UserService();
+
+    public HandleRequestDialog(JFrame parent, int currentUserId, FriendRequest request) {
         super(parent, "处理好友请求", true);
         setLayout(new BorderLayout());
         setSize(300, 250);

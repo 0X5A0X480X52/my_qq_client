@@ -1,13 +1,16 @@
 package cn.amatrix.service.users;
 
-import cn.amatrix.DAO.users.mySQL.UserDAO;
-import cn.amatrix.DAO.users.mySQL.PrivateMessageDAO;
 import cn.amatrix.DAO.users.Imp.FriendDAOImp;
 import cn.amatrix.DAO.users.Imp.FriendRequestDAOImp;
 import cn.amatrix.DAO.users.Imp.PrivateMessageDAOImp;
 import cn.amatrix.DAO.users.Imp.UserDAOImp;
-import cn.amatrix.DAO.users.mySQL.FriendDAO;
-import cn.amatrix.DAO.users.mySQL.FriendRequestDAO;
+
+// import cn.amatrix.DAO.users.mySQL.UserDAO;
+// import cn.amatrix.DAO.users.mySQL.PrivateMessageDAO;
+// import cn.amatrix.DAO.users.mySQL.FriendDAO;
+// import cn.amatrix.DAO.users.mySQL.FriendRequestDAO;
+import cn.amatrix.DAO.users.http.*;
+
 import cn.amatrix.model.users.User;
 import cn.amatrix.model.users.PrivateMessage;
 import cn.amatrix.model.users.Friend;
@@ -299,6 +302,25 @@ public class UserService {
     }
 
     /**
+     * 添加好友请求。
+     * @param senderId 发送者ID
+     * @param receiverId 接收者ID
+     * @param requestMessage 请求消息
+     */
+    public void addFriendRequest(int senderId, int receiverId, String requestMessage) {
+        try {
+            FriendRequest request = new FriendRequest();
+            request.setSenderId(senderId);
+            request.setReceiverId(receiverId);
+            request.setRequestMessage(requestMessage);
+            request.setRequestStatus("pending");
+            friendRequestDAO.addFriendRequest(request);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error adding friend request", e);
+        }
+    }
+
+    /**
      * 更新好友请求。
      * @param request 好友请求
      */
@@ -327,7 +349,7 @@ public class UserService {
             friend.setFriendId(userId);
             friendDAO.addFriend(friend);
 
-            request.setRequestStatus(FriendRequest.RequestStatus.approved.toString());
+            request.setRequestStatus("accepted");
             friendRequestDAO.updateFriendRequest(request);
 
         } catch (Exception e) {
@@ -342,7 +364,7 @@ public class UserService {
      */
     public void rejectFriendRequest(FriendRequest request) {
         try {
-            request.setRequestStatus(FriendRequest.RequestStatus.rejected.toString());
+            request.setRequestStatus("rejected");
             friendRequestDAO.updateFriendRequest(request);
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error rejecting friend request", e);

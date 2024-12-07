@@ -23,6 +23,7 @@ public class GroupDAO implements GroupDAOImp {
                         group = new Group();
                         group.setGroupId(resultSet.getInt("group_id"));
                         group.setGroupName(resultSet.getString("group_name"));
+                        group.setAvatar(resultSet.getString("avatar"));
                         group.setCreatedAt(resultSet.getTimestamp("created_at"));
                     }
                 }
@@ -42,6 +43,7 @@ public class GroupDAO implements GroupDAOImp {
                         group = new Group();
                         group.setGroupId(resultSet.getInt("group_id"));
                         group.setGroupName(resultSet.getString("group_name"));
+                        group.setAvatar(resultSet.getString("avatar"));
                         group.setCreatedAt(resultSet.getTimestamp("created_at"));
                     }
                 }
@@ -63,11 +65,12 @@ public class GroupDAO implements GroupDAOImp {
 
     public void updateGroup(Group group) throws SQLException {
         try (Connection connection = MySQLConnector.getConnection()) {
-            String sql = "UPDATE user_groups SET group_name = ?, created_at = ? WHERE group_id = ?";
+            String sql = "UPDATE user_groups SET group_name = ?, created_at = ? avatar = ? WHERE group_id = ?";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setString(1, group.getGroupName());
                 statement.setTimestamp(2, group.getCreatedAt());
-                statement.setInt(3, group.getGroupId());
+                statement.setString(3, group.getAvatar());
+                statement.setInt(4, group.getGroupId());
                 statement.executeUpdate();
             }
         }
@@ -93,6 +96,7 @@ public class GroupDAO implements GroupDAOImp {
                     Group group = new Group();
                     group.setGroupId(resultSet.getInt("group_id"));
                     group.setGroupName(resultSet.getString("group_name"));
+                    group.setAvatar(resultSet.getString("avatar"));
                     group.setCreatedAt(resultSet.getTimestamp("created_at"));
                     groups.add(group);
                 }

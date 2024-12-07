@@ -99,7 +99,7 @@ public class UserInfoPanel extends JPanel {
 
     public void setAdditionalInfo(String additionalInfo) {
         this.additionalInfo = additionalInfo;
-        additionalInfoLabel.setText("附加信息: " + additionalInfo);
+        additionalInfoLabel.setText(additionalInfo);
     }
 
     public void setButton(JComponent button) {

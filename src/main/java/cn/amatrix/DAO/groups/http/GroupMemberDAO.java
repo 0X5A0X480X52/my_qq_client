@@ -10,9 +10,10 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.nio.charset.StandardCharsets;
 
 public class GroupMemberDAO implements GroupMemberDAOImp {
-    private static final String BASE_URL = "http://localhost:1145/demo_webapp/group_members";
+    private static final String BASE_URL = "http://localhost:1145/demo_webapp/groupMembers/";
     private final HttpClient httpClient;
 
     public GroupMemberDAO() {
@@ -23,13 +24,13 @@ public class GroupMemberDAO implements GroupMemberDAOImp {
         String requestBody = "{\"type\":\"" + type + "\",\"param\":" + param + "}";
         return HttpRequest.newBuilder()
                 .uri(new URI(BASE_URL))
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                .header("Content-Type", "application/json; charset=UTF-8")
+                .POST(HttpRequest.BodyPublishers.ofString(requestBody, StandardCharsets.UTF_8))
                 .build();
     }
 
     public GroupMember getGroupMemberById(int groupId, int userId) throws Exception {
-        String param = "{\"groupId\":" + groupId + ",\"userId\":" + userId + "}";
+        String param = "{\"groupId\":" + groupId + ",\"userId\":\"" + userId + "\"}";
         HttpRequest request = buildRequest("getById", param);
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
         return GroupMember.fromJson(response.body());

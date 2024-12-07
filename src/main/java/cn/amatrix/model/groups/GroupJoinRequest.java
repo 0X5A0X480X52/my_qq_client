@@ -4,12 +4,17 @@ import com.alibaba.fastjson2.JSON;
 import java.sql.Timestamp;
 
 public class GroupJoinRequest {
+
     private int requestId;
     private int groupId;
     private int userId;
     private String requestMessage;
     private String requestStatus;
     private Timestamp requestedAt;
+
+    public enum RequestStatus {
+        pending, approved, rejected
+    }
     
     public int getRequestId() {
         return requestId;

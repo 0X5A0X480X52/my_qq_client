@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.nio.charset.StandardCharsets;
 
 public class UserDAO implements UserDAOImp {
     private static final String BASE_URL = "http://localhost:1145/demo_webapp/users";
@@ -23,8 +24,8 @@ public class UserDAO implements UserDAOImp {
         String requestBody = "{\"type\":\"" + type + "\",\"param\":" + param + "}";
         return HttpRequest.newBuilder()
                 .uri(new URI(BASE_URL))
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                .header("Content-Type", "application/json; charset=UTF-8")
+                .POST(HttpRequest.BodyPublishers.ofString(requestBody, StandardCharsets.UTF_8))
                 .build();
     }
 

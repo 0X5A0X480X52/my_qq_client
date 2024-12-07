@@ -1,14 +1,20 @@
 package cn.amatrix.service.groups;
 
-import cn.amatrix.DAO.groups.mySQL.GroupDAO;
-import cn.amatrix.DAO.groups.mySQL.GroupMemberDAO;
-import cn.amatrix.DAO.groups.mySQL.GroupJoinRequestDAO;
-import cn.amatrix.DAO.groups.mySQL.GroupMessageDAO;
+import cn.amatrix.DAO.groups.Imp.GroupDAOImp;
+import cn.amatrix.DAO.groups.Imp.GroupJoinRequestDAOImp;
+import cn.amatrix.DAO.groups.Imp.GroupMemberDAOImp;
+import cn.amatrix.DAO.groups.Imp.GroupMessageDAOImp;
+// import cn.amatrix.DAO.groups.mySQL.GroupDAO;
+// import cn.amatrix.DAO.groups.mySQL.GroupMemberDAO;
+// import cn.amatrix.DAO.groups.mySQL.GroupJoinRequestDAO;
+// import cn.amatrix.DAO.groups.mySQL.GroupMessageDAO;
+import cn.amatrix.DAO.groups.http.*;
 import cn.amatrix.model.groups.Group;
 import cn.amatrix.model.groups.GroupMember;
 import cn.amatrix.model.groups.GroupJoinRequest;
 import cn.amatrix.model.groups.GroupMessage;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,10 +23,10 @@ import java.util.logging.Logger;
  * GroupService 类提供了对群组、群成员、入群申请和群消息的管理功能。
  */
 public class GroupService {
-    private GroupDAO groupDAO;
-    private GroupMemberDAO groupMemberDAO;
-    private GroupJoinRequestDAO groupJoinRequestDAO;
-    private GroupMessageDAO groupMessageDAO;
+    private GroupDAOImp groupDAO;
+    private GroupMemberDAOImp groupMemberDAO;
+    private GroupJoinRequestDAOImp groupJoinRequestDAO;
+    private GroupMessageDAOImp groupMessageDAO;
     private static final Logger logger = Logger.getLogger(GroupService.class.getName());
 
     public GroupService() {
@@ -226,15 +232,54 @@ public class GroupService {
     }
 
     /**
+     * 根据当前用户 ID 获取本用户可处理的入群申请列表。
+     *
+     * @param groupId 群组 ID
+     * @return 入群申请列表
+     */
+    public List<GroupJoinRequest> getGroupJoinRequestsByUserId_toHandle(int currentUserId) {
+        try {
+            List<GroupJoinRequest> list = groupJoinRequestDAO.getGroupJoinRequestsByUserId(currentUserId);
+            List<GroupJoinRequest> outputList = new ArrayList<>();
+            for (GroupJoinRequest request : list) {
+                String power = groupMemberDAO.getGroupMemberById(request.getGroupId(), currentUserId).getPower();
+                if ("owner".equals(power) || "admin".equals(power)) {
+                    outputList.add(request);
+                }
+            }
+            return outputList;
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error getting group join requests by group ID", e);
+            return null;
+        }
+    }
+
+    /**
+     * 根据用户 ID 获取本用户发送的入群申请列表。
+     *
+     * @param userId 用户 ID
+     * @return 入群申请列表
+     */
+    public List<GroupJoinRequest> getGroupJoinRequestsByUserId_send(int userId) {
+        try {
+            return groupJoinRequestDAO.getGroupJoinRequestsByUserId(userId);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error getting group join requests by user ID", e);
+            return null;
+        }
+    }
+
+    /**
      * 处理入群申请。
      *
      * @param requestId 申请 ID
+     * @param userId 用户 ID
      * @param isApproved 是否批准
      */
     public void handleGroupJoinRequest(int requestId, int userId, boolean isApproved) {
         try {
             GroupJoinRequest request = groupJoinRequestDAO.getGroupJoinRequestById(requestId);
-            GroupMember handler = groupMemberDAO.getGroupMemberById( request.getGroupId(), userId);
+            GroupMember handler = groupMemberDAO.getGroupMemberById(request.getGroupId(), userId);
             if (handler != null && ("owner".equals(handler.getPower()) || "admin".equals(handler.getPower()))) {
                 if (request != null) {
                     if (isApproved) {
@@ -251,7 +296,7 @@ public class GroupService {
                     groupJoinRequestDAO.updateGroupJoinRequest(request);
                 }
             } else {
-                logger.log(Level.WARNING, "User does not have owner permissions to handle group Join request");
+                logger.log(Level.WARNING, "User does not have owner permissions to handle group join request");
             }
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error handling group join request", e);

@@ -65,4 +65,12 @@ public class GroupDAOTest {
         assertNotNull(groups);
         assertTrue(groups.size() > 0);
     }
+
+    @Test
+    public void testGetGroupById() throws Exception {
+        Group group = groupDAO.getGroupById(1);
+        assertNotNull(group);
+        assertEquals(1, group.getGroupId());
+    }
+
 }

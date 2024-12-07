@@ -10,9 +10,10 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.nio.charset.StandardCharsets;
 
 public class GroupJoinRequestDAO implements GroupJoinRequestDAOImp {
-    private static final String BASE_URL = "http://localhost:1145/demo_webapp/group_join_requests";
+    private static final String BASE_URL = "http://localhost:1145/demo_webapp/groupJoinRequests";
     private final HttpClient httpClient;
 
     public GroupJoinRequestDAO() {
@@ -23,8 +24,8 @@ public class GroupJoinRequestDAO implements GroupJoinRequestDAOImp {
         String requestBody = "{\"type\":\"" + type + "\",\"param\":" + param + "}";
         return HttpRequest.newBuilder()
                 .uri(new URI(BASE_URL))
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                .header("Content-Type", "application/json; charset=UTF-8")
+                .POST(HttpRequest.BodyPublishers.ofString(requestBody, StandardCharsets.UTF_8))
                 .build();
     }
 
@@ -35,7 +36,7 @@ public class GroupJoinRequestDAO implements GroupJoinRequestDAOImp {
     }
 
     public List<GroupJoinRequest> getGroupJoinRequestsByGroupId(int groupId) throws Exception {
-        HttpRequest request = buildRequest("getByGroupId", String.valueOf(groupId));
+        HttpRequest request = buildRequest("getByGroupId", "\"" + String.valueOf(groupId) + "\"");
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
         List<GroupJoinRequest> requests = new ArrayList<>();
 
@@ -51,7 +52,7 @@ public class GroupJoinRequestDAO implements GroupJoinRequestDAOImp {
     }
 
     public List<GroupJoinRequest> getGroupJoinRequestsByUserId(int userId) throws Exception {
-        HttpRequest request = buildRequest("getByUserId", String.valueOf(userId));
+        HttpRequest request = buildRequest("getByUserId", "\"" + String.valueOf(userId) + "\"");
         HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
         List<GroupJoinRequest> requests = new ArrayList<>();
 

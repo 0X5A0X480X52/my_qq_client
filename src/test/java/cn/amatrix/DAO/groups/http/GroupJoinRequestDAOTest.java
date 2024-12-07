@@ -55,10 +55,16 @@ public class GroupJoinRequestDAOTest {
         request.setRequestedAt(new Timestamp(System.currentTimeMillis()));
         groupJoinRequestDAO.addGroupJoinRequest(request);
 
-        GroupJoinRequest retrievedRequest = groupJoinRequestDAO.getGroupJoinRequestById(request.getRequestId());
-        groupJoinRequestDAO.deleteGroupJoinRequestById(retrievedRequest.getRequestId());
+        List<GroupJoinRequest> retrievedRequests = groupJoinRequestDAO.getGroupJoinRequestsByGroupId(1);
+        for (GroupJoinRequest retrievedRequest : retrievedRequests) {
+            if (retrievedRequest.getUserId() == 1) {
+                request = retrievedRequest;
+                break;
+            }
+        }
+        groupJoinRequestDAO.deleteGroupJoinRequestById(request.getRequestId());
 
-        GroupJoinRequest deletedRequest = groupJoinRequestDAO.getGroupJoinRequestById(retrievedRequest.getRequestId());
+        GroupJoinRequest deletedRequest = groupJoinRequestDAO.getGroupJoinRequestById(request.getRequestId());
         assertNull(deletedRequest);
     }
 
@@ -68,4 +74,5 @@ public class GroupJoinRequestDAOTest {
         assertNotNull(requests);
         assertTrue(requests.size() > 0);
     }
+
 }

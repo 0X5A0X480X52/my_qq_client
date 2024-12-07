@@ -38,6 +38,7 @@ public class friendRequestDemo extends JFrame {
         setTitle("好友请求管理");
         setSize(400, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
         
         setLayout(new BorderLayout());
 
@@ -52,17 +53,7 @@ public class friendRequestDemo extends JFrame {
         JTextField userIdField = new JTextField();
         JButton searchButton = new JButton("查找用户");
         searchButton.setPreferredSize(new Dimension(120, 30)); // 固定宽度
-
-        // JPanel searchUserslabelPanel = new JPanel();
-        // searchUserslabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT)); // 左对齐
-        // JLabel searchUsersLabel = new JLabel("查找用户");
-        // searchUsersLabel.setFont(new Font("微软雅黑", Font.BOLD, 12)); // 设置字体
-        // searchUserslabelPanel.add(searchUsersLabel);
-
         TitlePanel searchUserslabelPanel = new TitlePanel("查找用户");
-
-
-        
 
         searchPanel.add(userIdField, BorderLayout.CENTER);
         searchPanel.add(searchButton, BorderLayout.EAST);
@@ -120,11 +111,6 @@ public class friendRequestDemo extends JFrame {
         sentRequestsPanel.setLayout(new BoxLayout(sentRequestsPanel, BoxLayout.Y_AXIS));
 
         // 添加标签
-        // JPanel receivedRequestslabelPanel = new JPanel();
-        // receivedRequestslabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT)); // 左对齐
-        // JLabel receivedRequestsLabel = new JLabel("收到的好友请求");
-        // // receivedRequestsLabel.setAlignmentX(Component.LEFT_ALIGNMENT); // 左对齐
-        // receivedRequestsLabel.setFont(new Font("微软雅黑", Font.BOLD, 12)); // 设置字体
         TitlePanel receivedRequestslabelPanel = new TitlePanel("收到的好友请求", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -132,25 +118,12 @@ public class friendRequestDemo extends JFrame {
             }
         });
 
-        // receivedRequestsLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); // 设置边距
-        // receivedRequestslabelPanel.add(receivedRequestsLabel);
-        // receivedRequestslabelPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); // 设置边距
-
-        // JPanel sentRequestslabelPanel = new JPanel();
-        // sentRequestslabelPanel.setLayout(new FlowLayout(FlowLayout.LEFT)); // 左对齐
-        // JLabel sentRequestsLabel = new JLabel("已发送的好友请求");
-        // // sentRequestsLabel.setAlignmentX(Component.LEFT_ALIGNMENT); // 左对齐
-        // sentRequestsLabel.setFont(new Font("微软雅黑", Font.BOLD, 12)); // 设置字体
-        // sentRequestsLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); // 设置边距
-        // sentRequestslabelPanel.add(sentRequestsLabel);
-
         TitlePanel sentRequestslabelPanel = new TitlePanel("已发送的好友请求", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 updateFriendRequestsPanel();
             }
         });
-        // sentRequestslabelPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)); // 设置边距
 
         this.bottomPanel.add(receivedRequestslabelPanel);
         this.bottomPanel.add(receivedRequestsPanel);
@@ -172,26 +145,28 @@ public class friendRequestDemo extends JFrame {
 
         add(splitPane, BorderLayout.CENTER);
 
-
     }
 
     private void updateFriendRequestsPanel() {
-        receivedRequestsPanel.removeAll();
-        sentRequestsPanel.removeAll();
+        updateReceivedRequestsPanel();
+        updateSentRequestsPanel();
+    }
 
+    private void updateReceivedRequestsPanel() {
+        receivedRequestsPanel.removeAll();
         List<FriendRequest> receivedRequests = userService.getFriendRequestsByReceiver(this.currentUserId);
         for (FriendRequest request : receivedRequests) {
             int senderId = request.getSenderId();
             String requestMessage = request.getRequestMessage();
             UserInfoPanel userInfoPanel = new UserInfoPanel(this.receivedRequestsPanel, userService.getUserById(senderId), null);
-            userInfoPanel.setAdditionalInfo(requestMessage);
-            
+            userInfoPanel.setAdditionalInfo("验证消息：" + requestMessage);
+
             if (request.getRequestStatus().equals(FriendRequest.RequestStatus.pending.toString())) {
                 JButton statusLabel = new JButton("处理请求");
                 statusLabel.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        HandleRequestDialog requestDialog = new HandleRequestDialog(friendRequestDemo.this, currentUserId, request, userService);
+                        HandleRequestDialog requestDialog = new HandleRequestDialog(friendRequestDemo.this, currentUserId, request);
                         requestDialog.showDialog();
                         friendRequestDemo.this.updateFriendRequestsPanel();
                     }
@@ -200,7 +175,6 @@ public class friendRequestDemo extends JFrame {
                 statusLabel.setBorder(new FlatRoundBorder());
                 userInfoPanel.setButton(statusLabel);
             }
-
 
             if (request.getRequestStatus().equals(FriendRequest.RequestStatus.approved.toString())) {
                 JButton statusLabel = new JButton("已同意");
@@ -221,12 +195,19 @@ public class friendRequestDemo extends JFrame {
             receivedRequestsPanel.add(userInfoPanel);
         }
 
+        receivedRequestsPanel.revalidate();
+        receivedRequestsPanel.repaint();
+
+    }
+
+    private void updateSentRequestsPanel() {
+        sentRequestsPanel.removeAll();
         List<FriendRequest> sentRequests = userService.getFriendRequestsBySender(this.currentUserId);
         for (FriendRequest request : sentRequests) {
             int receiverId = request.getReceiverId();
             String requestMessage = request.getRequestMessage();
             UserInfoPanel userInfoPanel = new UserInfoPanel(this.sentRequestsPanel, userService.getUserById(receiverId), null);
-            userInfoPanel.setAdditionalInfo(requestMessage);
+            userInfoPanel.setAdditionalInfo("验证消息：" + requestMessage);
 
             if (request.getRequestStatus().equals(FriendRequest.RequestStatus.pending.toString())) {
                 JButton statusLabel = new JButton("等待对方处理");
@@ -255,8 +236,6 @@ public class friendRequestDemo extends JFrame {
             sentRequestsPanel.add(userInfoPanel);
         }
 
-        receivedRequestsPanel.revalidate();
-        receivedRequestsPanel.repaint();
         sentRequestsPanel.revalidate();
         sentRequestsPanel.repaint();
     }
