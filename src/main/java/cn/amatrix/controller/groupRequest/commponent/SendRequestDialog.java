@@ -1,5 +1,6 @@
 package cn.amatrix.controller.groupRequest.commponent;
 
+import cn.amatrix.controller.InfoPanel.group.GroupInfoPanel;
 import cn.amatrix.model.groups.Group;
 import cn.amatrix.service.groups.GroupService;
 

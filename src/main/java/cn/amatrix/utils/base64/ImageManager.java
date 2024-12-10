@@ -16,14 +16,39 @@ import net.coobird.thumbnailator.Thumbnails;
  */
 public class ImageManager {
     /**
-     * 将图片压缩为 40px*40px 并转换为 Base64 字符串。
+     * 将图片压缩为 指定大小 并转换为 Base64 字符串。
      *
      * @param imagePath 图片的文件路径
+     * @param width     图片的宽度
+     * @param height    图片的高度
      * @return 图片的 Base64 字符串
      * @throws IOException 如果读取或写入图片时发生错误
      */
     public static String imageToBase64(String imagePath, int width, int height) throws IOException {
         BufferedImage originalImage = ImageIO.read(new File(imagePath));
+        Image scaledImage = originalImage.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        BufferedImage bufferedScaledImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2d = bufferedScaledImage.createGraphics();
+        g2d.drawImage(scaledImage, 0, 0, null);
+        g2d.dispose();
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(bufferedScaledImage, "jpg", baos);
+        byte[] imageBytes = baos.toByteArray();
+        return Base64.getEncoder().encodeToString(imageBytes);
+    }
+
+    /**
+     * 将图片压缩为 指定大小 并转换为 Base64 字符串。
+     *
+     * @param src 图片的 BufferedImage 对象
+     * @param width 目标图片的宽度
+     * @param height 目标图片的高度
+     * @return 图片的 Base64 字符串
+     * @throws IOException 如果读取或写入图片时发生错误
+     */
+    public static String imageToBase64(BufferedImage src, int width, int height) throws IOException {
+        BufferedImage originalImage = src;
         Image scaledImage = originalImage.getScaledInstance(width, height, Image.SCALE_SMOOTH);
         BufferedImage bufferedScaledImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         Graphics2D g2d = bufferedScaledImage.createGraphics();

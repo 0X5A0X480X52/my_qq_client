@@ -4,7 +4,7 @@ import cn.amatrix.model.users.User;
 import cn.amatrix.model.users.FriendRequest;
 import cn.amatrix.service.users.UserService;
 import cn.amatrix.utils.base64.ImageManager;
-import cn.amatrix.controller.friendRequest.commponent.UserInfoPanel;
+import cn.amatrix.controller.InfoPanel.user.UserInfoPanel;
 import cn.amatrix.controller.friendRequest.commponent.HandleRequestDialog;
 import cn.amatrix.controller.friendRequest.commponent.SendRequestDialog;
 
@@ -24,6 +24,7 @@ import java.util.List;
 public class friendRequestDemo extends JFrame {
     private UserService userService;
     private int currentUserId;
+    private User currentUser;
 
     JPanel topPanel;
     JPanel searchPanel;
@@ -33,8 +34,11 @@ public class friendRequestDemo extends JFrame {
     JPanel sentRequestsPanel;
 
     public friendRequestDemo(int currentUserId) {
+
+        userService = new UserService();
         this.currentUserId = currentUserId;
-        this.userService = new UserService();
+        this.currentUser = userService.getUserById(currentUserId);
+
         setTitle("好友请求管理");
         setSize(400, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -77,12 +81,12 @@ public class friendRequestDemo extends JFrame {
                 User user = userService.getUserById(userId);
                 userInfoPanel.removeAll();
                 if (user != null) {
-                    UserInfoPanel userInfo = new UserInfoPanel(userInfoPanel, user, null);
+                    UserInfoPanel userInfo = new UserInfoPanel(userInfoPanel, user, currentUser, null);
                     JButton sendRequestButton = new JButton("发送好友请求");
                     sendRequestButton.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            SendRequestDialog requestDialog = new SendRequestDialog(friendRequestDemo.this, currentUserId, user, userService);
+                            SendRequestDialog requestDialog = new SendRequestDialog(friendRequestDemo.this, currentUser, user, userService);
                             requestDialog.showDialog();
                             friendRequestDemo.this.updateFriendRequestsPanel();
                         }
@@ -167,7 +171,7 @@ public class friendRequestDemo extends JFrame {
         for (FriendRequest request : receivedRequests) {
             int senderId = request.getSenderId();
             String requestMessage = request.getRequestMessage();
-            UserInfoPanel userInfoPanel = new UserInfoPanel(this.receivedRequestsPanel, userService.getUserById(senderId), null);
+            UserInfoPanel userInfoPanel = new UserInfoPanel(this.receivedRequestsPanel, userService.getUserById(senderId), currentUser, null);
             userInfoPanel.setAdditionalInfo("验证消息：" + requestMessage);
 
             if (request.getRequestStatus().equals(FriendRequest.RequestStatus.pending.toString())) {
@@ -175,7 +179,7 @@ public class friendRequestDemo extends JFrame {
                 statusLabel.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        HandleRequestDialog requestDialog = new HandleRequestDialog(friendRequestDemo.this, currentUserId, request);
+                        HandleRequestDialog requestDialog = new HandleRequestDialog(friendRequestDemo.this, currentUser, request);
                         requestDialog.showDialog();
                         friendRequestDemo.this.updateFriendRequestsPanel();
                     }
@@ -222,7 +226,7 @@ public class friendRequestDemo extends JFrame {
         for (FriendRequest request : sentRequests) {
             int receiverId = request.getReceiverId();
             String requestMessage = request.getRequestMessage();
-            UserInfoPanel userInfoPanel = new UserInfoPanel(this.sentRequestsPanel, userService.getUserById(receiverId), null);
+            UserInfoPanel userInfoPanel = new UserInfoPanel(this.sentRequestsPanel, userService.getUserById(receiverId), currentUser, null);
             userInfoPanel.setAdditionalInfo("验证消息：" + requestMessage);
 
             if (request.getRequestStatus().equals(FriendRequest.RequestStatus.pending.toString())) {

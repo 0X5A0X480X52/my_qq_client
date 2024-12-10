@@ -1,6 +1,6 @@
 package cn.amatrix.controller.groupRequest.commponent;
 
-import cn.amatrix.controller.friendRequest.commponent.UserInfoPanel;
+import cn.amatrix.controller.InfoPanel.user.UserInfoPanel;
 import cn.amatrix.model.groups.GroupJoinRequest;
 import cn.amatrix.model.users.User;
 import cn.amatrix.service.groups.GroupService;
@@ -17,7 +17,7 @@ public class HandleRequestDialog extends JDialog {
     private UserService userService = new UserService();
     private GroupService groupService = new GroupService();
 
-    public HandleRequestDialog(JFrame parent, int currentUserId, GroupJoinRequest request) {
+    public HandleRequestDialog(JFrame parent, User currentUser, GroupJoinRequest request) {
         super(parent, "处理入群请求", true);
         setLayout(new BorderLayout());
         setSize(300, 250);
@@ -26,7 +26,8 @@ public class HandleRequestDialog extends JDialog {
         int senderId = request.getUserId();
         User user = userService.getUserById(senderId);
 
-        UserInfoPanel userInfo = new UserInfoPanel(rootPane, user, null);
+
+        UserInfoPanel userInfo = new UserInfoPanel(rootPane, user, currentUser, null);
 
         // 创建下拉按钮
         String[] options = {"同意", "不同意"};

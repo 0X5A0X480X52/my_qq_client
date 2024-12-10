@@ -106,6 +106,23 @@ public class UserService {
     }
 
     /**
+     * 更新用户名。
+     * @param userId 用户ID
+     * @param newUsername 新用户名
+     */
+    public void updateUsername(int userId, String newUsername) {
+        try {
+            User user = userDAO.getUserById(userId);
+            if (user != null) {
+                user.setUsername(newUsername);
+                userDAO.updateUser(user);
+            }
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error updating username", e);
+        }
+    }
+
+    /**
      * 根据用户ID删除用户。
      * @param userId 用户ID
      */

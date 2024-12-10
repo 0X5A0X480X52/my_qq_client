@@ -6,8 +6,8 @@ import cn.amatrix.model.users.User;
 import cn.amatrix.service.groups.GroupService;
 import cn.amatrix.service.users.UserService;
 import cn.amatrix.utils.base64.ImageManager;
-import cn.amatrix.controller.friendRequest.commponent.UserInfoPanel;
-import cn.amatrix.controller.groupRequest.commponent.GroupInfoPanel;
+import cn.amatrix.controller.InfoPanel.group.GroupInfoPanel;
+import cn.amatrix.controller.InfoPanel.user.UserInfoPanel;
 import cn.amatrix.controller.groupRequest.commponent.HandleRequestDialog;
 import cn.amatrix.controller.groupRequest.commponent.SendRequestDialog;
 
@@ -28,6 +28,7 @@ public class GroupRequestDemo extends JFrame {
     private GroupService groupService = new GroupService();
     private UserService userService = new UserService();
     private int currentUserId;
+    private User currentUser;
 
     JPanel topPanel;
     JPanel searchPanel;
@@ -38,6 +39,7 @@ public class GroupRequestDemo extends JFrame {
 
     public GroupRequestDemo(int currentUserId) {
         this.currentUserId = currentUserId;
+        this.currentUser = userService.getUserById(currentUserId);
         setTitle("群组申请管理");
         setSize(400, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -170,7 +172,7 @@ public class GroupRequestDemo extends JFrame {
         for (GroupJoinRequest request : receivedRequests) {
             String requestMessage = request.getRequestMessage();
             User user = userService.getUserById(request.getUserId());
-            UserInfoPanel userInfoPanel = new UserInfoPanel(this.receivedRequestsPanel, user, null);
+            UserInfoPanel userInfoPanel = new UserInfoPanel(this.receivedRequestsPanel, user, currentUser, null);
             userInfoPanel.setAdditionalInfo("验证消息：" + requestMessage);
 
             if (request.getRequestStatus().equals(GroupJoinRequest.RequestStatus.pending.toString())) {
@@ -178,7 +180,7 @@ public class GroupRequestDemo extends JFrame {
                 statusLabel.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        HandleRequestDialog requestDialog = new HandleRequestDialog(GroupRequestDemo.this, currentUserId, request);
+                        HandleRequestDialog requestDialog = new HandleRequestDialog(GroupRequestDemo.this, currentUser, request);
                         requestDialog.showDialog();
                         GroupRequestDemo.this.updateGroupRequestsPanel();
                     }
@@ -302,7 +304,7 @@ public class GroupRequestDemo extends JFrame {
 
     public static void main(String[] args) {
 
-         try {
+        try {
             // 使用相对路径加载主题文件
             UIManager.setLookAndFeel(new FlatLightLaf());
         } catch (Exception e) {

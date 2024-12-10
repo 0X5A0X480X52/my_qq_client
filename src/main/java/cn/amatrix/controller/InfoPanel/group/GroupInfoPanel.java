@@ -1,4 +1,4 @@
-package cn.amatrix.controller.groupRequest.commponent;
+package cn.amatrix.controller.InfoPanel.group;
 
 import cn.amatrix.model.groups.Group;
 import cn.amatrix.utils.base64.ImageManager;

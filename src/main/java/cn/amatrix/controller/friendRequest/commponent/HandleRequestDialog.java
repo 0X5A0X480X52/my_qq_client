@@ -1,5 +1,6 @@
 package cn.amatrix.controller.friendRequest.commponent;
 
+import cn.amatrix.controller.InfoPanel.user.UserInfoPanel;
 import cn.amatrix.model.users.FriendRequest;
 import cn.amatrix.model.users.User;
 import cn.amatrix.service.users.UserService;
@@ -13,17 +14,20 @@ public class HandleRequestDialog extends JDialog {
     private JPanel messagePanel;
     private JTextArea requestMessageField;
 
+    private User currentUser;
     UserService userService = new UserService();
 
-    public HandleRequestDialog(JFrame parent, int currentUserId, FriendRequest request) {
+    public HandleRequestDialog(JFrame parent, User currentUser, FriendRequest request) {
         super(parent, "处理好友请求", true);
         setLayout(new BorderLayout());
         setSize(300, 250);
 
+        this.currentUser = currentUser;
+
         int senderId = request.getSenderId();
         User user = userService.getUserById(senderId);
 
-        UserInfoPanel userInfo = new UserInfoPanel(rootPane, user, null);
+        UserInfoPanel userInfo = new UserInfoPanel(rootPane, user, this.currentUser, null);
 
         // 创建下拉按钮
         String[] options = {"同意", "不同意"};
