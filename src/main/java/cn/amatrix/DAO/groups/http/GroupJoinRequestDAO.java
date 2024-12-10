@@ -1,43 +1,29 @@
 package cn.amatrix.DAO.groups.http;
 
+import cn.amatrix.DAO.HttpConnector.HttpConnector;
 import cn.amatrix.DAO.groups.Imp.GroupJoinRequestDAOImp;
 import cn.amatrix.model.groups.GroupJoinRequest;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.net.URI;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.nio.charset.StandardCharsets;
 
 public class GroupJoinRequestDAO implements GroupJoinRequestDAOImp {
-    private static final String BASE_URL = "http://localhost:1145/demo_webapp/groupJoinRequests";
-    private final HttpClient httpClient;
+    private static final String SUB_PATH = "/groupJoinRequests";
+    private final HttpConnector httpConnector;
 
     public GroupJoinRequestDAO() {
-        this.httpClient = HttpClient.newHttpClient();
-    }
-
-    private HttpRequest buildRequest(String type, String param) throws Exception {
-        String requestBody = "{\"type\":\"" + type + "\",\"param\":" + param + "}";
-        return HttpRequest.newBuilder()
-                .uri(new URI(BASE_URL))
-                .header("Content-Type", "application/json; charset=UTF-8")
-                .POST(HttpRequest.BodyPublishers.ofString(requestBody, StandardCharsets.UTF_8))
-                .build();
+        this.httpConnector = new HttpConnector();
     }
 
     public void addGroupJoinRequest(GroupJoinRequest request) throws Exception {
         String param = request.toJson();
-        HttpRequest httpRequest = buildRequest("add", param);
-        httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+        httpConnector.sendRequest(SUB_PATH, "add", param);
     }
 
     public List<GroupJoinRequest> getGroupJoinRequestsByGroupId(int groupId) throws Exception {
-        HttpRequest request = buildRequest("getByGroupId", "\"" + String.valueOf(groupId) + "\"");
-        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response = httpConnector.sendRequest(SUB_PATH, "getByGroupId", String.valueOf(groupId));
         List<GroupJoinRequest> requests = new ArrayList<>();
 
         String responseBody = response.body();
@@ -52,8 +38,7 @@ public class GroupJoinRequestDAO implements GroupJoinRequestDAOImp {
     }
 
     public List<GroupJoinRequest> getGroupJoinRequestsByUserId(int userId) throws Exception {
-        HttpRequest request = buildRequest("getByUserId", "\"" + String.valueOf(userId) + "\"");
-        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response = httpConnector.sendRequest(SUB_PATH, "getByUserId", String.valueOf(userId));
         List<GroupJoinRequest> requests = new ArrayList<>();
 
         String responseBody = response.body();
@@ -68,8 +53,7 @@ public class GroupJoinRequestDAO implements GroupJoinRequestDAOImp {
     }
 
     public List<GroupJoinRequest> getAllGroupJoinRequests() throws Exception {
-        HttpRequest request = buildRequest("getAll", "\"null\"");
-        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response = httpConnector.sendRequest(SUB_PATH, "getAll", "null");
         List<GroupJoinRequest> requests = new ArrayList<>();
 
         String responseBody = response.body();
@@ -84,19 +68,16 @@ public class GroupJoinRequestDAO implements GroupJoinRequestDAOImp {
     }
 
     public void deleteGroupJoinRequestById(int requestId) throws Exception {
-        HttpRequest request = buildRequest("delete", String.valueOf(requestId));
-        httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        httpConnector.sendRequest(SUB_PATH, "delete", String.valueOf(requestId));
     }
 
     public void updateGroupJoinRequest(GroupJoinRequest request) throws Exception {
         String param = request.toJson();
-        HttpRequest httpRequest = buildRequest("update", param);
-        httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+        httpConnector.sendRequest(SUB_PATH, "update", param);
     }
 
     public GroupJoinRequest getGroupJoinRequestById(int requestId) throws Exception {
-        HttpRequest request = buildRequest("getById", String.valueOf(requestId));
-        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response = httpConnector.sendRequest(SUB_PATH, "getById", String.valueOf(requestId));
         return GroupJoinRequest.fromJson(response.body());
     }
 }

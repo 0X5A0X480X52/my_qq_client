@@ -1,62 +1,45 @@
 package cn.amatrix.DAO.groups.http;
 
+import cn.amatrix.DAO.HttpConnector.HttpConnector;
 import cn.amatrix.DAO.groups.Imp.GroupMemberDAOImp;
 import cn.amatrix.model.groups.GroupMember;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.net.URI;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.nio.charset.StandardCharsets;
 
 public class GroupMemberDAO implements GroupMemberDAOImp {
-    private static final String BASE_URL = "http://localhost:1145/demo_webapp/groupMembers/";
-    private final HttpClient httpClient;
+    private static final String SUB_PATH = "/groupMembers";
+    private final HttpConnector httpConnector;
 
     public GroupMemberDAO() {
-        this.httpClient = HttpClient.newHttpClient();
-    }
-
-    private HttpRequest buildRequest(String type, String param) throws Exception {
-        String requestBody = "{\"type\":\"" + type + "\",\"param\":" + param + "}";
-        return HttpRequest.newBuilder()
-                .uri(new URI(BASE_URL))
-                .header("Content-Type", "application/json; charset=UTF-8")
-                .POST(HttpRequest.BodyPublishers.ofString(requestBody, StandardCharsets.UTF_8))
-                .build();
+        this.httpConnector = new HttpConnector();
     }
 
     public GroupMember getGroupMemberById(int groupId, int userId) throws Exception {
         String param = "{\"groupId\":" + groupId + ",\"userId\":\"" + userId + "\"}";
-        HttpRequest request = buildRequest("getById", param);
-        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response = httpConnector.sendRequest(SUB_PATH, "getById", param);
         return GroupMember.fromJson(response.body());
     }
 
     public void addGroupMember(GroupMember member) throws Exception {
         String param = member.toJson();
-        HttpRequest request = buildRequest("add", param);
-        httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        httpConnector.sendRequest(SUB_PATH, "add", param);
     }
 
     public void updateGroupMember(GroupMember member) throws Exception {
         String param = member.toJson();
-        HttpRequest request = buildRequest("update", param);
-        httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        httpConnector.sendRequest(SUB_PATH, "update", param);
     }
 
     public void deleteGroupMember(int groupId, int userId) throws Exception {
         String param = "{\"groupId\":" + groupId + ",\"userId\":" + userId + "}";
-        HttpRequest request = buildRequest("delete", param);
-        httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        httpConnector.sendRequest(SUB_PATH, "delete", param);
     }
 
     public List<GroupMember> getAllGroupMembers() throws Exception {
-        HttpRequest request = buildRequest("getAll", "\"null\"");
-        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response = httpConnector.sendRequest(SUB_PATH, "getAll", "null");
         List<GroupMember> members = new ArrayList<>();
 
         String responseBody = response.body();

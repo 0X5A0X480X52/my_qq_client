@@ -117,6 +117,7 @@ public class friendRequestDemo extends JFrame {
                 updateFriendRequestsPanel();
             }
         });
+        receivedRequestslabelPanel.setMaximumSize(new Dimension(this.getWidth(), 40)); // 固定高度
 
         TitlePanel sentRequestslabelPanel = new TitlePanel("已发送的好友请求", new ActionListener() {
             @Override
@@ -124,6 +125,7 @@ public class friendRequestDemo extends JFrame {
                 updateFriendRequestsPanel();
             }
         });
+        sentRequestslabelPanel.setMaximumSize(new Dimension(this.getWidth(), 40)); // 固定高度
 
         this.bottomPanel.add(receivedRequestslabelPanel);
         this.bottomPanel.add(receivedRequestsPanel);
@@ -155,6 +157,13 @@ public class friendRequestDemo extends JFrame {
     private void updateReceivedRequestsPanel() {
         receivedRequestsPanel.removeAll();
         List<FriendRequest> receivedRequests = userService.getFriendRequestsByReceiver(this.currentUserId);
+
+        if (receivedRequests.size() == 0) {
+            JPanel infoPanel = new JPanel();
+            infoPanel.add(new JLabel("暂无未处理请求"));
+            receivedRequestsPanel.add(infoPanel);
+        }
+
         for (FriendRequest request : receivedRequests) {
             int senderId = request.getSenderId();
             String requestMessage = request.getRequestMessage();
@@ -203,6 +212,13 @@ public class friendRequestDemo extends JFrame {
     private void updateSentRequestsPanel() {
         sentRequestsPanel.removeAll();
         List<FriendRequest> sentRequests = userService.getFriendRequestsBySender(this.currentUserId);
+
+        if (sentRequests.size() == 0) {
+            JPanel infoPanel = new JPanel();
+            infoPanel.add(new JLabel("暂无已发送请求"));
+            sentRequestsPanel.add(infoPanel);
+        }
+
         for (FriendRequest request : sentRequests) {
             int receiverId = request.getReceiverId();
             String requestMessage = request.getRequestMessage();

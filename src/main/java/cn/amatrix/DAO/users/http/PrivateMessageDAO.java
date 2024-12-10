@@ -1,60 +1,43 @@
 package cn.amatrix.DAO.users.http;
 
+import cn.amatrix.DAO.HttpConnector.HttpConnector;
 import cn.amatrix.DAO.users.Imp.PrivateMessageDAOImp;
 import cn.amatrix.model.users.PrivateMessage;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.net.URI;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.nio.charset.StandardCharsets;
 
 public class PrivateMessageDAO implements PrivateMessageDAOImp {
-    private static final String BASE_URL = "http://localhost:1145/demo_webapp/private_messages";
-    private final HttpClient httpClient;
+    private static final String SUB_PATH = "/private_messages";
+    private final HttpConnector httpConnector;
 
     public PrivateMessageDAO() {
-        this.httpClient = HttpClient.newHttpClient();
-    }
-
-    private HttpRequest buildRequest(String type, String param) throws Exception {
-        String requestBody = "{\"type\":\"" + type + "\",\"param\":" + param + "}";
-        return HttpRequest.newBuilder()
-                .uri(new URI(BASE_URL))
-                .header("Content-Type", "application/json; charset=UTF-8")
-                .POST(HttpRequest.BodyPublishers.ofString(requestBody, StandardCharsets.UTF_8))
-                .build();
+        this.httpConnector = new HttpConnector();
     }
 
     public PrivateMessage getPrivateMessageById(int messageId) throws Exception {
-        HttpRequest request = buildRequest("getById", String.valueOf(messageId));
-        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response = httpConnector.sendRequest(SUB_PATH, "getById", String.valueOf(messageId));
         return PrivateMessage.fromJson(response.body());
     }
 
     public void addPrivateMessage(PrivateMessage message) throws Exception {
         String param = message.toJson();
-        HttpRequest request = buildRequest("add", param);
-        httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        httpConnector.sendRequest(SUB_PATH, "add", param);
     }
 
     public void updatePrivateMessage(PrivateMessage message) throws Exception {
         String param = message.toJson();
-        HttpRequest request = buildRequest("update", param);
-        httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        httpConnector.sendRequest(SUB_PATH, "update", param);
     }
 
     public void deletePrivateMessage(int messageId) throws Exception {
-        HttpRequest request = buildRequest("delete", String.valueOf(messageId));
-        httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        httpConnector.sendRequest(SUB_PATH, "delete", String.valueOf(messageId));
     }
 
     public List<PrivateMessage> getAllPrivateMessages() throws Exception {
-        HttpRequest request = buildRequest("getAll", "\"null\"");
-        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response = httpConnector.sendRequest(SUB_PATH, "getAll", "null");
         List<PrivateMessage> messages = new ArrayList<>();
 
         String responseBody = response.body();
@@ -74,8 +57,8 @@ public class PrivateMessageDAO implements PrivateMessageDAOImp {
     }
 
     public List<PrivateMessage> getPrivateMessagesBySenderAndReceiver(int senderId, int receiverId) throws Exception {
-        HttpRequest request = buildRequest("getBySenderAndReceiver", "{\"senderId\":" + senderId + ",\"receiverId\":" + receiverId + "}");
-        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        String param = "{\"senderId\":" + senderId + ",\"receiverId\":" + receiverId + "}";
+        HttpResponse<String> response = httpConnector.sendRequest(SUB_PATH, "getBySenderAndReceiver", param);
         List<PrivateMessage> messages = new ArrayList<>();
 
         String responseBody = response.body();
@@ -95,8 +78,7 @@ public class PrivateMessageDAO implements PrivateMessageDAOImp {
     }
 
     public List<PrivateMessage> getPrivateMessagesBySender(int senderId) throws Exception {
-        HttpRequest request = buildRequest("getBySender", String.valueOf(senderId));
-        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response = httpConnector.sendRequest(SUB_PATH, "getBySender", String.valueOf(senderId));
         List<PrivateMessage> messages = new ArrayList<>();
 
         String responseBody = response.body();
@@ -116,8 +98,7 @@ public class PrivateMessageDAO implements PrivateMessageDAOImp {
     }
 
     public List<PrivateMessage> getPrivateMessagesByReceiver(int receiverId) throws Exception {
-        HttpRequest request = buildRequest("getByReceiver", String.valueOf(receiverId));
-        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response = httpConnector.sendRequest(SUB_PATH, "getByReceiver", String.valueOf(receiverId));
         List<PrivateMessage> messages = new ArrayList<>();
 
         String responseBody = response.body();

@@ -120,6 +120,7 @@ public class GroupRequestDemo extends JFrame {
                 updateGroupRequestsPanel();
             }
         });
+        receivedRequestsLabelPanel.setMaximumSize(new Dimension(this.getWidth(), 40)); // 固定高度
 
         TitlePanel sentRequestsLabelPanel = new TitlePanel("已发送的入群申请", new ActionListener() {
             @Override
@@ -127,6 +128,7 @@ public class GroupRequestDemo extends JFrame {
                 updateGroupRequestsPanel();
             }
         });
+        sentRequestsLabelPanel.setMaximumSize(new Dimension(this.getWidth(), 40)); // 固定高度
 
         this.bottomPanel.add(receivedRequestsLabelPanel);
         this.bottomPanel.add(receivedRequestsPanel);
@@ -158,6 +160,13 @@ public class GroupRequestDemo extends JFrame {
     private void updateReceivedRequestsPanel() {
         receivedRequestsPanel.removeAll();
         List<GroupJoinRequest> receivedRequests = groupService.getGroupJoinRequestsByUserId_toHandle(this.currentUserId);
+
+        if (receivedRequests.size() == 0) {
+            JPanel infoPanel = new JPanel();
+            infoPanel.add(new JLabel("暂无未处理请求"));
+            receivedRequestsPanel.add(infoPanel);
+        }
+
         for (GroupJoinRequest request : receivedRequests) {
             String requestMessage = request.getRequestMessage();
             User user = userService.getUserById(request.getUserId());
@@ -205,6 +214,13 @@ public class GroupRequestDemo extends JFrame {
     private void updateSentRequestsPanel() {
         sentRequestsPanel.removeAll();
         List<GroupJoinRequest> sentRequests = groupService.getGroupJoinRequestsByUserId_send(this.currentUserId);
+
+        if  (sentRequests.size() == 0) {
+            JPanel infoPanel = new JPanel();
+            infoPanel.add(new JLabel("暂无已发送请求"));
+            sentRequestsPanel.add(infoPanel);
+        }
+
         for (GroupJoinRequest request : sentRequests) {
             int groupId = request.getGroupId();
             String requestMessage = request.getRequestMessage();
