@@ -7,7 +7,8 @@ import java.sql.SQLException;
 public class MySQLConnector {
 
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-    private static final String URL = "jdbc:mysql://localhost:3306/onlineChatApp?serverTimezone=UTC";
+    // private static final String URL = "jdbc:mysql://localhost:3306/onlineChatApp?serverTimezone=UTC";
+    private static final String URL = "jdbc:mysql://47.97.117.157:8080/onlineChatApp?serverTimezone=UTC";
     private static final String USER = "root";
     private static final String PASSWORD = "ZHRhenry20050305";
 

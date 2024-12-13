@@ -40,6 +40,12 @@ public class ChangeAvatar extends JFrame {
     }
 
     private void updateAvatarLabel(String base64Image) {
+
+        if (base64Image == null || base64Image.equals("null") || base64Image.isEmpty()) {
+            avatarLabel.setIcon(createPlaceholderIcon());
+            return;
+        }
+
         try {
             BufferedImage image = ImageManager.base64ToCircularImage(base64Image);
             if (image != null) {

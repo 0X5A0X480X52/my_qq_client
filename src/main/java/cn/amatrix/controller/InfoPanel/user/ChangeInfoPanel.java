@@ -85,6 +85,12 @@ public class ChangeInfoPanel extends JPanel {
         avatarLabel = new JLabel();
         avatarLabel.setPreferredSize(new Dimension(80, 80));
         avatarLabel.setOpaque(false);
+
+        if (base64Image == null || base64Image.equals("null") || base64Image.isEmpty()) {
+            avatarLabel.setIcon(createPlaceholderIcon());
+            return;
+        }
+
         try {
             BufferedImage image = ImageManager.base64ToCircularImage(base64Image);
             if (image != null) {

@@ -45,7 +45,8 @@ public class SignUpExample extends JFrame implements WebSocketReceiver {
     SignUpService signUpService;
 
     public SignUpExample() {
-        URI uri = URI.create("ws://localhost:1145/demo_webapp/chat");
+        // URI uri = URI.create("ws://localhost:1145/demo_webapp/chat");
+        URI uri = URI.create("ws://47.97.117.157:8080/demo_webapp/chat");
         this.client = new WebSocketClient(uri);
 
         setTitle("Sign Up");
@@ -198,6 +199,15 @@ public class SignUpExample extends JFrame implements WebSocketReceiver {
                 } catch (Exception ex) {
                     logger.log(Level.SEVERE, "Error processing WebSocket message", ex);
                 }
+            }
+        });
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new SignUpExample();
             }
         });
     }

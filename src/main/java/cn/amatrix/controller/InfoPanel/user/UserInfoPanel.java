@@ -1,5 +1,6 @@
 package cn.amatrix.controller.InfoPanel.user;
 
+import cn.amatrix.controller.InfoPanel.InfoPanel;
 import cn.amatrix.model.users.User;
 import cn.amatrix.service.users.UserService;
 import cn.amatrix.utils.base64.ImageManager;
@@ -11,7 +12,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-public class UserInfoPanel extends JPanel {
+public class UserInfoPanel extends InfoPanel {
 
     private User targetUser;
     private User currentUser;
@@ -71,7 +72,7 @@ public class UserInfoPanel extends JPanel {
         avatarPanel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
 
         // 添加鼠标右键单击事件处理程序
-        addMouseListener(new MouseAdapter() {
+        avatarPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (SwingUtilities.isLeftMouseButton(e)) {
@@ -129,6 +130,12 @@ public class UserInfoPanel extends JPanel {
         avatarIcon = new JLabel();
         avatarIcon.setPreferredSize(new Dimension(40, 40));
         avatarIcon.setOpaque(false);
+
+        if (base64Image == null || base64Image.equals("null") || base64Image.isEmpty()) {
+            avatarIcon.setIcon(createPlaceholderIcon());
+            return;
+        }
+
         try {
             BufferedImage image = ImageManager.base64ToCircularImage(base64Image);
             if (image != null) {

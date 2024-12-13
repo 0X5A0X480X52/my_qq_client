@@ -2,13 +2,14 @@ package cn.amatrix.controller.InfoPanel.group;
 
 import cn.amatrix.model.groups.Group;
 import cn.amatrix.utils.base64.ImageManager;
+import cn.amatrix.controller.InfoPanel.InfoPanel;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-public class GroupInfoPanel extends JPanel {
+public class GroupInfoPanel extends InfoPanel {
 
     private static final int FIXED_HEIGHT = 55; // 固定高度
     private JLabel avatarIcon;

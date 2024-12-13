@@ -85,6 +85,12 @@ public class UserDetailedInfoPanel extends JPanel {
         avatarIcon = new JLabel();
         avatarIcon.setPreferredSize(new Dimension(80, 80));
         avatarIcon.setOpaque(false);
+
+        if (base64Image == null || base64Image.equals("null") || base64Image.isEmpty()) {
+            avatarIcon.setIcon(createPlaceholderIcon());
+            return;
+        }
+
         try {
             BufferedImage image = ImageManager.base64ToCircularImage(base64Image);
             if (image != null) {

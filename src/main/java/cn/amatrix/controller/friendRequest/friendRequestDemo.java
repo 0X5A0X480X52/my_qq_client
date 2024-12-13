@@ -4,6 +4,7 @@ import cn.amatrix.model.users.User;
 import cn.amatrix.model.users.FriendRequest;
 import cn.amatrix.service.users.UserService;
 import cn.amatrix.utils.base64.ImageManager;
+import cn.amatrix.controller.InfoPanel.InfoPanel;
 import cn.amatrix.controller.InfoPanel.user.UserInfoPanel;
 import cn.amatrix.controller.friendRequest.commponent.HandleRequestDialog;
 import cn.amatrix.controller.friendRequest.commponent.SendRequestDialog;
@@ -81,7 +82,8 @@ public class friendRequestDemo extends JFrame {
                 User user = userService.getUserById(userId);
                 userInfoPanel.removeAll();
                 if (user != null) {
-                    UserInfoPanel userInfo = new UserInfoPanel(userInfoPanel, user, currentUser, null);
+                    InfoPanel userInfo = new UserInfoPanel(userInfoPanel, user, currentUser, null);
+                    // InfoPanel userInfo = new UserBriefInfoPanel(userInfoPanel, user, currentUser);
                     JButton sendRequestButton = new JButton("发送好友请求");
                     sendRequestButton.addActionListener(new ActionListener() {
                         @Override
@@ -171,7 +173,7 @@ public class friendRequestDemo extends JFrame {
         for (FriendRequest request : receivedRequests) {
             int senderId = request.getSenderId();
             String requestMessage = request.getRequestMessage();
-            UserInfoPanel userInfoPanel = new UserInfoPanel(this.receivedRequestsPanel, userService.getUserById(senderId), currentUser, null);
+            InfoPanel userInfoPanel = new UserInfoPanel(this.receivedRequestsPanel, userService.getUserById(senderId), currentUser, null);
             userInfoPanel.setAdditionalInfo("验证消息：" + requestMessage);
 
             if (request.getRequestStatus().equals(FriendRequest.RequestStatus.pending.toString())) {
@@ -226,7 +228,7 @@ public class friendRequestDemo extends JFrame {
         for (FriendRequest request : sentRequests) {
             int receiverId = request.getReceiverId();
             String requestMessage = request.getRequestMessage();
-            UserInfoPanel userInfoPanel = new UserInfoPanel(this.sentRequestsPanel, userService.getUserById(receiverId), currentUser, null);
+            InfoPanel userInfoPanel = new UserInfoPanel(this.sentRequestsPanel, userService.getUserById(receiverId), currentUser, null);
             userInfoPanel.setAdditionalInfo("验证消息：" + requestMessage);
 
             if (request.getRequestStatus().equals(FriendRequest.RequestStatus.pending.toString())) {
@@ -304,7 +306,7 @@ public class friendRequestDemo extends JFrame {
 
     public static void main(String[] args) {
 
-         try {
+        try {
             // 使用相对路径加载主题文件
             UIManager.setLookAndFeel(new FlatLightLaf());
         } catch (Exception e) {
@@ -314,7 +316,7 @@ public class friendRequestDemo extends JFrame {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new friendRequestDemo(1).setVisible(true); // 假设当前用户ID为1
+                new friendRequestDemo(2).setVisible(true); // 假设当前用户ID为1
             }
         });
     }

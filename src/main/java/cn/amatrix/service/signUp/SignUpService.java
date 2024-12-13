@@ -71,6 +71,7 @@ public class SignUpService {
         user.setUsername(username);
         user.setEmail(email);
         user.setPassword(password);
+        user.setAvatar("null");
         String userInfo = user.toJson();
 
         JSONObject signUpInfo = new JSONObject();

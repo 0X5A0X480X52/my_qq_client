@@ -18,6 +18,7 @@ import cn.amatrix.model.users.FriendRequest;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.sql.Timestamp;
 
 /**
  * UserService 类提供对用户信息和消息的管理功能。
@@ -87,6 +88,7 @@ public class UserService {
      */
     public void addUser(User user) {
         try {
+            user.setCreated_at(new Timestamp(System.currentTimeMillis()));
             userDAO.addUser(user);
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error adding user", e);
@@ -167,6 +169,7 @@ public class UserService {
      */
     public void addPrivateMessage(PrivateMessage message) {
         try {
+            message.setSentAt(new Timestamp(System.currentTimeMillis()));
             privateMessageDAO.addPrivateMessage(message);
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error adding private message", e);
@@ -273,6 +276,7 @@ public class UserService {
      */
     public void addFriend(Friend friend) {
         try {
+            friend.setAddedAt(new Timestamp(System.currentTimeMillis()));
             friendDAO.addFriend(friend);
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error adding friend", e);
@@ -312,6 +316,7 @@ public class UserService {
      */
     public void addFriendRequest(FriendRequest request) {
         try {
+            request.setRequestedAt(new Timestamp(System.currentTimeMillis()));
             friendRequestDAO.addFriendRequest(request);
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error adding friend request", e);
@@ -331,6 +336,7 @@ public class UserService {
             request.setReceiverId(receiverId);
             request.setRequestMessage(requestMessage);
             request.setRequestStatus("pending");
+            request.setRequestedAt(new Timestamp(System.currentTimeMillis()));
             friendRequestDAO.addFriendRequest(request);
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error adding friend request", e);
@@ -361,16 +367,18 @@ public class UserService {
             Friend friend = new Friend();
             friend.setUserId(userId);
             friend.setFriendId(friendId);
+            friend.setAddedAt(new Timestamp(System.currentTimeMillis()));
             friendDAO.addFriend(friend);
             friend.setUserId(friendId);
             friend.setFriendId(userId);
+            friend.setAddedAt(new Timestamp(System.currentTimeMillis()));
             friendDAO.addFriend(friend);
 
-            request.setRequestStatus("accepted");
+            request.setRequestStatus("approved");
             friendRequestDAO.updateFriendRequest(request);
-
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error accepting friend request", e);
+            e.printStackTrace();
         }
     }
 
