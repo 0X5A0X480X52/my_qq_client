@@ -52,4 +52,20 @@ public class GroupMemberDAO implements GroupMemberDAOImp {
         }
         return members;
     }
+
+    @Override
+    public List<GroupMember> getGroupMembersByUserId(int userId) throws Exception {
+        HttpResponse<String> response = httpConnector.sendRequest(SUB_PATH, "getAll", "null");
+        List<GroupMember> members = new ArrayList<>();
+
+        String responseBody = response.body();
+        Pattern pattern = Pattern.compile("\\{[^}]+\\}");
+        Matcher matcher = pattern.matcher(responseBody);
+
+        while (matcher.find()) {
+            String jsonObject = matcher.group();
+            members.add(GroupMember.fromJson(jsonObject));
+        }
+        return members;
+    }
 }

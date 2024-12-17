@@ -50,6 +50,20 @@ public class GroupMemberServlet extends HttpServlet {
                     response.setContentType("application/json");
                     response.getWriter().write(jsonBuilder.toString());
                     break;
+                case "getByUserId":
+                    int userIdParam = Integer.parseInt(param);
+                    List<GroupMember> membersByUserId = groupMemberDAO.getGroupMembersByUserId(userIdParam);
+                    StringBuilder jsonBuilderByUserId = new StringBuilder("[");
+                    for (int i = 0; i < membersByUserId.size(); i++) {
+                        jsonBuilderByUserId.append(membersByUserId.get(i).toJson());
+                        if (i < membersByUserId.size() - 1) {
+                            jsonBuilderByUserId.append(",");
+                        }
+                    }
+                    jsonBuilderByUserId.append("]");
+                    response.setContentType("application/json");
+                    response.getWriter().write(jsonBuilderByUserId.toString());
+                    break;
                 case "add":
                     GroupMember memberToAdd = GroupMember.fromJson(param);
                     groupMemberDAO.addGroupMember(memberToAdd);

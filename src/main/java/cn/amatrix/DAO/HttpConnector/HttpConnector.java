@@ -10,8 +10,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class HttpConnector {
-    // private static final String BASE_URL = "http://localhost:1145/demo_webapp";
-    private static final String BASE_URL = "http://47.97.117.157:8080/demo_webapp";
+    private static final String BASE_URL = "http://localhost:1145/demo_webapp";
+    // private static final String BASE_URL = "http://47.97.117.157:8080/demo_webapp";
     private final HttpClient httpClient;
 
     public HttpConnector() {

@@ -36,6 +36,7 @@ public class GroupRequestDemo extends JFrame {
     JPanel bottomPanel;
     JPanel receivedRequestsPanel;
     JPanel sentRequestsPanel;
+    JPanel createGroupPanel;
 
     public GroupRequestDemo(int currentUserId) {
         this.currentUserId = currentUserId;
@@ -51,7 +52,7 @@ public class GroupRequestDemo extends JFrame {
         this.topPanel = new JPanel();
         topPanel.setLayout(new BorderLayout());
         topPanel.setPreferredSize(new Dimension(0, 100)); // 固定高度
-        
+
         // 新增的面板，用于并排放置 groupIdField 和 searchButton
         this.searchPanel = new JPanel();
         searchPanel.setLayout(new BorderLayout());
@@ -114,6 +115,31 @@ public class GroupRequestDemo extends JFrame {
 
         this.sentRequestsPanel = new JPanel();
         sentRequestsPanel.setLayout(new BoxLayout(sentRequestsPanel, BoxLayout.Y_AXIS));
+
+        // 新增的面板：创建群聊
+        TitlePanel createGroupLabelPanel = new TitlePanel("创建群聊");
+        createGroupLabelPanel.setMaximumSize(new Dimension(this.getWidth(), 40)); // 固定高度
+        JButton createGroupButton = new JButton("创建群聊");
+        createGroupButton.setPreferredSize(new Dimension(80, 20)); // 固定宽度
+        createGroupButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // 这里添加创建群聊的逻辑
+                GroupService groupService = new GroupService();
+                Group newGroup = groupService.createGroup(currentUserId);
+                if (newGroup == null) {
+                    JOptionPane.showMessageDialog(GroupRequestDemo.this, "创建群聊失败！");
+                    return;
+                } else
+                    JOptionPane.showMessageDialog(GroupRequestDemo.this, "创建群聊成功！群聊ID：" + newGroup.getGroupId());
+            }
+        });
+        createGroupButton.setFont(new Font("微软雅黑", Font.BOLD, 12));
+        createGroupButton.setBorder(new FlatRoundBorder());
+        createGroupLabelPanel.setButton(createGroupButton);
+
+        // 将创建群聊面板添加到 bottomPanel 的顶部
+        this.bottomPanel.add(createGroupLabelPanel, 0);
 
         // 添加标签
         TitlePanel receivedRequestsLabelPanel = new TitlePanel("收到的入群申请", new ActionListener() {
@@ -299,6 +325,10 @@ public class GroupRequestDemo extends JFrame {
             refreshButton.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
             buttonPanel.add(refreshButton);
             add(buttonPanel, BorderLayout.EAST);
+        }
+
+        public void setButton(JComponent button) {
+            add(button);
         }
     }
 

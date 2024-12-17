@@ -29,6 +29,14 @@ public class GroupMessageHeap {
         return messages;
     }
 
+    public List<GroupMessage> pollAllMessages() {
+        List<GroupMessage> messages = new ArrayList<>();
+        while (!messageQueue.isEmpty()) {
+            messages.add(messageQueue.poll());
+        }
+        return messages;
+    }
+
     public boolean isEmpty() {
         return messageQueue.isEmpty();
     }

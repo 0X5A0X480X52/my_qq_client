@@ -6,6 +6,62 @@
     "configurations": [
         {
             "type": "java",
+            "name": "friendRequestDemo",
+            "request": "launch",
+            "mainClass": "cn.amatrix.controller.friendRequest.friendRequestDemo",
+            "projectName": "my_qq_client"
+        },
+        {
+            "type": "java",
+            "name": "PrivateChatPanel",
+            "request": "launch",
+            "mainClass": "cn.amatrix.controller.chatDemo.PrivateChatPanel",
+            "projectName": "my_qq_client"
+        },
+        {
+            "type": "java",
+            "name": "GroupRequestDemo",
+            "request": "launch",
+            "mainClass": "cn.amatrix.controller.groupRequest.GroupRequestDemo",
+            "projectName": "my_qq_client"
+        },
+        {
+            "type": "java",
+            "name": "ChatDemo4",
+            "request": "launch",
+            "mainClass": "cn.amatrix.controller.chatDemo.ChatDemo4",
+            "projectName": "my_qq_client"
+        },
+        {
+            "type": "java",
+            "name": "ChatDemo5",
+            "request": "launch",
+            "mainClass": "cn.amatrix.controller.chatDemo.ChatDemo5",
+            "projectName": "my_qq_client"
+        },
+        {
+            "type": "java",
+            "name": "chatDemo4",
+            "request": "launch",
+            "mainClass": "cn.amatrix.controller.chatDemo.chatDemo4",
+            "projectName": "my_qq_client"
+        },
+        {
+            "type": "java",
+            "name": "chatDemo5",
+            "request": "launch",
+            "mainClass": "cn.amatrix.controller.chatDemo.chatDemo5",
+            "projectName": "my_qq_client"
+        },
+        {
+            "type": "java",
+            "name": "chatDemo",
+            "request": "launch",
+            "mainClass": "cn.amatrix.controller.chatDemo.chatDemo",
+            "projectName": "my_qq_client"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"

@@ -88,4 +88,25 @@ public class GroupMemberDAO implements GroupMemberDAOImp {
         }
         return members;
     }
+
+    public List<GroupMember> getGroupMembersByUserId(int userId) throws SQLException {
+        List<GroupMember> members = new ArrayList<>();
+        try (Connection connection = MySQLConnector.getConnection()) {
+            String sql = "SELECT * FROM group_members WHERE user_id = ?";
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setInt(1, userId);
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
+                        GroupMember member = new GroupMember();
+                        member.setGroupId(resultSet.getInt("group_id"));
+                        member.setUserId(resultSet.getInt("user_id"));
+                        member.setPower(resultSet.getString("power"));
+                        member.setJoinedAt(resultSet.getTimestamp("joined_at"));
+                        members.add(member);
+                    }
+                }
+            }
+        }
+        return members;
+    }
 }

@@ -33,7 +33,8 @@ public class chatDemo extends JFrame implements WebSocketReceiver {
     private User currentUser;
 
     public chatDemo() {
-        URI uri = URI.create("ws://localhost:1145/demo_webapp/chat");
+        // URI uri = URI.create("ws://localhost:1145/demo_webapp/chat");
+        URI uri = URI.create("ws://47.97.117.157:8080/demo_webapp/chat");
         WebSocketClient client = new WebSocketClient(uri);
 
         try {
@@ -61,16 +62,16 @@ public class chatDemo extends JFrame implements WebSocketReceiver {
         add(new JScrollPane(chatArea), BorderLayout.CENTER);
 
         // 读取缓存
-        var cache = chatMessageService.getGroupMessages(1);
-        for (var message : cache) {
-            chatArea.append("History: " + message.toJson() + "\n");
-            System.out.println(message.toJson());
-        }
-        var privateCache = chatMessageService.getPrivateMessages(1, 17);
-        for (var message : privateCache) {
-            chatArea.append("History: " + message.toJson() + "\n");
-            System.out.println(message.toJson());
-        }
+        // var cache = chatMessageService.getGroupMessages(1);
+        // for (var message : cache) {
+        //     chatArea.append("History: " + message.toJson() + "\n");
+        //     System.out.println(message.toJson());
+        // }
+        // var privateCache = chatMessageService.getPrivateMessages(1, 17);
+        // for (var message : privateCache) {
+        //     chatArea.append("History: " + message.toJson() + "\n");
+        //     System.out.println(message.toJson());
+        // }
 
         JPanel panel = new JPanel(new BorderLayout());
         messageField = new JTextField();

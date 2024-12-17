@@ -9,4 +9,5 @@ public interface GroupMemberDAOImp {
     void updateGroupMember(GroupMember member) throws Exception;
     void deleteGroupMember(int groupId, int userId) throws Exception;
     List<GroupMember> getAllGroupMembers() throws Exception;
+    List<GroupMember> getGroupMembersByUserId(int userId) throws Exception;
 }

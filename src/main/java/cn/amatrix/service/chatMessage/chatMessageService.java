@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.Collections;
 import java.util.List;
 
 import cn.amatrix.model.groups.Group;
@@ -12,6 +13,8 @@ import cn.amatrix.model.message.Message;
 import cn.amatrix.model.message.Message.MessageEndPoint;
 import cn.amatrix.model.users.PrivateMessage;
 import cn.amatrix.model.users.User;
+import cn.amatrix.utils.messageHeap.GroupMessageHeap;
+import cn.amatrix.utils.messageHeap.PrivateMessageHeap;
 import cn.amatrix.utils.webSocketClient.WebSocketClient;
 import cn.amatrix.utils.webSocketClient.receivedWebSocketMessage.ReceivedWebSocketMessageEventQueue;
 
@@ -194,8 +197,42 @@ public class ChatMessageService {
      * @param receiverId 接收者的ID
      * @return 私信列表
      */
-    public List<PrivateMessage> getPrivateMessages(int senderId, int receiverId) {
-        return messageCacheService.getPrivateMessages(senderId, receiverId);
+    public List<PrivateMessage> getPrivateMessageCache(int senderId, int receiverId) {
+        List<PrivateMessage> messages1 = messageCacheService.getPrivateMessages(senderId, receiverId);
+        List<PrivateMessage> messages2 = messageCacheService.getPrivateMessages(receiverId, senderId);
+        PrivateMessageHeap messageHeap = PrivateMessageHeap.createHeapBySentAt();
+        for (PrivateMessage message : messages1) {
+            messageHeap.addMessage(message);
+        }
+        for (PrivateMessage message : messages2) {
+            messageHeap.addMessage(message);
+        }
+
+        List<PrivateMessage> result = messageHeap.pollAllMessages();
+        Collections.reverse(result);
+        return result;
+    }
+
+    /**
+     * 获取特定发送者和接收者的所有私信。
+     * @param senderId 发送者的ID
+     * @param receiverId 接收者的ID
+     * @return 私信列表
+     */
+    public List<PrivateMessage> getPrivateMessageCache(int senderId, int receiverId, int k) {
+        List<PrivateMessage> messages1 = messageCacheService.getPrivateMessages(senderId, receiverId);
+        List<PrivateMessage> messages2 = messageCacheService.getPrivateMessages(receiverId, senderId);
+        PrivateMessageHeap messageHeap = PrivateMessageHeap.createHeapBySentAt();
+        for (PrivateMessage message : messages1) {
+            messageHeap.addMessage(message);
+        }
+        for (PrivateMessage message : messages2) {
+            messageHeap.addMessage(message);
+        }
+
+        List<PrivateMessage> result = messageHeap.pollMessages(k);
+        Collections.reverse(result);
+        return result;
     }
 
     /**
@@ -203,8 +240,31 @@ public class ChatMessageService {
      * @param groupId 群组的ID
      * @return 群组消息列表
      */
-    public List<GroupMessage> getGroupMessages(int groupId) {
-        return messageCacheService.getGroupMessages(groupId);
+    public List<GroupMessage> getGroupMessageCache(int groupId) {
+        List<GroupMessage> messages = messageCacheService.getGroupMessages(groupId);
+        GroupMessageHeap messageHeap = GroupMessageHeap.createHeapBySentAt();
+        for (GroupMessage message : messages) {
+            messageHeap.addMessage(message);
+        }
+        List<GroupMessage> result = messageHeap.pollAllMessages();
+        Collections.reverse(result);
+        return result;
+    }
+
+    /**
+     * 获取特定群组的所有消息。
+     * @param groupId 群组的ID
+     * @return 群组消息列表
+     */
+    public List<GroupMessage> getGroupMessageCache(int groupId, int k) {
+        List<GroupMessage> messages = messageCacheService.getGroupMessages(groupId);
+        GroupMessageHeap messageHeap = GroupMessageHeap.createHeapBySentAt();
+        for (GroupMessage message : messages) {
+            messageHeap.addMessage(message);
+        }
+        List<GroupMessage> result = messageHeap.pollMessages(k);
+        Collections.reverse(result);
+        return result;
     }
 
     /**

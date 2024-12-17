@@ -33,7 +33,8 @@ public class chatDemo2 extends JFrame implements WebSocketReceiver {
     private User currentUser;
 
     public chatDemo2() {
-        URI uri = URI.create("ws://localhost:1145/demo_webapp/chat");
+        // URI uri = URI.create("ws://localhost:1145/demo_webapp/chat");
+        URI uri = URI.create("ws://47.97.117.157:8080/demo_webapp/chat");
         WebSocketClient client = new WebSocketClient(uri);
 
         try {
@@ -43,11 +44,11 @@ public class chatDemo2 extends JFrame implements WebSocketReceiver {
         }
 
         signInService = new SignInService(client);
-        signInService.submitSignInInformation("1234", "123@134.com", "123456");
+        signInService.submitSignInInformation("1234", "zhr20050305@outlook.com", "123456");
         
         // 17 is the user id of the current user
         currentUser = new User();
-        currentUser.setUser_id(17);
+        currentUser.setUser_id(2);
         currentUser.setUsername("CurrentUser");
 
         setTitle("Chat Demo2");
@@ -61,16 +62,16 @@ public class chatDemo2 extends JFrame implements WebSocketReceiver {
         add(new JScrollPane(chatArea), BorderLayout.CENTER);
 
         // 读取缓存
-        var cache = chatMessageService.getGroupMessages(1);
-        for (var message : cache) {
-            chatArea.append("History: " + message.toJson() + "\n");
-            System.out.println(message.toJson());
-        }
-        var privateCache = chatMessageService.getPrivateMessages(17, 1);
-        for (var message : privateCache) {
-            chatArea.append("History: " + message.toJson() + "\n");
-            System.out.println(message.toJson());
-        }
+        // var cache = chatMessageService.getGroupMessages(1);
+        // for (var message : cache) {
+        //     chatArea.append("History: " + message.toJson() + "\n");
+        //     System.out.println(message.toJson());
+        // }
+        // var privateCache = chatMessageService.getPrivateMessages(17, 1);
+        // for (var message : privateCache) {
+        //     chatArea.append("History: " + message.toJson() + "\n");
+        //     System.out.println(message.toJson());
+        // }
 
         JPanel panel = new JPanel(new BorderLayout());
         messageField = new JTextField();

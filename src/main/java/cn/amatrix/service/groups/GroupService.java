@@ -87,6 +87,36 @@ public class GroupService {
     }
 
     /**
+     * 添加新群组，并将创建者添加为群主。
+     *
+     * @param group 群组信息
+     * @param creatorUserId 创建者用户 ID
+     */
+    public Group createGroup(int creatorUserId) {
+        try {
+            Group group = new Group();
+            group.setGroupName("New Group");
+            group.setAvatar("\"null\"");
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            group.setCreatedAt(timestamp);
+            groupDAO.addGroup(group);
+            
+            List<Group> groups = groupDAO.getAllGroups();
+            for (Group g : groups) {
+                if (g.getGroupName().equals("New Group") && g.getCreatedAt().equals(timestamp)) {
+                    group = g;
+                    break;
+                }
+            }
+
+            return group;
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error adding group", e);
+            return null;
+        }
+    }
+
+    /**
      * 更新群组信息。
      *
      * @param group 群组信息
@@ -191,6 +221,15 @@ public class GroupService {
             return groupMemberDAO.getAllGroupMembers();
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error getting all group members", e);
+            return null;
+        }
+    }
+
+    public List<GroupMember> getGroupMembersByUserId(int userId) {
+        try {
+            return groupMemberDAO.getGroupMembersByUserId(userId);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error getting group members by user ID", e);
             return null;
         }
     }

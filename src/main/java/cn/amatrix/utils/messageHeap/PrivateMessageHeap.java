@@ -29,6 +29,14 @@ public class PrivateMessageHeap {
         return messages;
     }
 
+    public List<PrivateMessage> pollAllMessages() {
+        List<PrivateMessage> messages = new ArrayList<>();
+        while (!messageQueue.isEmpty()) {
+            messages.add(messageQueue.poll());
+        }
+        return messages;
+    }
+
     public boolean isEmpty() {
         return messageQueue.isEmpty();
     }
