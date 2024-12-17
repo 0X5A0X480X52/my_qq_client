@@ -207,8 +207,7 @@ public class UserDetailedInfoPanel extends JPanel {
                 }
             }
         });
-   
-        
+
         if (currentUser.getUser_id() == targetUser.getUser_id())
             popupMenu.add(changeInfoItem);
             

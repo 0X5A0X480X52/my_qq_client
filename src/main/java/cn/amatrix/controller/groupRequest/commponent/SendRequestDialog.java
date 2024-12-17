@@ -2,7 +2,9 @@ package cn.amatrix.controller.groupRequest.commponent;
 
 import cn.amatrix.controller.InfoPanel.group.GroupInfoPanel;
 import cn.amatrix.model.groups.Group;
+import cn.amatrix.model.users.User;
 import cn.amatrix.service.groups.GroupService;
+import cn.amatrix.service.users.UserService;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +20,9 @@ public class SendRequestDialog extends JDialog {
         setLayout(new BorderLayout());
         setSize(300, 250);
 
-        GroupInfoPanel userInfo = new GroupInfoPanel(rootPane, group, new ActionListener() {
+        UserService userService = new UserService();
+        User currentUser = userService.getUserById(currentUserId);
+        GroupInfoPanel userInfo = new GroupInfoPanel(rootPane, group, currentUser, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 groupService.addGroupJoinRequest(group.getGroupId(), currentUserId, requestMessageField.getText());;

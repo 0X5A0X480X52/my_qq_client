@@ -48,8 +48,6 @@ public class GroupDAO implements GroupDAOImp {
 
         String responseBody = response.body();
 
-        System.out.println(responseBody);
-
         Pattern pattern = Pattern.compile("\\{[^}]+\\}");
         Matcher matcher = pattern.matcher(responseBody);
 

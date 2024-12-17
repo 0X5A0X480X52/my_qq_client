@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "InfoPanelLists",
+            "request": "launch",
+            "mainClass": "cn.amatrix.controller.InfoPanel.InfoPanelLists",
+            "projectName": "my_qq_client"
+        },
+        {
+            "type": "java",
             "name": "friendRequestDemo",
             "request": "launch",
             "mainClass": "cn.amatrix.controller.friendRequest.friendRequestDemo",

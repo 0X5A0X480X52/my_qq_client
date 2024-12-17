@@ -28,15 +28,49 @@ public class GroupMemberServlet extends HttpServlet {
             String type = jsonObject.getString("type");
             String param = jsonObject.get("param").toString();
 
+            System.out.println("/groupMembers/");
+            System.out.println("Request type: " + type);
+            System.out.println("Request param: " + param);
+
             switch (type) {
                 case "getById":
                     JSONObject idParams = JSON.parseObject(param);
                     int groupId = idParams.getIntValue("groupId");
                     int userId = idParams.getIntValue("userId");
                     GroupMember memberById = groupMemberDAO.getGroupMemberById(groupId, userId);
-                    response.setContentType("application/json");
+                    response.setContentType("application/json; charset=UTF-8");
                     response.getWriter().write(memberById.toJson());
                     break;
+                case "getByGroupId":
+                    int groupIdToGet = Integer.parseInt(param);
+                    List<GroupMember> membersByGroupId = groupMemberDAO.getGroupMembersByGroupId(groupIdToGet);
+                    StringBuilder jsonBuilderByGroupId = new StringBuilder("[");
+                    for (int i = 0; i < membersByGroupId.size(); i++) {
+                        jsonBuilderByGroupId.append(membersByGroupId.get(i).toJson());
+                        if (i < membersByGroupId.size() - 1) {
+                            jsonBuilderByGroupId.append(",");
+                        }
+                    }
+                    jsonBuilderByGroupId.append("]");
+                    response.setContentType("application/json; charset=UTF-8");
+                    response.getWriter().write(jsonBuilderByGroupId.toString());
+                    break;
+
+                case "getByUserId":
+                    int userIdToGet = Integer.parseInt(param);
+                    List<GroupMember> membersByUserId = groupMemberDAO.getGroupMembersByUserId(userIdToGet);
+                    StringBuilder jsonBuilderByUserId = new StringBuilder("[");
+                    for (int i = 0; i < membersByUserId.size(); i++) {
+                        jsonBuilderByUserId.append(membersByUserId.get(i).toJson());
+                        if (i < membersByUserId.size() - 1) {
+                            jsonBuilderByUserId.append(",");
+                        }
+                    }
+                    jsonBuilderByUserId.append("]");
+                    response.setContentType("application/json; charset=UTF-8");
+                    response.getWriter().write(jsonBuilderByUserId.toString());
+                    break;
+
                 case "getAll":
                     List<GroupMember> members = groupMemberDAO.getAllGroupMembers();
                     StringBuilder jsonBuilder = new StringBuilder("[");
@@ -47,22 +81,8 @@ public class GroupMemberServlet extends HttpServlet {
                         }
                     }
                     jsonBuilder.append("]");
-                    response.setContentType("application/json");
+                    response.setContentType("application/json; charset=UTF-8");
                     response.getWriter().write(jsonBuilder.toString());
-                    break;
-                case "getByUserId":
-                    int userIdParam = Integer.parseInt(param);
-                    List<GroupMember> membersByUserId = groupMemberDAO.getGroupMembersByUserId(userIdParam);
-                    StringBuilder jsonBuilderByUserId = new StringBuilder("[");
-                    for (int i = 0; i < membersByUserId.size(); i++) {
-                        jsonBuilderByUserId.append(membersByUserId.get(i).toJson());
-                        if (i < membersByUserId.size() - 1) {
-                            jsonBuilderByUserId.append(",");
-                        }
-                    }
-                    jsonBuilderByUserId.append("]");
-                    response.setContentType("application/json");
-                    response.getWriter().write(jsonBuilderByUserId.toString());
                     break;
                 case "add":
                     GroupMember memberToAdd = GroupMember.fromJson(param);

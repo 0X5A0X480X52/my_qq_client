@@ -1,11 +1,15 @@
 package cn.amatrix.controller.InfoPanel.group;
 
 import cn.amatrix.model.groups.Group;
+import cn.amatrix.model.users.User;
+import cn.amatrix.service.groups.GroupService;
 import cn.amatrix.utils.base64.ImageManager;
 import cn.amatrix.controller.InfoPanel.InfoPanel;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -22,8 +26,14 @@ public class GroupInfoPanel extends InfoPanel {
     private String additionalInfo = "";
 
     private JComponent parentComponent;
+    private Group group;
+    private User currentUser;
 
-    public GroupInfoPanel(JComponent parentComponent, Group group, ActionListener sendRequestListener) {
+    public GroupInfoPanel(JComponent parentComponent, Group group, User currentUser, ActionListener sendRequestListener) {
+
+        this.group = group;
+        this.currentUser = currentUser;
+
         setLayout(new BorderLayout());
         this.parentComponent = parentComponent;
         int parentWidth = this.parentComponent.getWidth();
@@ -38,6 +48,15 @@ public class GroupInfoPanel extends InfoPanel {
         avatarPanel = new JPanel();
         avatarPanel.setLayout(new BorderLayout());
         avatarPanel.add(avatarIcon, BorderLayout.NORTH);
+
+        avatarPanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (SwingUtilities.isLeftMouseButton(e)) {
+                    showDetailedInfoPanel(group);
+                }
+            }
+        });
 
         // 创建子Panel用于放置群组名标签
         infoPanel = new JPanel();
@@ -64,7 +83,7 @@ public class GroupInfoPanel extends InfoPanel {
 
     private void initAvatarIcon(String base64Image) {
 
-        if (base64Image == null || base64Image.isEmpty()) {
+        if (base64Image == null || base64Image.isEmpty() || base64Image.equals("null") || base64Image.equals("\"null\"")) {
             avatarIcon = new JLabel(createPlaceholderIcon());
             return;
         }
@@ -133,5 +152,49 @@ public class GroupInfoPanel extends InfoPanel {
                 return 40;
             }
         };
+    }
+
+    private void showDetailedInfoPanel(Group group) {
+        JFrame frame = new JFrame("群组详细信息");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(400, 300);
+        frame.setLocationRelativeTo(null);
+        frame.add(new GroupDetailedInfoPanel(group, currentUser));
+        frame.setVisible(true);
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                refreshPanel();
+            }
+        });
+    }
+
+    private void refreshPanel() {
+        removeAll();
+        GroupService groupService = new GroupService();
+        Group group = groupService.getGroupById(this.group.getGroupId());
+        initAvatarIcon(group.getAvatar());
+        initGroupNameLabel(group.getGroupName());
+        initGroupIdLabel(String.format("%06d", group.getGroupId()));
+        initAdditionalInfoLabel();
+
+        avatarPanel = new JPanel();
+        avatarPanel.setLayout(new BorderLayout());
+        avatarPanel.add(avatarIcon, BorderLayout.NORTH);
+
+        infoPanel = new JPanel();
+        infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
+        infoPanel.add(groupNameLabel);
+        infoPanel.add(groupIdLabel);
+        infoPanel.add(additionalInfoLabel);
+
+        add(avatarPanel, BorderLayout.WEST);
+        add(infoPanel, BorderLayout.CENTER);
+        add(buttonPanel, BorderLayout.EAST);
+
+        setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        avatarPanel.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 5));
+        revalidate();
+        repaint();
     }
 }

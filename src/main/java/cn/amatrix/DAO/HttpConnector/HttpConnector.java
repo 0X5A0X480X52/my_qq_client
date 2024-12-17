@@ -21,7 +21,13 @@ public class HttpConnector {
     public HttpResponse<String> sendRequest(String subPath, String type, String param) throws Exception {
         Map<String, Object> requestBodyMap = new HashMap<>();
         requestBodyMap.put("type", type);
-        requestBodyMap.put("param", JSON.parse(param));
+        Object paramObj = JSON.parse(param);
+        if (paramObj == null) {
+            requestBodyMap.put("param", "null");
+        } else {
+            requestBodyMap.put("param", paramObj);
+        }
+        // requestBodyMap.put("param", JSON.parse(param));
         String requestBody = JSON.toJSONString(requestBodyMap);
         
         HttpRequest request = HttpRequest.newBuilder()

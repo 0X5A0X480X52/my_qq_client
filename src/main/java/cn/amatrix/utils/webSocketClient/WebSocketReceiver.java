@@ -29,4 +29,20 @@ public interface WebSocketReceiver {
             throw new RuntimeErrorException(null, " EventQueue is not instance of ReceivedWebSocketMessageEventQueue ");
         
     }
+    /**
+     * 移除一个接收到 WebSocket 消息的事件监听器。
+     * 
+     * @param listener 接收到 WebSocket 消息的事件监听器
+     * @throws RuntimeErrorException 如果系统事件队列不是 ReceivedWebSocketMessageEventQueue 的实例
+     */
+    default public void removeReceivedWebSocketMessageEventListener( ReceivedWebSocketMessageEventListener listener ) throws RuntimeErrorException {
+
+        EventQueue eventQueue = Toolkit.getDefaultToolkit().getSystemEventQueue();
+        if ( eventQueue instanceof ReceivedWebSocketMessageEventQueue ) {
+            ReceivedWebSocketMessageEventQueue ReceivedWebSocketMessageEvent = (ReceivedWebSocketMessageEventQueue)eventQueue;
+            ReceivedWebSocketMessageEvent.removeReceivedWebSocketMessageEventListener( listener );
+        } else
+            throw new RuntimeErrorException(null, " EventQueue is not instance of ReceivedWebSocketMessageEventQueue ");
+        
+    }
 }

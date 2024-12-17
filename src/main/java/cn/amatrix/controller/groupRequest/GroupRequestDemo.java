@@ -10,6 +10,7 @@ import cn.amatrix.controller.InfoPanel.group.GroupInfoPanel;
 import cn.amatrix.controller.InfoPanel.user.UserInfoPanel;
 import cn.amatrix.controller.groupRequest.commponent.HandleRequestDialog;
 import cn.amatrix.controller.groupRequest.commponent.SendRequestDialog;
+import cn.amatrix.controller.groupRequest.commponent.CreateGroupDialog;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -83,7 +84,7 @@ public class GroupRequestDemo extends JFrame {
                 Group group = groupService.getGroupById(groupId);
                 groupInfoPanel.removeAll();
                 if (group != null) {
-                    GroupInfoPanel groupInfo = new GroupInfoPanel(groupInfoPanel, group, null);
+                    GroupInfoPanel groupInfo = new GroupInfoPanel(groupInfoPanel, group, currentUser, null);
                     JButton sendRequestButton = new JButton("发送入群申请");
                     sendRequestButton.addActionListener(new ActionListener() {
                         @Override
@@ -124,14 +125,8 @@ public class GroupRequestDemo extends JFrame {
         createGroupButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // 这里添加创建群聊的逻辑
-                GroupService groupService = new GroupService();
-                Group newGroup = groupService.createGroup(currentUserId);
-                if (newGroup == null) {
-                    JOptionPane.showMessageDialog(GroupRequestDemo.this, "创建群聊失败！");
-                    return;
-                } else
-                    JOptionPane.showMessageDialog(GroupRequestDemo.this, "创建群聊成功！群聊ID：" + newGroup.getGroupId());
+                CreateGroupDialog createGroupDialog = new CreateGroupDialog(GroupRequestDemo.this, currentUserId);
+                createGroupDialog.setVisible(true);
             }
         });
         createGroupButton.setFont(new Font("微软雅黑", Font.BOLD, 12));
@@ -252,7 +247,7 @@ public class GroupRequestDemo extends JFrame {
         for (GroupJoinRequest request : sentRequests) {
             int groupId = request.getGroupId();
             String requestMessage = request.getRequestMessage();
-            GroupInfoPanel groupInfoPanel = new GroupInfoPanel(this.sentRequestsPanel, groupService.getGroupById(groupId), null);
+            GroupInfoPanel groupInfoPanel = new GroupInfoPanel(this.sentRequestsPanel, groupService.getGroupById(groupId), currentUser, null);
             groupInfoPanel.setAdditionalInfo("验证消息：" + requestMessage);
 
             if (request.getRequestStatus().equals(GroupJoinRequest.RequestStatus.pending.toString())) {

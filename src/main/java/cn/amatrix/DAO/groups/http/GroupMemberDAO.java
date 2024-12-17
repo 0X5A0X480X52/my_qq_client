@@ -18,7 +18,7 @@ public class GroupMemberDAO implements GroupMemberDAOImp {
     }
 
     public GroupMember getGroupMemberById(int groupId, int userId) throws Exception {
-        String param = "{\"groupId\":" + groupId + ",\"userId\":\"" + userId + "\"}";
+        String param = "{\"groupId\":" + groupId + ",\"userId\":" + userId + "}";
         HttpResponse<String> response = httpConnector.sendRequest(SUB_PATH, "getById", param);
         return GroupMember.fromJson(response.body());
     }
@@ -37,7 +37,7 @@ public class GroupMemberDAO implements GroupMemberDAOImp {
         String param = "{\"groupId\":" + groupId + ",\"userId\":" + userId + "}";
         httpConnector.sendRequest(SUB_PATH, "delete", param);
     }
-
+ 
     public List<GroupMember> getAllGroupMembers() throws Exception {
         HttpResponse<String> response = httpConnector.sendRequest(SUB_PATH, "getAll", "null");
         List<GroupMember> members = new ArrayList<>();
@@ -55,7 +55,24 @@ public class GroupMemberDAO implements GroupMemberDAOImp {
 
     @Override
     public List<GroupMember> getGroupMembersByUserId(int userId) throws Exception {
-        HttpResponse<String> response = httpConnector.sendRequest(SUB_PATH, "getAll", "null");
+        HttpResponse<String> response = httpConnector.sendRequest(SUB_PATH, "getByUserId", String.valueOf(userId));
+        List<GroupMember> members = new ArrayList<>();
+
+        String responseBody = response.body();
+        Pattern pattern = Pattern.compile("\\{[^}]+\\}");
+        Matcher matcher = pattern.matcher(responseBody);
+
+        while (matcher.find()) {
+            String jsonObject = matcher.group();
+            members.add(GroupMember.fromJson(jsonObject));
+        }
+        return members;
+    }
+
+    @Override
+    public List<GroupMember> getGroupMembersByGroupId(int groupId) throws Exception {
+        String param = "{\"groupId\":" + groupId + "}";
+        HttpResponse<String> response = httpConnector.sendRequest(SUB_PATH, "getByGroupId", param);
         List<GroupMember> members = new ArrayList<>();
 
         String responseBody = response.body();

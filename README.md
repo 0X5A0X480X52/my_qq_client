@@ -69,8 +69,8 @@
         friend_id INT NOT NULL,
         added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         PRIMARY KEY (user_id, friend_id),
-        FOREIGN KEY (user_id) REFERENCES users(user_id),
-        FOREIGN KEY (friend_id) REFERENCES users(user_id)
+        FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+        FOREIGN KEY (friend_id) REFERENCES users(user_id) ON DELETE CASCADE
     );
 
     CREATE TABLE friend_requests (
@@ -80,8 +80,8 @@
         request_message TEXT,
         request_status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
         requested_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (sender_id) REFERENCES users(user_id),
-        FOREIGN KEY (receiver_id) REFERENCES users(user_id)
+        FOREIGN KEY (sender_id) REFERENCES users(user_id) ON DELETE CASCADE,
+        FOREIGN KEY (receiver_id) REFERENCES users(user_id) ON DELETE CASCADE
     );
 
     CREATE TABLE private_messages (
@@ -90,8 +90,8 @@
         receiver_id INT NOT NULL,
         message TEXT NOT NULL,
         sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (sender_id) REFERENCES users(user_id),
-        FOREIGN KEY (receiver_id) REFERENCES users(user_id)
+        FOREIGN KEY (sender_id) REFERENCES users(user_id) ON DELETE CASCADE,
+        FOREIGN KEY (receiver_id) REFERENCES users(user_id) ON DELETE CASCADE
     );
 
     CREATE TABLE user_groups (
@@ -107,8 +107,8 @@
         power ENUM('owner', 'admin', 'member') DEFAULT 'member',
         joined_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         PRIMARY KEY (group_id, user_id),
-        FOREIGN KEY (group_id) REFERENCES groups(group_id),
-        FOREIGN KEY (user_id) REFERENCES users(user_id)
+        FOREIGN KEY (group_id) REFERENCES user_groups(group_id) ON DELETE CASCADE,
+        FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
     );
 
     CREATE TABLE group_messages (
@@ -117,8 +117,8 @@
         sender_id INT NOT NULL,
         message TEXT NOT NULL,
         sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (group_id) REFERENCES groups(group_id),
-        FOREIGN KEY (sender_id) REFERENCES users(user_id)
+        FOREIGN KEY (group_id) REFERENCES user_groups(group_id) ON DELETE CASCADE,
+        FOREIGN KEY (sender_id) REFERENCES users(user_id) ON DELETE CASCADE
     );
 
     CREATE TABLE group_join_requests (
@@ -128,8 +128,8 @@
         request_message TEXT,
         request_status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
         requested_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (group_id) REFERENCES user_groups(group_id),
-        FOREIGN KEY (user_id) REFERENCES users(user_id)
+        FOREIGN KEY (group_id) REFERENCES user_groups(group_id) ON DELETE CASCADE,
+        FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
     );
     ```
 

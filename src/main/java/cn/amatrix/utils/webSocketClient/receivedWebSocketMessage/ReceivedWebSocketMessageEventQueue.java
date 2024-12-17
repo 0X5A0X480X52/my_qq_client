@@ -53,4 +53,16 @@ public class ReceivedWebSocketMessageEventQueue extends EventQueue {
         }
         this.listener = AWTEventMulticaster.add(this.listener, listener);
     }
+
+    /**
+     * 添加接收到 WebSocket 消息的事件监听器。
+     *
+     * @param listener 接收到 WebSocket 消息的事件监听器
+     */
+    public void removeReceivedWebSocketMessageEventListener( ReceivedWebSocketMessageEventListener listener) {
+        if (listener == null) {
+            return;
+        }
+        this.listener = AWTEventMulticaster.remove(this.listener, listener);
+    }
 }

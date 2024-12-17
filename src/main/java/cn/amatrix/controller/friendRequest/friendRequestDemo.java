@@ -316,7 +316,7 @@ public class friendRequestDemo extends JFrame {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new friendRequestDemo(1).setVisible(true); // 假设当前用户ID为
+                new friendRequestDemo(8).setVisible(true); // 假设当前用户ID为
             }
         });
     }

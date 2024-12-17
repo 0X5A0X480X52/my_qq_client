@@ -95,21 +95,27 @@ public class GroupService {
     public Group createGroup(int creatorUserId) {
         try {
             Group group = new Group();
-            group.setGroupName("New Group");
-            group.setAvatar("\"null\"");
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            String groupName = "New Group" + timestamp.hashCode();
+            group.setGroupName(groupName);
+            group.setAvatar("\"null\"");
             group.setCreatedAt(timestamp);
-            groupDAO.addGroup(group);
-            
-            List<Group> groups = groupDAO.getAllGroups();
+            addGroup(group, creatorUserId);
+
+            List<Group> groups = getAllGroups();
             for (Group g : groups) {
-                if (g.getGroupName().equals("New Group") && g.getCreatedAt().equals(timestamp)) {
-                    group = g;
-                    break;
+                if (g.getGroupName().equals(groupName)) {
+                    GroupMember newMember = new GroupMember();
+                    newMember.setGroupId(g.getGroupId());
+                    newMember.setUserId(creatorUserId);
+                    newMember.setPower("owner");
+                    newMember.setJoinedAt(timestamp);
+                    groupMemberDAO.addGroupMember(newMember);
+                    return g;
                 }
             }
 
-            return group;
+            return null;
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error adding group", e);
             return null;
@@ -234,6 +240,15 @@ public class GroupService {
         }
     }
 
+    public List<GroupMember> getGroupMembersByGroupId(int groupId) {
+        try {
+            return groupMemberDAO.getGroupMembersByGroupId(groupId);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error getting group members by group ID", e);
+            return null;
+        }
+    }
+
     /**
      * 添加入群申请。
      *
@@ -278,11 +293,17 @@ public class GroupService {
      */
     public List<GroupJoinRequest> getGroupJoinRequestsByUserId_toHandle(int currentUserId) {
         try {
-            List<GroupJoinRequest> list = groupJoinRequestDAO.getGroupJoinRequestsByUserId(currentUserId);
             List<GroupJoinRequest> outputList = new ArrayList<>();
-            for (GroupJoinRequest request : list) {
-                String power = groupMemberDAO.getGroupMemberById(request.getGroupId(), currentUserId).getPower();
-                if ("owner".equals(power) || "admin".equals(power)) {
+            List<GroupMember> memberList = groupMemberDAO.getGroupMembersByUserId(currentUserId);
+            List<Integer> groupIds = new ArrayList<>();
+            for (GroupMember member : memberList) {
+                if ("owner".equals(member.getPower()) || "admin".equals(member.getPower())) {
+                    groupIds.add(member.getGroupId());
+                }
+            }
+            for (int groupId : groupIds) {
+                List<GroupJoinRequest> requests = groupJoinRequestDAO.getGroupJoinRequestsByGroupId(groupId);
+                for (GroupJoinRequest request : requests) {
                     outputList.add(request);
                 }
             }
@@ -359,6 +380,27 @@ public class GroupService {
             groupMessageDAO.addGroupMessage(message);
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error adding group message", e);
+        }
+    }
+
+    /**
+     * 添加群消息。
+     *
+     * @param groupId 群组 ID
+     * @param senderId 发送者 ID
+     * @param messageContent 消息内容
+     */
+    public void addGroupMessageThrowsException(int groupId, int senderId, String messageContent) throws Exception {
+        try {
+            GroupMessage message = new GroupMessage();
+            message.setGroupId(groupId);
+            message.setSenderId(senderId);
+            message.setMessage(messageContent);
+            message.setSentAt(new Timestamp(System.currentTimeMillis()));
+            groupMessageDAO.addGroupMessage(message);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error adding group message", e);
+            throw e;
         }
     }
 
