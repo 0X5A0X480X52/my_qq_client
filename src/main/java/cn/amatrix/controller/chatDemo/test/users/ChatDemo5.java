@@ -1,4 +1,4 @@
-package cn.amatrix.controller.chatDemo.test;
+package cn.amatrix.controller.chatDemo.test.users;
 
 import javax.swing.*;
 

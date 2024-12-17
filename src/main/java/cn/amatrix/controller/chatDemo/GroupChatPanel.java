@@ -203,7 +203,8 @@ public class GroupChatPanel extends JPanel implements WebSocketReceiver {
             e.printStackTrace();
         }
 
-        URI uri = URI.create("ws://47.97.117.157:8080/demo_webapp/chat");
+        // URI uri = URI.create("ws://47.97.117.157:8080/demo_webapp/chat");
+        URI uri = URI.create("ws://localhost:1145/demo_webapp/chat");
         WebSocketClient client1 = new WebSocketClient(uri);
 
         SignInService signInService1 = new SignInService(client1);

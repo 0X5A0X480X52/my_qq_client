@@ -14,7 +14,9 @@ public class GroupMessageHeap {
     }
 
     public void addMessage(GroupMessage message) {
-        messageQueue.add(message);
+        if (message.getSentAt() != null) {
+            messageQueue.add(message);
+        }
     }
 
     public GroupMessage pollMessage() {

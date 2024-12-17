@@ -6,6 +6,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Instance02",
+            "request": "launch",
+            "mainClass": "cn.amatrix.controller.chatDemo.test.groups.Instance02",
+            "projectName": "my_qq_client"
+        },
+        {
+            "type": "java",
+            "name": "Instance01",
+            "request": "launch",
+            "mainClass": "cn.amatrix.controller.chatDemo.test.groups.Instance01",
+            "projectName": "my_qq_client"
+        },
+        {
+            "type": "java",
+            "name": "Instance03",
+            "request": "launch",
+            "mainClass": "cn.amatrix.controller.chatDemo.test.groups.Instance03",
+            "projectName": "my_qq_client"
+        },
+        {
+            "type": "java",
             "name": "InfoPanelLists",
             "request": "launch",
             "mainClass": "cn.amatrix.controller.InfoPanel.InfoPanelLists",
