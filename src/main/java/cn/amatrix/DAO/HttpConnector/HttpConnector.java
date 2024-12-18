@@ -1,5 +1,7 @@
 package cn.amatrix.DAO.HttpConnector;
 
+import cn.amatrix.utils.configManager.managers.HttpConfigManager;
+
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -10,8 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class HttpConnector {
-    private static final String BASE_URL = "http://localhost:1145/demo_webapp";
-    // private static final String BASE_URL = "http://47.97.117.157:8080/demo_webapp";
+    private static final String BASE_URL = HttpConfigManager.getBaseURL();
     private final HttpClient httpClient;
 
     public HttpConnector() {
@@ -27,7 +28,6 @@ public class HttpConnector {
         } else {
             requestBodyMap.put("param", paramObj);
         }
-        // requestBodyMap.put("param", JSON.parse(param));
         String requestBody = JSON.toJSONString(requestBodyMap);
         
         HttpRequest request = HttpRequest.newBuilder()

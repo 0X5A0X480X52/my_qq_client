@@ -1,7 +1,6 @@
 package cn.amatrix.controller.chatDemo.test.groups;
 
 import java.net.URI;
-
 import com.formdev.flatlaf.FlatLightLaf;
 import cn.amatrix.controller.chatDemo.GroupChatPanel;
 
@@ -11,6 +10,7 @@ import cn.amatrix.service.groups.GroupService;
 import cn.amatrix.service.signIn.SignInService;
 import cn.amatrix.service.users.UserService;
 import cn.amatrix.utils.webSocketClient.WebSocketClient;
+import cn.amatrix.utils.configManager.managers.WebSocketConfigManager;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -26,7 +26,8 @@ public class Instance01 {
         }
 
         // URI uri = URI.create("ws://47.97.117.157:8080/demo_webapp/chat");
-        URI uri = URI.create("ws://localhost:1145/demo_webapp/chat");
+        String uriStr = WebSocketConfigManager.getURI();
+        URI uri = URI.create(uriStr);
         WebSocketClient client1 = new WebSocketClient(uri);
 
         SignInService signInService1 = new SignInService(client1);

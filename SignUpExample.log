@@ -181,3 +181,19 @@ Info: 验证码已发送至您的邮箱，请查收。
 12月 12, 2024 9:42:56 上午 cn.amatrix.controller.Login02.SignUp.SignUpExample$3 actionPerformed
 信息: WebSocket received: Status: SUCCESS
 Info: 注册成功！
+12月 18, 2024 12:06:14 上午 cn.amatrix.controller.Login02.SignUp.SignUpExample$1 actionPerformed
+信息: Sending captcha to email: 3432900546@qq.com
+12月 18, 2024 12:06:16 上午 cn.amatrix.controller.Login02.SignUp.SignUpExample$1 actionPerformed
+信息: Captcha sent!
+12月 18, 2024 12:06:16 上午 cn.amatrix.controller.Login02.SignUp.SignUpExample$3 actionPerformed
+信息: Received WebSocket message: {"receiver":{"id":"WaitingForVerificationCode","type":"user"},"sender":{"type":"Server"},"messageId":"msg1","type":"EmailVerificationCodeStatus","content":"EMAILED","timestamp":"2024-12-18T00:06:16.002752685+08:00[Asia/Shanghai]","status":"验证码已发送至您的邮箱，请查收。"}
+12月 18, 2024 12:06:17 上午 cn.amatrix.controller.Login02.SignUp.SignUpExample$3 actionPerformed
+信息: WebSocket received: Status: EMAILED
+Info: 验证码已发送至您的邮箱，请查收。
+12月 18, 2024 12:06:41 上午 cn.amatrix.controller.Login02.SignUp.SignUpExample$2 actionPerformed
+信息: Signing up with captcha: 742232
+12月 18, 2024 12:06:41 上午 cn.amatrix.controller.Login02.SignUp.SignUpExample$3 actionPerformed
+信息: Received WebSocket message: {"receiver":{"id":"WaitingForSignUpInformation","type":"user"},"sender":{"type":"Server"},"messageId":"msg3","type":"EmailVerificationCodeStatus","content":"FAILED","timestamp":"2024-12-18T00:06:40.989791972+08:00[Asia/Shanghai]","status":"注册失败，请稍后重试。错误信息: Duplicate entry '3432900546@qq.com' for key 'users.email'"}
+12月 18, 2024 12:06:45 上午 cn.amatrix.controller.Login02.SignUp.SignUpExample$3 actionPerformed
+信息: WebSocket received: Status: FAILED
+Info: 注册失败，请稍后重试。错误信息: Duplicate entry '3432900546@qq.com' for key 'users.email'

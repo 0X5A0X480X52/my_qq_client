@@ -15,7 +15,7 @@ import cn.amatrix.utils.webSocketClient.receivedWebSocketMessage.ReceivedWebSock
 public class SignInService {
     
     WebSocketClient client;
-    enum SignInCodeStatus {
+    public enum SignInCodeStatus {
         SUCCESS, FAILED, UNSIGNUP, UNKNOW
     }
 

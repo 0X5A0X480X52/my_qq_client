@@ -8,13 +8,12 @@ import cn.amatrix.utils.webSocketClient.WebSocketClient;
 import cn.amatrix.utils.webSocketClient.WebSocketReceiver;
 import cn.amatrix.utils.webSocketClient.receivedWebSocketMessage.ReceivedWebSocketMessageEvent;
 import cn.amatrix.utils.webSocketClient.receivedWebSocketMessage.ReceivedWebSocketMessageEventListener;
+import cn.amatrix.utils.configManager.managers.WebSocketConfigManager;
 
 import java.util.logging.Logger;
 import java.util.logging.Level;
 import java.util.logging.FileHandler;
 import java.util.logging.SimpleFormatter;
-
-
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -45,8 +44,8 @@ public class SignUpExample extends JFrame implements WebSocketReceiver {
     SignUpService signUpService;
 
     public SignUpExample() {
-        // URI uri = URI.create("ws://localhost:1145/demo_webapp/chat");
-        URI uri = URI.create("ws://47.97.117.157:8080/demo_webapp/chat");
+        String websocketUri = WebSocketConfigManager.getURI();
+        URI uri = URI.create(websocketUri);
         this.client = new WebSocketClient(uri);
 
         setTitle("Sign Up");

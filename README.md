@@ -133,7 +133,35 @@
     );
     ```
 
-    - 修改 `src/main/resources/application.properties` 文件中的数据库配置。
+    如果 `ON DELETE CASCADE` 未设置，可用以下语句更改：
+
+    ```sql
+    ALTER TABLE friends
+    ADD CONSTRAINT fk_friends_user_id FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    ADD CONSTRAINT fk_friends_friend_id FOREIGN KEY (friend_id) REFERENCES users(user_id) ON DELETE CASCADE;
+
+    ALTER TABLE friend_requests
+    ADD CONSTRAINT fk_friend_requests_sender_id FOREIGN KEY (sender_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    ADD CONSTRAINT fk_friend_requests_receiver_id FOREIGN KEY (receiver_id) REFERENCES users(user_id) ON DELETE CASCADE;
+
+    ALTER TABLE private_messages
+    ADD CONSTRAINT fk_private_messages_sender_id FOREIGN KEY (sender_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    ADD CONSTRAINT fk_private_messages_receiver_id FOREIGN KEY (receiver_id) REFERENCES users(user_id) ON DELETE CASCADE;
+
+    ALTER TABLE group_members
+    ADD CONSTRAINT fk_group_members_group_id FOREIGN KEY (group_id) REFERENCES user_groups(group_id) ON DELETE CASCADE,
+    ADD CONSTRAINT fk_group_members_user_id FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE;
+
+    ALTER TABLE group_messages
+    ADD CONSTRAINT fk_group_messages_group_id FOREIGN KEY (group_id) REFERENCES user_groups(group_id) ON DELETE CASCADE,
+    ADD CONSTRAINT fk_group_messages_sender_id FOREIGN KEY (sender_id) REFERENCES users(user_id) ON DELETE CASCADE;
+
+    ALTER TABLE group_join_requests
+    ADD CONSTRAINT fk_group_join_requests_group_id FOREIGN KEY (group_id) REFERENCES user_groups(group_id) ON DELETE CASCADE,
+    ADD CONSTRAINT fk_group_join_requests_user_id FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE;
+    ```
+
+    - 修改 `src/main/resources/config/application.properties` 文件中的数据库配置。
 
 3. **编译与运行**：
 
