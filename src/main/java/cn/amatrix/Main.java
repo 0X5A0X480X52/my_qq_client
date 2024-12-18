@@ -1,6 +1,6 @@
 package cn.amatrix;
 
-import cn.amatrix.controller.Login02.LoginGUI;
+import cn.amatrix.controller.LoginDemo.LoginGUI;
 import cn.amatrix.utils.configManager.managers.WebSocketConfigManager;
 import cn.amatrix.utils.webSocketClient.WebSocketClient;
 import com.formdev.flatlaf.FlatLightLaf;
