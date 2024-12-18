@@ -74,8 +74,8 @@ public class ChatMessageService {
     /**
      * 发送用户消息。
      * @param infoString 消息内容
-     * @param messageSender 发送者
-     * @param messageReceiver 接收者
+     * @param messageSenderId 发送者
+     * @param messageReceiverId 接收者
      * @throws IOException 消息写入缓存出错 
      */
     public void sendPrivateMessage( String infoString, String messageSenderId, String messageReceiverId) throws IOException {

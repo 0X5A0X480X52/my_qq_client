@@ -42,7 +42,6 @@ public class friendRequestDemo extends JFrame {
 
         setTitle("好友请求管理");
         setSize(400, 600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         
         setLayout(new BorderLayout());

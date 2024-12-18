@@ -2,13 +2,13 @@ package cn.amatrix.controller.Login02.SignUp;
 
 import javax.swing.*;
 
+import cn.amatrix.controller.Login02.LoginGUI;
 import cn.amatrix.model.message.Message;
 import cn.amatrix.service.signUp.SignUpService;
 import cn.amatrix.utils.webSocketClient.WebSocketClient;
 import cn.amatrix.utils.webSocketClient.WebSocketReceiver;
 import cn.amatrix.utils.webSocketClient.receivedWebSocketMessage.ReceivedWebSocketMessageEvent;
 import cn.amatrix.utils.webSocketClient.receivedWebSocketMessage.ReceivedWebSocketMessageEventListener;
-import cn.amatrix.utils.configManager.managers.WebSocketConfigManager;
 
 import java.util.logging.Logger;
 import java.util.logging.Level;
@@ -19,6 +19,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URI;
+import java.util.regex.Pattern;
 
 public class SignUpExample extends JFrame implements WebSocketReceiver {
     private static final Logger logger = Logger.getLogger(SignUpExample.class.getName());
@@ -44,31 +45,37 @@ public class SignUpExample extends JFrame implements WebSocketReceiver {
     SignUpService signUpService;
 
     public SignUpExample() {
-        String websocketUri = WebSocketConfigManager.getURI();
-        URI uri = URI.create(websocketUri);
+        URI uri = URI.create("ws://47.97.117.157:8080/demo_webapp/chat");
         this.client = new WebSocketClient(uri);
 
         setTitle("Sign Up");
-        setSize(400, 300);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setSize(600, 400);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new GridBagLayout()); // 使用GridBagLayout布局
         setVisible(true);
-
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(5, 5, 5, 5); // 设置控件之间的间距
 
-        JLabel userNameLabel = new JLabel("UserName:");
+        JLabel passwordLabel1;
+        passwordLabel1 = new JLabel("密码由8-16位数字、字母或符号组成");
+        passwordLabel1.setForeground(Color.GRAY);
+        passwordLabel1.setFont(new Font("Microsoft YaHei", Font.PLAIN, 10));
+        JLabel userNameLabel = new JLabel("用户名:");
         userNameField = new JTextField();
-        JLabel emailLabel = new JLabel("Email:");
+        userNameField.setPreferredSize(new Dimension(200, 30));
+        JLabel emailLabel = new JLabel("Email邮箱:");
         emailField = new JTextField();
-        JLabel passwordLabel = new JLabel("Password:");
+        emailField.setPreferredSize(new Dimension(200, 30));
+        JLabel passwordLabel = new JLabel("密码:");
         passwordField = new JPasswordField();
-        JLabel captchaLabel = new JLabel("Captcha:");
+        passwordField.setPreferredSize(new Dimension(200, 30));
+        JLabel captchaLabel = new JLabel("验证码:");
         captchaField = new JTextField();
-        sendCaptchaButton = new JButton("Send Captcha");
-        signUpButton = new JButton("Sign Up");
+        captchaField.setPreferredSize(new Dimension(100, 30));
+        sendCaptchaButton = new JButton("获取验证码");
+        signUpButton = new JButton("注册");
 
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -93,27 +100,32 @@ public class SignUpExample extends JFrame implements WebSocketReceiver {
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 1;
-        add(passwordLabel, gbc);
+        add(captchaLabel, gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 2;
-        gbc.gridwidth = 2;
-        add(passwordField, gbc);
+        gbc.gridwidth = 1;
+        add(captchaField, gbc);
+
+        gbc.gridx = 2;
+        gbc.gridy = 2;
+        gbc.gridwidth = 1;
+        add(sendCaptchaButton, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 3;
         gbc.gridwidth = 1;
-        add(captchaLabel, gbc);
+        add(passwordLabel, gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 3;
         gbc.gridwidth = 2;
-        add(captchaField, gbc);
+        add(passwordField, gbc);
 
-        gbc.gridx = 1;
+        gbc.gridx=1;
         gbc.gridy = 4;
         gbc.gridwidth = 2;
-        add(sendCaptchaButton, gbc);
+        add(passwordLabel1, gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 5;
@@ -125,51 +137,60 @@ public class SignUpExample extends JFrame implements WebSocketReceiver {
         sendCaptchaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Implement sending captcha logic here
 
+                String userName = userNameField.getText();
                 String email = emailField.getText();
                 logger.log(Level.INFO, "Sending captcha to email: " + email);
 
-                // MessageEndPoint receiver = new MessageEndPoint();
-                // receiver.setId("receiver1");
-                // receiver.setType("user");
-                // MessageEndPoint sender = new MessageEndPoint();
-                // sender.setId("sender1");
-                // sender.setType("user");
-                // Message message = new Message( receiver, sender,"getVerificationCode", email, "请求验证码");
-                // client.sendMessage(message.toJson());
-                signUpService.getVerificationCode(email);
+                String regex = "^[a-zA-Z0-9_.-]+@qq.com$";
+                if (userName.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "警告！请输入账号。", "警告", JOptionPane.WARNING_MESSAGE);
+                }
+                else if (email.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "警告！请输入email。", "警告", JOptionPane.WARNING_MESSAGE);
+                }
+                else if (!Pattern.matches(regex, email)) {
+                    JOptionPane.showMessageDialog(null,"警告！邮箱的格式错误，请输入正确的邮箱。","警告",JOptionPane.WARNING_MESSAGE);
+                }
+                else {
 
-                JOptionPane.showMessageDialog(null, "Captcha sent!");
-                logger.log(Level.INFO, "Captcha sent!");
+                    signUpService.getVerificationCode(email);
+
+                    logger.log(Level.INFO, "Captcha sent!");
+                }
             }
         });
 
         signUpButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Implement sign up logic here
-
                 String captcha = captchaField.getText();
                 String username = userNameField.getText();
                 String email = emailField.getText();
                 String password = new String(passwordField.getPassword());
 
                 logger.log(Level.INFO, "Signing up with captcha: " + captcha);
-
-                // MessageEndPoint receiver = new MessageEndPoint();
-                // receiver.setId("receiver1");
-                // receiver.setType("user");
-                // MessageEndPoint sender = new MessageEndPoint();
-                // sender.setId("sender1");
-                // sender.setType("user");
-                // Message message = new Message( receiver, sender,"checkVerificationCode", captcha, "请求验证码");
-                // client.sendMessage(message.toJson());
-
-                signUpService.submitSignUpInformation(captcha, username, email, password);
-
-                // // Validate and process the sign-up information
-                // JOptionPane.showMessageDialog(null, "Sign Up successful!");
+                String regex = "^[a-zA-Z0-9_.-]+@qq.com$";
+                if (username.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "警告！请输入账号。", "警告", JOptionPane.WARNING_MESSAGE);
+                }
+                else if (email.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "警告！请输入email。", "警告", JOptionPane.WARNING_MESSAGE);
+                }
+                else if (!Pattern.matches(regex, email)) {
+                    JOptionPane.showMessageDialog(null,"警告！邮箱的格式错误，请输入正确的邮箱。","警告",JOptionPane.WARNING_MESSAGE);
+                }
+                else if (password.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "警告！请输入密码。", "警告", JOptionPane.WARNING_MESSAGE);
+                }
+                else {
+                    if (password.length() < 8 || password.length() > 16 || !password.matches("^[a-zA-Z\\d!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?]{6,16}")) {
+                        JOptionPane.showMessageDialog(null, "密码格式错误！请重新输入。");
+                    }
+                    else {
+                        signUpService.submitSignUpInformation(captcha, username, email, password);
+                    }
+                }
             }
         });
 
@@ -183,15 +204,35 @@ public class SignUpExample extends JFrame implements WebSocketReceiver {
                         logger.log(Level.INFO, "Received WebSocket message: " + message.toJson());
 
                         if (message.getType().equals("EmailVerificationCodeStatus")) {
-                            // String status = message.getStatus();
-                            // JOptionPane.showMessageDialog(null, "Captcha received: " + status);
-                            // logger.log(Level.INFO, "Captcha received: " + status);
 
                             var status = signUpService.handleWebSocketResponse(message);
                             String info = "Status: " + status.getStatus() + "\nInfo: " + status.getAdditionalInfo();
-                            JOptionPane.showMessageDialog(null, info );
                             logger.log(Level.INFO, "WebSocket received: " + info);
-
+                            switch(status.getStatus()){
+                                case SUCCESS:
+                                    JOptionPane.showMessageDialog(null,"注册成功");
+                                    new LoginGUI(client);
+                                    SignUpExample.this.dispose();
+                                    break;
+                                case EMAILED:
+                                    JOptionPane.showMessageDialog(null,"已发送到你的邮箱！");
+                                    break;
+                                case FAILED:
+                                    JOptionPane.showMessageDialog(null,"注册失败！"+status.getAdditionalInfo());
+                                    break;
+                                case TIMEOUT:
+                                    JOptionPane.showMessageDialog(null,"验证码已过期。");
+                                    break;
+                                case INVALID:
+                                    JOptionPane.showMessageDialog(null,"验证码错误。");
+                                    break;
+                                case UNKNOWN:
+                                    JOptionPane.showMessageDialog(null,"未知错误。");
+                                    break;
+                                default:
+                                    JOptionPane.showMessageDialog(null,"未知错误。");
+                                    break;
+                            }
 
                         }
                     }
@@ -200,14 +241,18 @@ public class SignUpExample extends JFrame implements WebSocketReceiver {
                 }
             }
         });
-    }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new SignUpExample();
+        JButton returnbutton=new JButton("<返回");
+        returnbutton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                SignUpExample.this.dispose();
+                new LoginGUI(client);
             }
         });
+
+        gbc.gridx = 1;
+        gbc.gridy = 7;
+        gbc.gridwidth = 2;
+        add(returnbutton, gbc);
     }
 }

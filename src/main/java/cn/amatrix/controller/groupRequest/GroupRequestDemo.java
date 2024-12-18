@@ -44,7 +44,6 @@ public class GroupRequestDemo extends JFrame {
         this.currentUser = userService.getUserById(currentUserId);
         setTitle("群组申请管理");
         setSize(400, 600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         
         setLayout(new BorderLayout());
