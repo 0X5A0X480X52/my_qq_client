@@ -69,6 +69,11 @@ public class ImageManager {
      * @throws IOException 如果读取图片时发生错误
      */
     public static BufferedImage base64ToCircularImage(String base64Image) throws IOException {
+
+        if (base64Image == null || base64Image.isEmpty() || base64Image.equals("null") || base64Image.equals("\"null\"")) {
+            return null;
+        }
+
         byte[] imageBytes = Base64.getDecoder().decode(base64Image);
         BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageBytes));
         if (image != null) {

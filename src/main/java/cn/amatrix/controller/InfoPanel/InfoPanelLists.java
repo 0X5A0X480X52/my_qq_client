@@ -32,10 +32,7 @@ public class InfoPanelLists extends JPanel {
     private List<Friend> FriendList;
     private List<GroupMember> GroupMemberList;
 
-    private JFrame parentComponent;
-
-    public InfoPanelLists(JFrame parentComponent, User currentUser) {
-        this.parentComponent = parentComponent;
+    public InfoPanelLists( User currentUser) {
         this.currentUser = currentUser;
         setPreferredSize(new Dimension(400, 0));
         setLayout(new BorderLayout()); // 使用 BorderLayout
@@ -75,7 +72,7 @@ public class InfoPanelLists extends JPanel {
             box.add(infoPanel);
             infoPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, infoPanel.getPreferredSize().height + 20)); // 设置最大尺寸
             listPanel.add(box);
-            listPanel.setPreferredSize(new Dimension(parentComponent.getPreferredSize().width, listPanel.getPreferredSize().height + infoPanel.getPreferredSize().height));
+            listPanel.setPreferredSize(new Dimension(0, listPanel.getPreferredSize().height + infoPanel.getPreferredSize().height));
         }
 
         for (GroupMember groupMember : GroupMemberList) {
@@ -92,30 +89,17 @@ public class InfoPanelLists extends JPanel {
             System.out.println(infoPanel.getPreferredSize());
             infoPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, infoPanel.getPreferredSize().height + 20)); // 设置最大尺寸
             listPanel.add(box);
-            listPanel.setMinimumSize(new Dimension(parentComponent.getPreferredSize().width, listPanel.getPreferredSize().height + infoPanel.getPreferredSize().height));
+            listPanel.setPreferredSize(new Dimension(0, listPanel.getPreferredSize().height + infoPanel.getPreferredSize().height));
 
         }
 
         JScrollPane scrollPane = new JScrollPane(listPanel);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setMinimumSize(new Dimension(parentComponent.getPreferredSize().width, parentComponent.getPreferredSize().height));
 
         add(scrollPane, BorderLayout.CENTER);
 
-        adjustPanelSize(listPanel);
-
         revalidate();
         repaint();
-    }
-
-    private void adjustPanelSize(JPanel listPanel) {
-        int panelHeight = listPanel.getPreferredSize().height;
-        int parentHeight = parentComponent.getPreferredSize().height;
-        if (panelHeight < parentHeight) {
-            setPreferredSize(new Dimension(parentComponent.getPreferredSize().width, panelHeight));
-        } else {
-            setPreferredSize(new Dimension(parentComponent.getPreferredSize().width, parentHeight));
-        }
     }
 
     private void friendActionListener(User user) {
@@ -140,7 +124,7 @@ public class InfoPanelLists extends JPanel {
         
         JFrame frame = new JFrame();
         frame.setSize(400, 300);
-        InfoPanelLists infoPanelLists = new InfoPanelLists( frame, user );
+        InfoPanelLists infoPanelLists = new InfoPanelLists( user );
         frame.add(infoPanelLists);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);

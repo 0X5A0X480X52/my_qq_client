@@ -59,7 +59,7 @@
         email VARCHAR(100) NOT NULL UNIQUE,
         avatar TEXT,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        log_status ENUM('online', 'offline') DEFAULT 'offline',
+        log_status ENUM('online', 'offline') DEFAULT 'offline'
         last_login_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         last_logout_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );

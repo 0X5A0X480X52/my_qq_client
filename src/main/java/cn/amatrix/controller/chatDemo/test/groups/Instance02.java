@@ -25,8 +25,8 @@ public class Instance02 {
             e.printStackTrace();
         }
 
-        // URI uri = URI.create("ws://47.97.117.157:8080/demo_webapp/chat");
-        URI uri = URI.create("ws://localhost:1145/demo_webapp/chat");
+        URI uri = URI.create("ws://47.97.117.157:8080/demo_webapp/chat");
+        // URI uri = URI.create("ws://localhost:1145/demo_webapp/chat");
         WebSocketClient client1 = new WebSocketClient(uri);
 
         SignInService signInService1 = new SignInService(client1);
@@ -35,7 +35,7 @@ public class Instance02 {
         UserService userService = new UserService();
         GroupService groupService = new GroupService();
 
-        Group targetGroup = groupService.getGroupById(1);
+        Group targetGroup = groupService.getGroupById(9);
         User user1 = userService.getUserById(1);
 
         SwingUtilities.invokeLater(new Runnable() {

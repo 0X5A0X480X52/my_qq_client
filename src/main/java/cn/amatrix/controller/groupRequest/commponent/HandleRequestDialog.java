@@ -40,10 +40,10 @@ public class HandleRequestDialog extends JDialog {
                 String selectedOption = (String) comboBox.getSelectedItem();
                 if ("同意".equals(selectedOption)) {
                     // 执行同意操作
-                    groupService.handleGroupJoinRequest(requestId, senderId, true);
+                    groupService.handleGroupJoinRequest(requestId, currentUser.getUser_id(), true);
                 } else if ("不同意".equals(selectedOption)) {
                     // 执行不同意操作
-                    groupService.handleGroupJoinRequest(requestId, senderId,false);
+                    groupService.handleGroupJoinRequest(requestId, currentUser.getUser_id(),false);
                 }
                 dispose(); // 关闭对话框
             }
