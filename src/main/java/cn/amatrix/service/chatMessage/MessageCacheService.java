@@ -14,8 +14,8 @@ import java.sql.Timestamp;
 public class MessageCacheService {
     private MessageCacheManager cacheManager;
 
-    public MessageCacheService(String defaultOutputPath) throws IOException, ClassNotFoundException {
-        this.cacheManager = new MessageCacheManager(defaultOutputPath);
+    public MessageCacheService() throws IOException, ClassNotFoundException {
+        this.cacheManager = new MessageCacheManager();
         this.cacheManager.deserializeCacheManager();
     }
 

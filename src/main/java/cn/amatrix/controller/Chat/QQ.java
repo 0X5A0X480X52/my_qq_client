@@ -26,7 +26,7 @@ public class QQ extends JPanel {
 
         // 将功能面板和列表面板放在一个 JSplitPane 中
         splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, infoPanelList, chatPanel);
-        splitPane.setDividerLocation(150); // 设置分割线位置
+        splitPane.setDividerLocation(200); // 设置分割线位置
 
         add(functionPanel, BorderLayout.WEST);
         add(splitPane, BorderLayout.CENTER);

@@ -8,22 +8,25 @@ import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import cn.amatrix.utils.configManager.managers.MessageCacheConfigManager;
 
 public class MessageCacheManager {
     private Map<String, PrivateMessageCache> privateMessageCaches;
     private Map<Integer, GroupMessageCache> groupMessageCaches;
     private Map<String, String> privateMessageCacheFiles;
     private Map<Integer, String> groupMessageCacheFiles;
-    private String defaultOutputPathDir;
+    private String defaultOutputPathDir = "src\\main\\resources\\messageCache";
     private String privateMessageCacheDir = "privateMessage";
     private String groupMessageCacheDir = "groupMessage";
 
-    public MessageCacheManager(String defaultOutputPath) {
-        this.defaultOutputPathDir = defaultOutputPath;
+    public MessageCacheManager() {
         privateMessageCaches = new HashMap<>();
         groupMessageCaches = new HashMap<>();
         privateMessageCacheFiles = new HashMap<>();
         groupMessageCacheFiles = new HashMap<>();
+        defaultOutputPathDir = MessageCacheConfigManager.getDefaultOutputPathDir();
     }
 
     /**
@@ -130,6 +133,7 @@ public class MessageCacheManager {
      * @throws IOException 如果发生I/O错误
      */
     public void serializeCacheManager(String filePath) throws IOException {
+        Files.createDirectories(Paths.get(filePath).getParent());
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
             oos.writeObject(privateMessageCacheFiles);
             oos.writeObject(groupMessageCacheFiles);
@@ -143,6 +147,7 @@ public class MessageCacheManager {
      */
     public void serializeCacheManager() throws IOException {
         String outputPath = defaultOutputPathDir + File.separator + "cacheManager.ser";
+        Files.createDirectories(Paths.get(outputPath).getParent());
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(outputPath))) {
             oos.writeObject(privateMessageCacheFiles);
             oos.writeObject(groupMessageCacheFiles);
@@ -158,6 +163,13 @@ public class MessageCacheManager {
      */
     @SuppressWarnings("unchecked")
     public void deserializeCacheManager(String filePath) throws IOException, ClassNotFoundException {
+        if (!Files.exists(Paths.get(filePath))) {
+            Files.createDirectories(Paths.get(filePath).getParent());
+            this.privateMessageCacheFiles = new HashMap<>();
+            this.groupMessageCacheFiles = new HashMap<>();
+            serializeCacheManager();
+            return;
+        }
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
             privateMessageCacheFiles = (Map<String, String>) ois.readObject();
             groupMessageCacheFiles = (Map<Integer, String>) ois.readObject();
@@ -179,16 +191,23 @@ public class MessageCacheManager {
         }
     }
 
-        /**
+    /**
      * 从文件中反序列化缓存管理器。
      *
-     * @param filePath 反序列化文件路径
      * @throws IOException 如果发生I/O错误
      * @throws ClassNotFoundException 如果找不到序列化对象的类
      */
     @SuppressWarnings("unchecked")
     public void deserializeCacheManager() throws IOException, ClassNotFoundException {
         String filePath = defaultOutputPathDir + File.separator + "cacheManager.ser";
+        if (!Files.exists(Paths.get(filePath))) {
+            Files.createDirectories(Paths.get(filePath).getParent());
+            Files.createFile(Paths.get(filePath));
+            this.privateMessageCacheFiles = new HashMap<>();
+            this.groupMessageCacheFiles = new HashMap<>();
+            serializeCacheManager();
+            return;
+        }
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
             privateMessageCacheFiles = (Map<String, String>) ois.readObject();
             groupMessageCacheFiles = (Map<Integer, String>) ois.readObject();

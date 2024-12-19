@@ -6,6 +6,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "MainApp",
+            "request": "launch",
+            "mainClass": "cn.amatrix.controller.Chat.MainApp",
+            "projectName": "my_qq_client"
+        },
+        {
+            "type": "java",
+            "name": "Main2",
+            "request": "launch",
+            "mainClass": "cn.amatrix.Main2",
+            "projectName": "my_qq_client"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "cn.amatrix.Main",
+            "projectName": "my_qq_client"
+        },
+        {
+            "type": "java",
             "name": "Instance02",
             "request": "launch",
             "mainClass": "cn.amatrix.controller.chatDemo.test.groups.Instance02",

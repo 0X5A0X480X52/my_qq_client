@@ -2,6 +2,8 @@ package cn.amatrix.utils.messageCache;
 
 import cn.amatrix.model.groups.GroupMessage;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +47,7 @@ public class GroupMessageCache implements Serializable {
      * @throws IOException 如果发生I/O错误
      */
     public void serializeMessages(String filePath) throws IOException {
+        Files.createDirectories(Paths.get(filePath).getParent());
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
             oos.writeObject(messages);
         }
@@ -72,6 +75,13 @@ public class GroupMessageCache implements Serializable {
      */
     @SuppressWarnings("unchecked")
     public void deserializeMessages(String filePath) throws IOException, ClassNotFoundException {
+        if (!Files.exists(Paths.get(filePath))) {
+            Files.createDirectories(Paths.get(filePath).getParent());
+            Files.createFile(Paths.get(filePath));
+            this.messages = new ArrayList<>();
+            serializeMessages(filePath);
+            return;
+        }
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
             messages = (List<GroupMessage>) ois.readObject();
         }

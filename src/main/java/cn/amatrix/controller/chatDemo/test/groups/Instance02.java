@@ -30,7 +30,7 @@ public class Instance02 {
         WebSocketClient client1 = new WebSocketClient(uri);
 
         SignInService signInService1 = new SignInService(client1);
-        signInService1.submitSignInInformation("Anon", "3432900546@qq.com", "123456789");
+        signInService1.submitSignInInformation("Anon", "3432900546@qq.com", "123456");
 
         UserService userService = new UserService();
         GroupService groupService = new GroupService();

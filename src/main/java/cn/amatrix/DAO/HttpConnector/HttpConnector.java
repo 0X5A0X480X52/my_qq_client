@@ -7,9 +7,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
-import com.alibaba.fastjson2.JSON;
-import java.util.HashMap;
-import java.util.Map;
+import com.alibaba.fastjson2.JSONObject;
 
 public class HttpConnector {
     private static final String BASE_URL = HttpConfigManager.getBaseURL();
@@ -20,15 +18,10 @@ public class HttpConnector {
     }
 
     public HttpResponse<String> sendRequest(String subPath, String type, String param) throws Exception {
-        Map<String, Object> requestBodyMap = new HashMap<>();
-        requestBodyMap.put("type", type);
-        Object paramObj = JSON.parse(param);
-        if (paramObj == null) {
-            requestBodyMap.put("param", "null");
-        } else {
-            requestBodyMap.put("param", paramObj);
-        }
-        String requestBody = JSON.toJSONString(requestBodyMap);
+        JSONObject requestBodyJson = new JSONObject();
+        requestBodyJson.put("type", type);
+        requestBodyJson.put("param", param);
+        String requestBody = requestBodyJson.toJSONString();
         
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(new URI(BASE_URL + subPath))

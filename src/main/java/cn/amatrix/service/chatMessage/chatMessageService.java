@@ -40,7 +40,7 @@ public class ChatMessageService {
         } else
             throw new IllegalArgumentException("EventQueue is not instance of ReceivedWebSocketMessageEventQueue");
 
-        this.messageCacheService = new MessageCacheService("./src/main/resources/messageCache");
+        this.messageCacheService = new MessageCacheService();
         // 确保 messageCacheService 已正确初始化
         if (this.messageCacheService == null) {
             throw new IllegalArgumentException("MessageCacheService is not initialized correctly.");

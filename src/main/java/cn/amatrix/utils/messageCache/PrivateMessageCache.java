@@ -4,6 +4,8 @@ import cn.amatrix.model.users.PrivateMessage;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * 用于存储发送者和接收者之间私信的缓存。
@@ -48,6 +50,7 @@ public class PrivateMessageCache implements Serializable {
      * @throws IOException 如果发生I/O错误
      */
     public void serializeMessages(String filePath) throws IOException {
+        Files.createDirectories(Paths.get(filePath).getParent());
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
             oos.writeObject(messages);
         }
@@ -75,6 +78,13 @@ public class PrivateMessageCache implements Serializable {
      */
     @SuppressWarnings("unchecked")
     public void deserializeMessages(String filePath) throws IOException, ClassNotFoundException {
+        if (!Files.exists(Paths.get(filePath))) {
+            Files.createDirectories(Paths.get(filePath).getParent());
+            Files.createFile(Paths.get(filePath));
+            this.messages = new ArrayList<>();
+            serializeMessages(filePath);
+            return;
+        }
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePath))) {
             messages = (List<PrivateMessage>) ois.readObject();
         }

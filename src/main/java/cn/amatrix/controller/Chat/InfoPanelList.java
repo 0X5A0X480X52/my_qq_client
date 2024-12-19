@@ -33,6 +33,8 @@ public class InfoPanelList extends JPanel {
     private WebSocketClient webSocketClient;
     private JPanel chatPanel;
 
+    private JPanel refreshButtonPanel;
+
     private QQ contentPanel;
 
     public InfoPanelList( WebSocketClient client, User currentUser, QQ contentPanel, JPanel chatPanel) {
@@ -56,11 +58,14 @@ public class InfoPanelList extends JPanel {
             }
         });
 
-        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        bottomPanel.add(refreshButton);
-        add(bottomPanel, BorderLayout.SOUTH);
+
+        refreshButtonPanel = new JPanel(new BorderLayout());
+        refreshButtonPanel.add(refreshButton, BorderLayout.WEST);
+        refreshButtonPanel.setPreferredSize(new Dimension(0, 30));
+        refreshButtonPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
 
         updatePanel();
+
     }
 
     private void initFriendList() {
@@ -80,6 +85,8 @@ public class InfoPanelList extends JPanel {
 
         JPanel listPanel = new JPanel();
         listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
+
+        listPanel.add(refreshButtonPanel);
 
         for (Friend friend : FriendList) {
             User user = userService.getUserById(friend.getFriendId());

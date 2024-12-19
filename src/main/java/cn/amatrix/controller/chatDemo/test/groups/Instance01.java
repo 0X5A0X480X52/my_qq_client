@@ -31,13 +31,14 @@ public class Instance01 {
         WebSocketClient client1 = new WebSocketClient(uri);
 
         SignInService signInService1 = new SignInService(client1);
-        signInService1.submitSignInInformation("Anon", "123@134.com", "123456");
+        // signInService1.submitSignInInformation("Anon", "123@134.com", "123456");
+        signInService1.submitSignInInformation("Anon", "zhr20050305@outlook.com", "123456");
 
         UserService userService = new UserService();
         GroupService groupService = new GroupService();
 
-        Group targetGroup = groupService.getGroupById(1);
-        User user1 = userService.getUserById(17);
+        Group targetGroup = groupService.getGroupById(9);
+        User user1 = userService.getUserById(2);
 
         SwingUtilities.invokeLater(new Runnable() {
             @Override

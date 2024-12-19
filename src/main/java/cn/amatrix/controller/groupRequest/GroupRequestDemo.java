@@ -23,6 +23,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.InputStream;
 import java.util.List;
 
 public class GroupRequestDemo extends JFrame {
@@ -305,9 +306,10 @@ public class GroupRequestDemo extends JFrame {
             refreshButton.setMaximumSize(refreshButton.getPreferredSize());
             refreshButton.setBorder(new FlatRoundBorder());
             refreshButton.addActionListener(listener);
-            ImageIcon icon = new ImageIcon("src/main/resources/icons/refresh03.png");
+            ImageIcon icon = null;
             try {
-                BufferedImage image = ImageIO.read(new File("src/main/resources/icons/refresh03.png"));
+                InputStream imageStream = getClass().getResourceAsStream("/icons/refresh03.png");
+                BufferedImage image = ImageIO.read(imageStream);
                 BufferedImage croppedImage = ImageManager.cropToCircle(image);
                 BufferedImage resizedImage = ImageManager.resizeImage(croppedImage, 16, 16);
                 

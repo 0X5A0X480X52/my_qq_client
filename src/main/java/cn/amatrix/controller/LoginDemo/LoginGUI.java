@@ -23,9 +23,9 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.ActionEvent;
 
-import java.io.File;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
+import java.io.InputStream;
 
 public class LoginGUI extends JFrame implements WebSocketReceiver {
 
@@ -83,7 +83,7 @@ public class LoginGUI extends JFrame implements WebSocketReceiver {
         // 创建圆形的 JLabel，并设置图像
         SignInService sign =new SignInService(this.webSocketClient);
         
-        CircularImageLabel circularLabel = new CircularImageLabel("src\\main\\resources\\icons\\defaultAvatar01.jpg");
+        CircularImageLabel circularLabel = new CircularImageLabel("icons/defaultAvatar01.jpg");
         circularLabel.setPreferredSize(new Dimension(10, 10));
         panel.add(circularLabel, BorderLayout.CENTER); // 将圆形 JLabel 添加到面板中间
 
@@ -258,7 +258,7 @@ public class LoginGUI extends JFrame implements WebSocketReceiver {
                                         frame.setLayout(new BorderLayout());
 
                                         UserService userService = new UserService();
-                                        User user = userService.getUserById(1);
+                                        User user = userService.getUserByEmail(usernameField.getText());
                                         QQ contentPanel = new QQ(webSocketClient, user);
 
                                         frame.add(contentPanel, BorderLayout.CENTER);
@@ -296,11 +296,13 @@ public class LoginGUI extends JFrame implements WebSocketReceiver {
         private BufferedImage image;
 
         public CircularImageLabel(String imagePath) {
-            try {
-                // 读取图像
-                BufferedImage orgImage = ImageIO.read(new File(imagePath));
-                image = ImageManager.cropToCircle(orgImage);
-
+            try (InputStream input = getClass().getClassLoader().getResourceAsStream(imagePath)) {
+                if (input != null) {
+                    BufferedImage orgImage = ImageIO.read(input);
+                    image = ImageManager.cropToCircle(orgImage);
+                } else {
+                    System.out.println("Sorry, unable to find " + imagePath);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -11,15 +11,18 @@ import java.util.Properties;
 
 public class ConfigManager {
     private static final Properties properties = new Properties();
-    private static final String CONFIG_FILE = "src/main/resources/config/application.properties";
+    private static final String CONFIG_FILE = "config/application.properties";
     private static final String encode = "UTF-8";
 
     static {
-        try (InputStream input = Files.newInputStream(Paths.get(CONFIG_FILE))) {
-            properties.load(input);
+        try (InputStream input = ConfigManager.class.getClassLoader().getResourceAsStream(CONFIG_FILE)) {
+            if (input == null) {
+                System.out.println("Sorry, unable to find application.properties");
+                generateDefaultConfigFile();
+            } else {
+                properties.load(input);
+            }
         } catch (IOException ex) {
-            System.out.println("Sorry, unable to find application.properties");
-            generateDefaultConfigFile();
             ex.printStackTrace();
         }
     }
@@ -32,8 +35,9 @@ public class ConfigManager {
         properties.setProperty("db.url", "jdbc:mysql://47.97.117.157:8080/onlineChatApp?serverTimezone=UTC");
         properties.setProperty("db.user", "root");
         properties.setProperty("db.password", "ZHRhenry20050305");
+        properties.setProperty("messageCache.defaultOutputPathDir", "src\\main\\resources\\messageCache");
 
-        try (OutputStream output = Files.newOutputStream(Paths.get(CONFIG_FILE))) {
+        try (OutputStream output = Files.newOutputStream(Paths.get("src/main/resources/" + CONFIG_FILE))) {
             output.write("# Default Configuration\n".getBytes(encode));
             String currentTime = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy").format(new Date());
             output.write(("# " + currentTime + " \n\n").getBytes(encode));
@@ -52,6 +56,9 @@ public class ConfigManager {
             output.write(("db.url=" + properties.getProperty("db.url").replace(":", "\\:").replace("=", "\\=") + "\n").getBytes(encode));
             output.write(("db.user=" + properties.getProperty("db.user") + "\n").getBytes(encode));
             output.write(("db.password=" + properties.getProperty("db.password") + "\n").getBytes(encode));
+
+            output.write("# Message Cache Configuration\n".getBytes(encode));
+            output.write(("messageCache.defaultOutputPathDir=" + properties.getProperty("messageCache.defaultOutputPathDir") + "\n").getBytes(encode));
 
             System.out.println("Default configuration file generated.");
         } catch (IOException ex) {
@@ -93,6 +100,9 @@ public class ConfigManager {
             output.write(("db.url=" + properties.getProperty("db.url").replace(":", "\\:").replace("=", "\\=") + "\n").getBytes(encode));
             output.write(("db.user=" + properties.getProperty("db.user") + "\n").getBytes(encode));
             output.write(("db.password=" + properties.getProperty("db.password") + "\n").getBytes(encode));
+
+            output.write("# Message Cache Configuration\n".getBytes(encode));
+            output.write(("messageCache.defaultOutputPathDir=" + properties.getProperty("messageCache.defaultOutputPathDir") + "\n").getBytes(encode));
         }
     }
 
@@ -103,6 +113,7 @@ public class ConfigManager {
         System.out.println(ConfigManager.getProperty("db.url"));
         System.out.println(ConfigManager.getProperty("db.user"));
         System.out.println(ConfigManager.getProperty("db.password"));
+        System.out.println(ConfigManager.getProperty("messageCache.defaultOutputPathDir"));
 
         properties.setProperty("encode", "UTF-8");
 
@@ -114,6 +125,8 @@ public class ConfigManager {
         properties.setProperty("db.url", "jdbc:mysql://47.97.117.157:8080/onlineChatApp?serverTimezone=UTC");
         properties.setProperty("db.user", "root");
         properties.setProperty("db.password", "ZHRhenry20050305");
+
+        properties.setProperty("messageCache.defaultOutputPathDir", "src\\main\\resources\\messageCache");
 
         try {
             ConfigManager.storePropertyWithComments();
@@ -127,5 +140,6 @@ public class ConfigManager {
         System.out.println(ConfigManager.getProperty("db.url"));
         System.out.println(ConfigManager.getProperty("db.user"));
         System.out.println(ConfigManager.getProperty("db.password"));
+        System.out.println(ConfigManager.getProperty("messageCache.defaultOutputPathDir"));
     }
 }

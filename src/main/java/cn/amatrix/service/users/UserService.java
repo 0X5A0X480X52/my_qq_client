@@ -357,8 +357,7 @@ public class UserService {
 
     /**
      * 接受好友请求。
-     * @param userId 用户ID
-     * @param friendId 好友ID
+     * @param request 好友请求
      */
     public void acceptFriendRequest(FriendRequest request) {
         try {
@@ -384,8 +383,7 @@ public class UserService {
 
     /**
      * 拒绝好友请求。
-     * @param userId 用户ID
-     * @param friendId 好友ID
+     * @param request 好友请求
      */
     public void rejectFriendRequest(FriendRequest request) {
         try {

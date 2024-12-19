@@ -18,6 +18,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 class FunctionPanel extends JPanel {
     private User currentUser;
@@ -33,7 +34,6 @@ class FunctionPanel extends JPanel {
         this.setLayout(new BorderLayout());
 
         AvatarPanel = new JPanel();
-        // AvatarPanel.setBackground(Color.CYAN);//头像
         AvatarPanel.setPreferredSize(new Dimension(50, 50));
         AvatarPanel.setMaximumSize(new Dimension(50, 50));
         initAvatarIcon(currentUser.getAvatar());
@@ -49,42 +49,40 @@ class FunctionPanel extends JPanel {
 
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-        // buttonPanel.setBackground(Color.GRAY);
-        // buttonPanel.setPreferredSize(new Dimension(50, 120));
 
         try {
-            BufferedImage originalImage1 = ImageIO.read(new File("src\\main\\resources\\icons\\chat01.png"));
-            BufferedImage resizedImage = ImageManager.resizeImage(originalImage1, 50, 50);
+            InputStream imageStream1 = getClass().getResourceAsStream("/icons/chat01.png");
+            BufferedImage originalImage1 = ImageIO.read(imageStream1);
+            BufferedImage resizedImage = ImageManager.resizeImage(originalImage1, 40, 40);
             JButton chatButton = new JButton();
             chatButton.setIcon(new ImageIcon(resizedImage));
             JPanel chatButtonPanel = new JPanel();
             chatButtonPanel.setLayout(new BorderLayout());
             chatButtonPanel.add(chatButton, BorderLayout.CENTER);
             chatButtonPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-            // chatButtonPanel.setPreferredSize(new Dimension(50, 50));
-            // chatButtonPanel.setMaximumSize(new Dimension(50, 50));
+            chatButtonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-            BufferedImage originalImage2 = ImageIO.read(new File("src\\main\\resources\\icons\\user01.png"));
-            resizedImage = ImageManager.resizeImage(originalImage2, 50, 50);
+            InputStream imageStream2 = getClass().getResourceAsStream("/icons/user01.png");
+            BufferedImage originalImage2 = ImageIO.read(imageStream2);
+            resizedImage = ImageManager.resizeImage(originalImage2, 40, 40);
             JButton friendRequestButton = new JButton();
             friendRequestButton.setIcon(new ImageIcon(resizedImage));
             JPanel friendRequestButtonPanel = new JPanel();
             friendRequestButtonPanel.setLayout(new BorderLayout());
             friendRequestButtonPanel.add(friendRequestButton, BorderLayout.CENTER);
             friendRequestButtonPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-            // friendRequestButtonPanel.setPreferredSize(new Dimension(50, 50));
-            // friendRequestButtonPanel.setMaximumSize(new Dimension(50, 50));
+            friendRequestButtonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-            BufferedImage originalImage3 = ImageIO.read(new File("src\\main\\resources\\icons\\group01.png"));
-            resizedImage = ImageManager.resizeImage(originalImage3, 50, 50);
+            InputStream imageStream3 = getClass().getResourceAsStream("/icons/group01.png");
+            BufferedImage originalImage3 = ImageIO.read(imageStream3);
+            resizedImage = ImageManager.resizeImage(originalImage3, 40, 40);
             JButton groupButton = new JButton();
             groupButton.setIcon(new ImageIcon(resizedImage));
             JPanel groupButtonPanel = new JPanel();
             groupButtonPanel.setLayout(new BorderLayout());
             groupButtonPanel.add(groupButton, BorderLayout.CENTER);
             groupButtonPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-            // groupButtonPanel.setPreferredSize(new Dimension(50, 50));
-            // groupButtonPanel.setMaximumSize(new Dimension(50, 50));
+            groupButtonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
             this.add(AvatarPanel, BorderLayout.NORTH);
             this.add(buttonPanel, BorderLayout.CENTER);
