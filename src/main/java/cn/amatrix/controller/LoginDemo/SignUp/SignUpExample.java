@@ -142,7 +142,7 @@ public class SignUpExample extends JFrame implements WebSocketReceiver {
                 String email = emailField.getText();
                 logger.log(Level.INFO, "Sending captcha to email: " + email);
 
-                String regex = "^[a-zA-Z0-9_.-]+@qq.com$";
+                String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
                 if (userName.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "警告！请输入账号。", "警告", JOptionPane.WARNING_MESSAGE);
                 }
@@ -170,7 +170,7 @@ public class SignUpExample extends JFrame implements WebSocketReceiver {
                 String password = new String(passwordField.getPassword());
 
                 logger.log(Level.INFO, "Signing up with captcha: " + captcha);
-                String regex = "^[a-zA-Z0-9_.-]+@qq.com$";
+                String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
                 if (username.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "警告！请输入账号。", "警告", JOptionPane.WARNING_MESSAGE);
                 }

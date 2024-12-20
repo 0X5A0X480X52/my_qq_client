@@ -5,18 +5,16 @@ import cn.amatrix.controller.InfoPanel.user.UserDetailedInfoPanel;
 import cn.amatrix.controller.friendRequest.friendRequestDemo;
 import cn.amatrix.controller.groupRequest.GroupRequestDemo;
 import cn.amatrix.model.users.User;
+import cn.amatrix.service.users.UserService;
 import cn.amatrix.utils.base64.ImageManager;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -44,6 +42,12 @@ class FunctionPanel extends JPanel {
                 if (SwingUtilities.isLeftMouseButton(e)) {
                     showDetailedInfoPanel(currentUser);
                 }
+                AvatarPanel.removeAll();
+                UserService userService = new UserService();
+                FunctionPanel.this.currentUser = userService.getUserById(FunctionPanel.this.currentUser.getUser_id());
+                initAvatarIcon(FunctionPanel.this.currentUser.getAvatar());
+                AvatarPanel.add(avatarIcon);
+                AvatarPanel.revalidate();
             }
         });
 
@@ -54,60 +58,66 @@ class FunctionPanel extends JPanel {
             InputStream imageStream1 = getClass().getResourceAsStream("/icons/chat01.png");
             BufferedImage originalImage1 = ImageIO.read(imageStream1);
             BufferedImage resizedImage = ImageManager.resizeImage(originalImage1, 40, 40);
-            JButton chatButton = new JButton();
-            chatButton.setIcon(new ImageIcon(resizedImage));
+            JLabel chatLabel = new JLabel(new ImageIcon(resizedImage));
             JPanel chatButtonPanel = new JPanel();
             chatButtonPanel.setLayout(new BorderLayout());
-            chatButtonPanel.add(chatButton, BorderLayout.CENTER);
+            chatButtonPanel.add(chatLabel, BorderLayout.CENTER);
             chatButtonPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
             chatButtonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            chatButtonPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
 
             InputStream imageStream2 = getClass().getResourceAsStream("/icons/user01.png");
             BufferedImage originalImage2 = ImageIO.read(imageStream2);
             resizedImage = ImageManager.resizeImage(originalImage2, 40, 40);
-            JButton friendRequestButton = new JButton();
-            friendRequestButton.setIcon(new ImageIcon(resizedImage));
+            JLabel friendRequestLabel = new JLabel(new ImageIcon(resizedImage));
             JPanel friendRequestButtonPanel = new JPanel();
             friendRequestButtonPanel.setLayout(new BorderLayout());
-            friendRequestButtonPanel.add(friendRequestButton, BorderLayout.CENTER);
+            friendRequestButtonPanel.add(friendRequestLabel, BorderLayout.CENTER);
             friendRequestButtonPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
             friendRequestButtonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            friendRequestButtonPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
 
             InputStream imageStream3 = getClass().getResourceAsStream("/icons/group01.png");
             BufferedImage originalImage3 = ImageIO.read(imageStream3);
             resizedImage = ImageManager.resizeImage(originalImage3, 40, 40);
-            JButton groupButton = new JButton();
-            groupButton.setIcon(new ImageIcon(resizedImage));
+            JLabel groupLabel = new JLabel(new ImageIcon(resizedImage));
             JPanel groupButtonPanel = new JPanel();
             groupButtonPanel.setLayout(new BorderLayout());
-            groupButtonPanel.add(groupButton, BorderLayout.CENTER);
+            groupButtonPanel.add(groupLabel, BorderLayout.CENTER);
             groupButtonPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
             groupButtonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            groupButtonPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
 
             this.add(AvatarPanel, BorderLayout.NORTH);
             this.add(buttonPanel, BorderLayout.CENTER);
-            buttonPanel.add(chatButton);
-            buttonPanel.add(friendRequestButton);
-            buttonPanel.add(groupButton);
+            buttonPanel.add(chatButtonPanel);
+            buttonPanel.add(friendRequestButtonPanel);
+            buttonPanel.add(groupButtonPanel);
 
-            chatButton.addActionListener(new ActionListener() {
+            chatButtonPanel.addMouseListener(new MouseAdapter() {
                 @Override
-                public void actionPerformed(ActionEvent e) {
-                    openChat();
+                public void mouseClicked(MouseEvent e) {
+                    if (SwingUtilities.isLeftMouseButton(e)) {
+                        openChat();
+                    }
                 }
             });
 
-            friendRequestButton.addActionListener(new ActionListener() {
+            friendRequestButtonPanel.addMouseListener(new MouseAdapter() {
                 @Override
-                public void actionPerformed(ActionEvent e) {
-                    openFriendRequest();
+                public void mouseClicked(MouseEvent e) {
+                    if (SwingUtilities.isLeftMouseButton(e)) {
+                        openFriendRequest();
+                    }
                 }
             });
 
-            groupButton.addActionListener(new ActionListener() {
+            groupButtonPanel.addMouseListener(new MouseAdapter() {
                 @Override
-                public void actionPerformed(ActionEvent e) {
-                    openGroupRequest();
+                public void mouseClicked(MouseEvent e) {
+                    if (SwingUtilities.isLeftMouseButton(e)) {
+                        openGroupRequest();
+                    }
                 }
             });
         } catch (IOException e) {

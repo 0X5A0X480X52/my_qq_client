@@ -28,6 +28,7 @@ cn\amatrix\controller\InfoPanel\group\ChangeGroupInfoPanel.class
 cn\amatrix\controller\InfoPanel\group\GroupBriefInfoPanel$2.class
 cn\amatrix\controller\InfoPanel\group\GroupDetailedInfoPanel.class
 cn\amatrix\utils\messageCache\MessageCacheManager.class
+cn\amatrix\controller\chatDemo\GroupChatPanel$7.class
 cn\amatrix\controller\LoginDemo\RetrievePassword\RetrievePassword$7.class
 cn\amatrix\utils\base64\ImageManager.class
 cn\amatrix\controller\ManagementSystem\LibraryManagementSystem$3.class
@@ -150,6 +151,7 @@ cn\amatrix\DAO\groups\mySQL\GroupMessageDAO.class
 cn\amatrix\service\users\UserService.class
 cn\amatrix\controller\groupRequest\GroupRequestDemo$2.class
 cn\amatrix\model\groups\GroupJoinRequest.class
+cn\amatrix\controller\Chat\MainChatFrame$1.class
 cn\amatrix\controller\Chat\FunctionPanel$4.class
 cn\amatrix\controller\chatDemo\test\groups\Instance02$1.class
 cn\amatrix\service\chatMessage\ChatMessageService$Status.class
@@ -196,6 +198,7 @@ cn\amatrix\controller\chatDemo\PrivateChatPanel$4.class
 cn\amatrix\controller\InfoPanel\group\ChangeGroupInfoPanel$4.class
 cn\amatrix\controller\InfoPanel\user\UserInfoPanel$2.class
 cn\amatrix\controller\chatDemo\test\chatDemo3.class
+cn\amatrix\controller\Chat\MainChatFrame.class
 cn\amatrix\controller\chatDemo\test\users\ChatDemo5$6.class
 cn\amatrix\model\message\Message$MessageEndPoint.class
 cn\amatrix\controller\InfoPanel\user\UserDetailedInfoPanel.class
@@ -267,6 +270,7 @@ cn\amatrix\controller\chatDemo\test\chatDemo3$3$1.class
 cn\amatrix\model\users\User.class
 cn\amatrix\utils\webSocketClient\receivedWebSocketMessage\ReceivedWebSocketMessageEventQueue.class
 cn\amatrix\controller\chatDemo\test\users\ChatDemo4$1.class
+cn\amatrix\controller\chatDemo\PrivateChatPanel$7.class
 cn\amatrix\controller\InfoPanel\group\GroupInfoPanel.class
 cn\amatrix\controller\InfoPanel\user\UserInfoPanel$3.class
 cn\amatrix\controller\ManagementSystem\LibraryManagementSystem$SearchButtonListener.class

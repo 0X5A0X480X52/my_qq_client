@@ -50,6 +50,14 @@ public class PrivateChatPanel extends JPanel implements WebSocketReceiver {
 
         setLayout(new BorderLayout());
 
+        JPanel TitlePanel = new JPanel();
+        TitlePanel.setLayout(new BoxLayout(TitlePanel, BoxLayout.X_AXIS));
+        JLabel titleLabel = new JLabel(targetUser.getUsername() + " ( UID:" + String.format("%06d", targetUser.getUser_id()) + " )");
+        titleLabel.setFont(new Font("微软雅黑", Font.BOLD, 15));
+        TitlePanel.add(titleLabel);
+        TitlePanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        add(TitlePanel, BorderLayout.NORTH);
+
         JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
         splitPane.setResizeWeight(0.7); // 设置顶部占页面70%
         add(splitPane, BorderLayout.CENTER);
@@ -139,7 +147,15 @@ public class PrivateChatPanel extends JPanel implements WebSocketReceiver {
         splitPane.add(scrollPane, JSplitPane.TOP); // 将 scrollPane 添加到 splitPane 的顶部
         splitPane.add(inputPanel, JSplitPane.BOTTOM);
 
-        loadCacheMessage();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                loadCacheMessage();
+                chatPanel.revalidate();
+                chatPanel.repaint(); // 确保重新绘制组件
+            }
+        });
+        // loadCacheMessage();
 
         String targetUserId = String.valueOf(currentUser.getUser_id());
         String currentUserId = String.valueOf(currentUser.getUser_id());

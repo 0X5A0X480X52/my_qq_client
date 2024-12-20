@@ -13,6 +13,8 @@ import cn.amatrix.model.message.Message;
 import cn.amatrix.model.message.Message.MessageEndPoint;
 import cn.amatrix.model.users.PrivateMessage;
 import cn.amatrix.model.users.User;
+import cn.amatrix.service.groups.GroupService;
+import cn.amatrix.service.users.UserService;
 import cn.amatrix.utils.messageHeap.GroupMessageHeap;
 import cn.amatrix.utils.messageHeap.PrivateMessageHeap;
 import cn.amatrix.utils.webSocketClient.WebSocketClient;
@@ -198,8 +200,15 @@ public class ChatMessageService {
      * @return 私信列表
      */
     public List<PrivateMessage> getPrivateMessageCache(int senderId, int receiverId) {
-        List<PrivateMessage> messages1 = messageCacheService.getPrivateMessages(senderId, receiverId);
-        List<PrivateMessage> messages2 = messageCacheService.getPrivateMessages(receiverId, senderId);
+        UserService userService = new UserService();
+        List<PrivateMessage> messages1 = userService.getPrivateMessagesBySenderAndReceiver(senderId, receiverId);
+        List<PrivateMessage> messages2 = userService.getPrivateMessagesBySenderAndReceiver(receiverId, senderId);
+        if (messages1 == null) {
+            messages1 = messageCacheService.getPrivateMessages(senderId, receiverId);
+        }
+        if (messages2 == null) {
+            messages2 = messageCacheService.getPrivateMessages(receiverId, senderId);
+        }
         PrivateMessageHeap messageHeap = PrivateMessageHeap.createHeapBySentAt();
         for (PrivateMessage message : messages1) {
             messageHeap.addMessage(message);
@@ -220,8 +229,16 @@ public class ChatMessageService {
      * @return 私信列表
      */
     public List<PrivateMessage> getPrivateMessageCache(int senderId, int receiverId, int k) {
-        List<PrivateMessage> messages1 = messageCacheService.getPrivateMessages(senderId, receiverId);
-        List<PrivateMessage> messages2 = messageCacheService.getPrivateMessages(receiverId, senderId);
+
+        UserService userService = new UserService();
+        List<PrivateMessage> messages1 = userService.getPrivateMessagesBySenderAndReceiver(senderId, receiverId);
+        List<PrivateMessage> messages2 = userService.getPrivateMessagesBySenderAndReceiver(receiverId, senderId);
+        if (messages1 == null) {
+            messages1 = messageCacheService.getPrivateMessages(senderId, receiverId);
+        }
+        if (messages2 == null) {
+            messages2 = messageCacheService.getPrivateMessages(receiverId, senderId);
+        }
         PrivateMessageHeap messageHeap = PrivateMessageHeap.createHeapBySentAt();
         for (PrivateMessage message : messages1) {
             messageHeap.addMessage(message);
@@ -241,7 +258,12 @@ public class ChatMessageService {
      * @return 群组消息列表
      */
     public List<GroupMessage> getGroupMessageCache(int groupId) {
-        List<GroupMessage> messages = messageCacheService.getGroupMessages(groupId);
+
+        GroupService groupService = new GroupService();
+        List<GroupMessage> messages = groupService.getGroupMessagesByGroupId(groupId);
+        if (messages == null) {
+            messages = messageCacheService.getGroupMessages(groupId);
+        }
         GroupMessageHeap messageHeap = GroupMessageHeap.createHeapBySentAt();
         for (GroupMessage message : messages) {
             messageHeap.addMessage(message);
@@ -257,7 +279,11 @@ public class ChatMessageService {
      * @return 群组消息列表
      */
     public List<GroupMessage> getGroupMessageCache(int groupId, int k) {
-        List<GroupMessage> messages = messageCacheService.getGroupMessages(groupId);
+        GroupService groupService = new GroupService();
+        List<GroupMessage> messages = groupService.getGroupMessagesByGroupId(groupId);
+        if (messages == null) {
+            messages = messageCacheService.getGroupMessages(groupId);
+        }
         GroupMessageHeap messageHeap = GroupMessageHeap.createHeapBySentAt();
         for (GroupMessage message : messages) {
             messageHeap.addMessage(message);

@@ -1,15 +1,20 @@
 package cn.amatrix.controller.InfoPanel.group;
 
+import cn.amatrix.controller.InfoPanel.InfoPanel;
+import cn.amatrix.controller.InfoPanel.user.UserInfoPanel;
 import cn.amatrix.model.groups.Group;
 import cn.amatrix.model.groups.GroupMember;
 import cn.amatrix.model.users.User;
 import cn.amatrix.service.groups.GroupService;
+import cn.amatrix.service.users.UserService;
 import cn.amatrix.utils.base64.ImageManager;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GroupDetailedInfoPanel extends JPanel {
 
@@ -21,11 +26,21 @@ public class GroupDetailedInfoPanel extends JPanel {
     private JLabel groupIdLabel;
     private JLabel createdAtLabel;
 
+    private JPanel MainInfoPanel;
+    private JPanel memberListPanel;
+
     public GroupDetailedInfoPanel(Group group, User currentUser) {
         this.group = group;
         this.currentUser = currentUser;
 
         setLayout(new BorderLayout());
+
+        MainInfoPanel = new JPanel();
+        memberListPanel = new JPanel();
+        memberListPanel.setLayout(new BorderLayout());
+        initMemberListPanel();
+        add(MainInfoPanel, BorderLayout.NORTH);
+        add(memberListPanel, BorderLayout.CENTER);
 
         initAvatarIcon(group.getAvatar());
         initGroupNameLabel(group.getGroupName());
@@ -48,10 +63,9 @@ public class GroupDetailedInfoPanel extends JPanel {
             }
         }
 
-        add(avatarPanel, BorderLayout.NORTH);
-        add(infoPanel, BorderLayout.CENTER);
-
-        setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        MainInfoPanel.add(avatarPanel, BorderLayout.NORTH);
+        MainInfoPanel.add(infoPanel, BorderLayout.CENTER);
+        MainInfoPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
         addMouseListener(new MouseAdapter() {
             @Override
@@ -102,6 +116,39 @@ public class GroupDetailedInfoPanel extends JPanel {
     private void initCreatedAtLabel(String createdAt) {
         createdAtLabel = new JLabel("创建时间: " + createdAt);
         createdAtLabel.setFont(new Font("Microsoft YaHei", Font.PLAIN, 10));
+    }
+
+    private void initMemberListPanel() {
+        JPanel listPanel = new JPanel();
+        listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
+
+        GroupService groupService = new GroupService();
+        List<GroupMember> GroupMemberList = new ArrayList<>();
+        GroupMemberList = groupService.getGroupMembersByGroupId(group.getGroupId());
+
+        if (GroupMemberList.size() == 0) {
+            JLabel noMemberLabel = new JLabel("暂无成员");
+            noMemberLabel.setFont(new Font("Microsoft YaHei", Font.PLAIN, 12));
+            noMemberLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            listPanel.add(noMemberLabel);
+        }
+
+        for (GroupMember groupMember : GroupMemberList) {
+            User user = new UserService().getUserById(groupMember.getUserId());
+            InfoPanel infoPanel = new UserInfoPanel(this, user, currentUser, null);
+            infoPanel.setAdditionalInfo("权限: " + groupMember.getPower());
+            infoPanel.setButton(new JPanel());
+            Box box = Box.createHorizontalBox();
+            box.add(infoPanel);
+            infoPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, infoPanel.getPreferredSize().height + 20)); // 设置最大尺寸
+            listPanel.add(box);
+            listPanel.setPreferredSize(new Dimension(0, listPanel.getPreferredSize().height + infoPanel.getPreferredSize().height));
+        }
+
+        JScrollPane scrollPane = new JScrollPane(listPanel);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+        memberListPanel.add(scrollPane, BorderLayout.CENTER);
     }
 
     private Icon createPlaceholderIcon() {

@@ -1,8 +1,6 @@
 package cn.amatrix.controller.Chat;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.*;
@@ -33,7 +31,7 @@ public class InfoPanelList extends JPanel {
     private WebSocketClient webSocketClient;
     private JPanel chatPanel;
 
-    private JPanel refreshButtonPanel;
+    private JPanel TitlePanel;
 
     private QQ contentPanel;
 
@@ -50,19 +48,29 @@ public class InfoPanelList extends JPanel {
         initFriendList();
         initGroupMemberList();
 
-        JButton refreshButton = new JButton("刷新");
-        refreshButton.addActionListener(new ActionListener() {
+        JLabel titleLabel = new JLabel("联系人/群组");
+        titleLabel.setFont(new Font("微软雅黑", Font.BOLD, 15));
+        titleLabel.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseClicked(MouseEvent e) {
                 updatePanel();
             }
         });
 
+        TitlePanel = new JPanel(new BorderLayout());
+        TitlePanel.add(titleLabel, BorderLayout.WEST);
+        TitlePanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        add(TitlePanel, BorderLayout.NORTH);
 
-        refreshButtonPanel = new JPanel(new BorderLayout());
-        refreshButtonPanel.add(refreshButton, BorderLayout.WEST);
-        refreshButtonPanel.setPreferredSize(new Dimension(0, 30));
-        refreshButtonPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 30));
+        if (!FriendList.isEmpty()) {
+            Friend friend = FriendList.get(0);
+
+            User user = userService.getUserById(friend.getFriendId());
+            PrivateChatPanel privateChatPanel = new PrivateChatPanel(webSocketClient, currentUser, user);
+            chatPanel.add(privateChatPanel);
+            chatPanel.revalidate();
+            chatPanel.repaint();
+        }
 
         updatePanel();
 
@@ -85,8 +93,6 @@ public class InfoPanelList extends JPanel {
 
         JPanel listPanel = new JPanel();
         listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
-
-        listPanel.add(refreshButtonPanel);
 
         for (Friend friend : FriendList) {
             User user = userService.getUserById(friend.getFriendId());
@@ -126,6 +132,7 @@ public class InfoPanelList extends JPanel {
         JScrollPane scrollPane = new JScrollPane(listPanel);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
+        add(TitlePanel, BorderLayout.NORTH);
         add(scrollPane, BorderLayout.CENTER);
 
         revalidate();

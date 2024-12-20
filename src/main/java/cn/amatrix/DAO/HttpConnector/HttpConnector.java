@@ -22,13 +22,18 @@ public class HttpConnector {
         requestBodyJson.put("type", type);
         requestBodyJson.put("param", param);
         String requestBody = requestBodyJson.toJSONString();
-        
+
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(new URI(BASE_URL + subPath))
                 .header("Content-Type", "application/json; charset=UTF-8")
                 .POST(HttpRequest.BodyPublishers.ofString(requestBody, StandardCharsets.UTF_8))
                 .build();
+        System.out.println("http request: " + request);
+        System.out.println("Request body: " + requestBody);
 
-        return httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+        System.out.println("Response body: " + response.body());
+        return response;
     }
 }

@@ -3,6 +3,8 @@ package cn.amatrix;
 import cn.amatrix.controller.LoginDemo.LoginGUI;
 import cn.amatrix.utils.configManager.managers.WebSocketConfigManager;
 import cn.amatrix.utils.webSocketClient.WebSocketClient;
+
+// import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
@@ -11,7 +13,6 @@ import java.net.URI;
 public class Main {
     public static void main(String[] args) {
         try {
-            // 使用相对路径加载主题文件
             UIManager.setLookAndFeel(new FlatLightLaf());
         } catch (Exception e) {
             e.printStackTrace();

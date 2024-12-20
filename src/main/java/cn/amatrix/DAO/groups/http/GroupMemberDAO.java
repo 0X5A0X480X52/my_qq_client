@@ -71,7 +71,7 @@ public class GroupMemberDAO implements GroupMemberDAOImp {
 
     @Override
     public List<GroupMember> getGroupMembersByGroupId(int groupId) throws Exception {
-        String param = "{\"groupId\":" + groupId + "}";
+        String param = String.valueOf(groupId);
         HttpResponse<String> response = httpConnector.sendRequest(SUB_PATH, "getByGroupId", param);
         List<GroupMember> members = new ArrayList<>();
 

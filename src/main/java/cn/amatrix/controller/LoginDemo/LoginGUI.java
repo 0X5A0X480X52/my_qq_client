@@ -3,11 +3,10 @@ package cn.amatrix.controller.LoginDemo;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import cn.amatrix.controller.Chat.QQ;
+import cn.amatrix.controller.Chat.MainChatFrame;
 import cn.amatrix.controller.LoginDemo.RetrievePassword.RetrievePassword;
 import cn.amatrix.controller.LoginDemo.SignUp.SignUpExample;
 import cn.amatrix.model.message.Message;
-import cn.amatrix.model.users.User;
 import cn.amatrix.utils.base64.ImageManager;
 import cn.amatrix.utils.webSocketClient.WebSocketClient;
 import cn.amatrix.utils.webSocketClient.WebSocketReceiver;
@@ -15,7 +14,6 @@ import cn.amatrix.utils.webSocketClient.receivedWebSocketMessage.ReceivedWebSock
 import cn.amatrix.utils.webSocketClient.receivedWebSocketMessage.ReceivedWebSocketMessageEventListener;
 
 import cn.amatrix.service.signIn.SignInService;
-import cn.amatrix.service.users.UserService;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -45,10 +43,9 @@ public class LoginGUI extends JFrame implements WebSocketReceiver {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // 居中显示
 
-
         GridBagLayout gridBagLayout = new GridBagLayout();
-        gridBagLayout.columnWeights = new double[]{1,9,1};
-        gridBagLayout.rowWeights = new double[]{0.1875,0.1875,0.0625,0.46875,0.09375,};
+        gridBagLayout.columnWeights = new double[] { 2, 8, 2 };
+        gridBagLayout.rowWeights = new double[] { 0.1875, 0.1875, 0.0625, 0.46875, 0.09375, };
         setLayout(gridBagLayout);
 
         JPanel panel = new JPanel();
@@ -57,7 +54,7 @@ public class LoginGUI extends JFrame implements WebSocketReceiver {
         gbc_panel.gridx = 1;
         gbc_panel.gridy = 1;
         add(panel, gbc_panel);
-        
+
         JPanel panel_1 = new JPanel();
         GridBagConstraints gbc_panel_1 = new GridBagConstraints();
         gbc_panel_1.fill = GridBagConstraints.BOTH;
@@ -81,26 +78,26 @@ public class LoginGUI extends JFrame implements WebSocketReceiver {
 
         panel.setLayout(new BorderLayout());
         // 创建圆形的 JLabel，并设置图像
-        SignInService sign =new SignInService(this.webSocketClient);
-        
+        SignInService sign = new SignInService(this.webSocketClient);
+
         CircularImageLabel circularLabel = new CircularImageLabel("icons/defaultAvatar01.jpg");
         circularLabel.setPreferredSize(new Dimension(10, 10));
         panel.add(circularLabel, BorderLayout.CENTER); // 将圆形 JLabel 添加到面板中间
 
         JPanel panel_4 = new JPanel();
         int width = WIDTH / 11 * 9;
-        int height = (int)(HEIGHT * 0.1875);
+        int height = (int) (HEIGHT * 0.1875);
         int width_w = (width - height) / 2;
 
-        panel_4.setPreferredSize(new Dimension(width_w,10));
+        panel_4.setPreferredSize(new Dimension(width_w, 10));
         panel.add(panel_4, BorderLayout.WEST);
 
         GridBagLayout gb_panel_1 = new GridBagLayout();
         panel_1.setLayout(gb_panel_1);
-        gb_panel_1.columnWeights = new double[]{ 4,3};
-        gb_panel_1.rowWeights = new double[]{ 1, 0.6, 1, 0.6, 0.6, 0.8, 0.6, 0.2};
+        gb_panel_1.columnWeights = new double[] { 4, 3 };
+        gb_panel_1.rowWeights = new double[] { 1, 0.6, 1, 0.6, 0.6, 0.8, 0.6, 0.2 };
 
-        usernameField = new JTextField("请输入用户ID");
+        usernameField = new JTextField("请输入邮箱");
         usernameField.setFont(new Font("Microsoft YaHei", Font.PLAIN, 16));
         usernameField.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -109,7 +106,7 @@ public class LoginGUI extends JFrame implements WebSocketReceiver {
             @Override
             public void focusGained(FocusEvent e) {
                 // 当获得焦点时，清空提示文本，并设置隐藏字符
-                if (String.valueOf(usernameField.getText()).equals("请输入用户ID")) {
+                if (String.valueOf(usernameField.getText()).equals("请输入邮箱")) {
                     usernameField.setText("");
                 }
             }
@@ -118,11 +115,11 @@ public class LoginGUI extends JFrame implements WebSocketReceiver {
             public void focusLost(FocusEvent e) {
                 // 当失去焦点时，如果没有输入内容，则显示提示文本
                 if (String.valueOf(usernameField.getText()).isEmpty()) {
-                    usernameField.setText("请输入用户ID");
+                    usernameField.setText("请输入邮箱");
                 }
             }
         });
-        
+
         GridBagConstraints gbc_usernameField = new GridBagConstraints();
         gbc_usernameField.fill = GridBagConstraints.BOTH;
         gbc_usernameField.gridx = 0;
@@ -172,9 +169,9 @@ public class LoginGUI extends JFrame implements WebSocketReceiver {
                 String username = usernameField.getText();
                 String password = new String(passwordField.getPassword());
 
-                if (username.equals("请输入用户ID")||username.isEmpty()) {
+                if (username.equals("请输入用户ID") || username.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "未输入账号，请输入账号");
-                } else if (password.isEmpty()||password.equals("请输入密码")) {
+                } else if (password.isEmpty() || password.equals("请输入密码")) {
                     JOptionPane.showMessageDialog(null, "未输入密码，请输入密码");
                 } else {
                     sign.submitSignInInformation(null, username, password);
@@ -186,8 +183,7 @@ public class LoginGUI extends JFrame implements WebSocketReceiver {
         gbc_loginButton.gridx = 0;
         gbc_loginButton.gridy = 5;
         gbc_loginButton.gridwidth = 2;
-        panel_1.add(loginButton, gbc_loginButton);        
-
+        panel_1.add(loginButton, gbc_loginButton);
 
         JPanel panel_5 = new JPanel();
         GridBagConstraints gbc_panel_5 = new GridBagConstraints();
@@ -238,47 +234,29 @@ public class LoginGUI extends JFrame implements WebSocketReceiver {
             public void actionPerformed(ActionEvent e) {
                 try {
                     if (e instanceof ReceivedWebSocketMessageEvent) {
-                        ReceivedWebSocketMessageEvent event = (ReceivedWebSocketMessageEvent)e;
+                        ReceivedWebSocketMessageEvent event = (ReceivedWebSocketMessageEvent) e;
                         Message message = event.getMessage();
 
                         if (message.getType().equals("SignInCodeStatus")) {
 
                             var status = sign.handleWebSocketResponse(message);
 
-                            switch(status.getStatus()){
+                            switch (status.getStatus()) {
                                 case SUCCESS:
-                                    JOptionPane.showMessageDialog(null,"登录成功");
-                                    
-                                    // 创建并显示主窗口
-                                    SwingUtilities.invokeLater(() -> {
-                                        JFrame frame = new JFrame("QQ");
-                                        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                                        frame.setSize(1000, 600);
-                                        frame.setMinimumSize(new Dimension(700, 500)); // 设置最小窗口大小
-                                        frame.setLayout(new BorderLayout());
-
-                                        UserService userService = new UserService();
-                                        User user = userService.getUserByEmail(usernameField.getText());
-                                        QQ contentPanel = new QQ(webSocketClient, user);
-
-                                        frame.add(contentPanel, BorderLayout.CENTER);
-
-                                        // 显示窗口
-                                        frame.setVisible(true);
-                                    });
-
+                                    JOptionPane.showMessageDialog(null, "登录成功");
+                                    new MainChatFrame(webSocketClient, usernameField.getText());
                                     LoginGUI.this.dispose();
                                     removeReceivedWebSocketMessageEventListener(this);
                                     break;
                                 case FAILED:
-                                    JOptionPane.showMessageDialog(null,"登录失败！"+status.getAdditionalInfo());
+                                    JOptionPane.showMessageDialog(null, "登录失败！" + status.getAdditionalInfo());
                                     passwordField.setText("");
                                     break;
                                 case UNSIGNUP:
-                                    JOptionPane.showMessageDialog(null,"登陆失败，账号未注册");
+                                    JOptionPane.showMessageDialog(null, "登陆失败，账号未注册");
                                     break;
                                 case UNKNOW:
-                                    JOptionPane.showMessageDialog(null,"未知。");
+                                    JOptionPane.showMessageDialog(null, "未知。");
                                     break;
                             }
 
@@ -291,7 +269,7 @@ public class LoginGUI extends JFrame implements WebSocketReceiver {
         });
     }
 
-        // 自定义 JLabel 类，用于绘制圆形图像
+    // 自定义 JLabel 类，用于绘制圆形图像
     class CircularImageLabel extends JLabel {
         private BufferedImage image;
 
@@ -325,4 +303,3 @@ public class LoginGUI extends JFrame implements WebSocketReceiver {
         }
     }
 }
-

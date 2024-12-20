@@ -94,7 +94,7 @@ public class ChangeGroupAvatar extends JFrame {
                 String base64Image = ImageManager.imageToBase64(originalImage, 256, 256);
                 group.setAvatar(base64Image);
                 GroupService groupService = new GroupService();
-                groupService.updateGroup(group, group.getGroupId());
+                groupService.updateGroup(group);
                 updateAvatarLabel(base64Image);
                 JOptionPane.showMessageDialog(this, "头像更新成功");
                 cropFrame.dispose();

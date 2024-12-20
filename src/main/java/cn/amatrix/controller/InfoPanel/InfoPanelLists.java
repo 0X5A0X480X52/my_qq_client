@@ -90,7 +90,6 @@ public class InfoPanelLists extends JPanel {
             infoPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, infoPanel.getPreferredSize().height + 20)); // 设置最大尺寸
             listPanel.add(box);
             listPanel.setPreferredSize(new Dimension(0, listPanel.getPreferredSize().height + infoPanel.getPreferredSize().height));
-
         }
 
         JScrollPane scrollPane = new JScrollPane(listPanel);

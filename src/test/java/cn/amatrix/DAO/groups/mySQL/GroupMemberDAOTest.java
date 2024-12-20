@@ -60,4 +60,20 @@ public class GroupMemberDAOTest {
         GroupMember member = memberDAO.getGroupMemberById(1, 1);
         assertNull(member);
     }
+
+    @Test
+    public void testGetGroupMembersByGroupId() throws SQLException {
+        GroupMemberDAO memberDAO = new GroupMemberDAO();
+        List<GroupMember> members = memberDAO.getGroupMembersByGroupId(35);
+        assertNotNull(members);
+        assertTrue(members.size() > 0);
+    }
+
+    @Test
+    public void testGetGroupMembersByUserId() throws SQLException {
+        GroupMemberDAO memberDAO = new GroupMemberDAO();
+        List<GroupMember> members = memberDAO.getGroupMembersByUserId(1);
+        assertNotNull(members);
+        assertTrue(members.size() > 0);
+    }
 }

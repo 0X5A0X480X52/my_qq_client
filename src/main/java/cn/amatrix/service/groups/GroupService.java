@@ -89,7 +89,6 @@ public class GroupService {
     /**
      * 添加新群组，并将创建者添加为群主。
      *
-     * @param group 群组信息
      * @param creatorUserId 创建者用户 ID
      */
     public Group createGroup(int creatorUserId) {
@@ -136,6 +135,19 @@ public class GroupService {
             } else {
                 logger.log(Level.WARNING, "User does not have owner permissions to update group");
             }
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Error updating group", e);
+        }
+    }
+
+    /**
+     * 更新群组信息。
+     *
+     * @param group 群组信息
+     */
+    public void updateGroup(Group group) {
+        try {
+            groupDAO.updateGroup(group);
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error updating group", e);
         }
@@ -288,7 +300,7 @@ public class GroupService {
     /**
      * 根据当前用户 ID 获取本用户可处理的入群申请列表。
      *
-     * @param groupId 群组 ID
+     * @param currentUserId 当前用户 ID
      * @return 入群申请列表
      */
     public List<GroupJoinRequest> getGroupJoinRequestsByUserId_toHandle(int currentUserId) {

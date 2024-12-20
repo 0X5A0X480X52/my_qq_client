@@ -31,7 +31,7 @@ public class MainApp {
             frame.setLayout(new BorderLayout());
 
             URI uri = URI.create("ws://47.97.117.157:8080/demo_webapp/chat");
-            // URI uri = URI.create("ws://localhost:1145/demo_webapp/chat");
+//             URI uri = URI.create("ws://localhost:1145/demo_webapp/chat");
             WebSocketClient client = new WebSocketClient(uri);
 
             SignInService signInService = new SignInService(client);

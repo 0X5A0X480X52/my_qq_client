@@ -68,4 +68,18 @@ public class GroupMemberDAOTest {
         assertNotNull(members);
         assertTrue(members.size() > 0);
     }
+
+    @Test
+    public void testGetGroupMembersByUserId() throws Exception {
+        List<GroupMember> members = groupMemberDAO.getGroupMembersByUserId(1);
+        assertNotNull(members);
+        assertTrue(members.size() > 0);
+    }
+
+    @Test
+    public void testGetGroupMembersByGroupId() throws Exception {
+        List<GroupMember> members = groupMemberDAO.getGroupMembersByGroupId(9);
+        assertNotNull(members);
+        assertTrue(members.size() > 0);
+    }
 }
