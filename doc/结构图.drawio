@@ -1,0 +1,277 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (iPad; CPU OS 18_1_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) EdgiOS/131.0.2903.92 Version/18.0 Mobile/15E148 Safari/604.1" version="25.0.3">
+  <diagram name="第 1 页" id="bxxxQVGhS8IFvsGaxlDZ">
+    <mxGraphModel dx="1735" dy="1403" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-60" value="SQL statement" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="1027" y="355" width="330" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-94" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="63" y="170" width="310" height="370" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-25" value="WebSocket&lt;div&gt;Client&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-94">
+          <mxGeometry x="225" y="285" width="90" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-28" value="HTTP Client" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-94">
+          <mxGeometry x="169.99999999999994" y="140" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-59" value="Other Services" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-94">
+          <mxGeometry x="-105" y="185" width="330" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-63" value="View and Controlers" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-94">
+          <mxGeometry x="-145" y="185" width="330" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-76" value="" style="group" vertex="1" connectable="0" parent="TKKuryZPwlHoQlq77Uxj-94">
+          <mxGeometry x="80" y="40" width="190" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-1" value="UserDAO" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-76">
+          <mxGeometry x="40" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-4" value="FreindDAO" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-76">
+          <mxGeometry x="40" y="60" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-5" value="PrivateMessageDAO" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-76">
+          <mxGeometry x="40" y="30" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-6" value="FriendRequestDAO" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-76">
+          <mxGeometry x="40" y="90" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-7" value="GroupDAO" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-76">
+          <mxGeometry x="40" y="120" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-8" value="GroupMessageDAO" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-76">
+          <mxGeometry x="40" y="150" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-9" value="GroupMemberDAO" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-76">
+          <mxGeometry x="40" y="180" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-10" value="GroupJoinRequestDAO" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-76">
+          <mxGeometry x="40" y="210" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-11" value="UserService" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-76">
+          <mxGeometry x="-40" y="40" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-12" value="GroupService" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-76">
+          <mxGeometry x="-40" y="160" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-81" value="" style="group" vertex="1" connectable="0" parent="TKKuryZPwlHoQlq77Uxj-94">
+          <mxGeometry x="80" y="280" width="150" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-22" value="ChatMessageService" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-81">
+          <mxGeometry width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-23" value="SignInService" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-81">
+          <mxGeometry y="30" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-24" value="EmailVerificationService" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-81">
+          <mxGeometry y="60" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-64" value="Client on User computers" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-94">
+          <mxGeometry width="310" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-96" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="632" y="171" width="539" height="370" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-46" value="Other Services" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-96">
+          <mxGeometry x="124" y="185" width="330" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-47" value="JDBC: MySQL Connecter" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-96">
+          <mxGeometry x="354" y="185" width="330" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-77" value="" style="group" vertex="1" connectable="0" parent="TKKuryZPwlHoQlq77Uxj-96">
+          <mxGeometry x="79" y="40" width="190" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-13" value="UserServlet" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-77">
+          <mxGeometry width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-14" value="PrivateMessageServlet" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-77">
+          <mxGeometry y="30" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-15" value="FreindServlet" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-77">
+          <mxGeometry y="60" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-16" value="FriendRequestServlet" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-77">
+          <mxGeometry y="90" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-17" value="GroupServlet" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-77">
+          <mxGeometry y="120" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-18" value="GroupMessageServlet" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-77">
+          <mxGeometry y="150" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-19" value="GroupMemberServlet" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-77">
+          <mxGeometry y="180" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-20" value="GroupJoinRequestServlet" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-77">
+          <mxGeometry y="210" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-34" value="Handle HTTP Request service" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-77">
+          <mxGeometry x="50" y="100" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-78" value="" style="group" vertex="1" connectable="0" parent="TKKuryZPwlHoQlq77Uxj-96">
+          <mxGeometry x="309" y="40" width="190" height="330" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-36" value="GroupMemberDAO" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-78">
+          <mxGeometry x="40" y="247.5" width="150" height="41.25" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-37" value="FreindDAO" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-78">
+          <mxGeometry x="40" y="82.5" width="150" height="41.25" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-38" value="GroupMessageDAO" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-78">
+          <mxGeometry x="40" y="206.25" width="150" height="41.25" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-39" value="GroupDAO" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-78">
+          <mxGeometry x="40" y="165" width="150" height="41.25" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-40" value="FriendRequestDAO" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-78">
+          <mxGeometry x="40" y="123.75" width="150" height="41.25" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-41" value="UserDAO" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-78">
+          <mxGeometry x="40" width="150" height="41.25" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-42" value="PrivateMessageDAO" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-78">
+          <mxGeometry x="40" y="41.25" width="150" height="41.25" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-43" value="GroupJoinRequestDAO" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-78">
+          <mxGeometry x="40" y="288.75" width="150" height="41.25" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-44" value="UserService" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-78">
+          <mxGeometry x="-62.5" y="63" width="165" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-45" value="UserService" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-78">
+          <mxGeometry x="-62.5" y="227.5" width="165" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-80" value="" style="group" vertex="1" connectable="0" parent="TKKuryZPwlHoQlq77Uxj-96">
+          <mxGeometry x="79" y="280" width="190" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-31" value="Handle ChatMessageService" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-80">
+          <mxGeometry x="40" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-32" value="&lt;div&gt;Handle&lt;/div&gt;SignInService" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-80">
+          <mxGeometry x="40" y="30" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-33" value="&lt;div&gt;Handle&lt;/div&gt;EmailVerificationService" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-80">
+          <mxGeometry x="40" y="60" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-35" value="OnMessage&lt;div&gt;Controler&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-80">
+          <mxGeometry x="-25" y="25" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-95" value="" style="group" vertex="1" connectable="0" parent="TKKuryZPwlHoQlq77Uxj-96">
+          <mxGeometry y="40" width="79" height="330" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-29" value="HTTP Server" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-95">
+          <mxGeometry x="-61" y="100" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-30" value="WebSocket&lt;div&gt;Server&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-95">
+          <mxGeometry x="14" y="265" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-57" value="Tomcat Server" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-95">
+          <mxGeometry x="-145" y="145" width="330" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-65" value="Server on Aliyah ESC" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-96">
+          <mxGeometry width="539" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-97" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="1213" y="171" width="190" height="370" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-62" value="MySQL DataBase Server" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-97">
+          <mxGeometry x="-145" y="185" width="330" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-66" value="DataBase on Aliyah ESC" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-97">
+          <mxGeometry width="190" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-79" value="" style="group" vertex="1" connectable="0" parent="TKKuryZPwlHoQlq77Uxj-97">
+          <mxGeometry x="40" y="40" width="150" height="330" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-48" value="User Table" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-79">
+          <mxGeometry width="150" height="41.25" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-49" value="PrivateMessage Table" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-79">
+          <mxGeometry y="41.25" width="150" height="41.25" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-50" value="Freind Table" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-79">
+          <mxGeometry y="82.38" width="150" height="41.25" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-51" value="FriendRequest Table" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-79">
+          <mxGeometry y="123.75" width="150" height="41.25" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-52" value="Group Table" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-79">
+          <mxGeometry y="165" width="150" height="41.25" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-53" value="GroupMessage Table" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-79">
+          <mxGeometry y="206.25" width="150" height="41.25" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-54" value="GroupMember Table" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-79">
+          <mxGeometry y="247.5" width="150" height="41.25" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-55" value="GroupJoinRequest Table" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-79">
+          <mxGeometry y="288.75" width="150" height="41.25" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-107" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="373" y="170" width="259" height="371" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-93" value="" style="group" vertex="1" connectable="0" parent="TKKuryZPwlHoQlq77Uxj-107">
+          <mxGeometry x="54" y="40" width="150" height="331" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-89" value="Message" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;rotation=0;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-93">
+          <mxGeometry y="240" width="150" height="91" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-98" value="" style="group" vertex="1" connectable="0" parent="TKKuryZPwlHoQlq77Uxj-107">
+          <mxGeometry y="40" width="40" height="330" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-21" value="HTTP API" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-98">
+          <mxGeometry x="-100.00000000000006" y="100" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-27" value="WebSocket&lt;div&gt;API&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-98">
+          <mxGeometry x="-25" y="265" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-99" value="" style="group" vertex="1" connectable="0" parent="TKKuryZPwlHoQlq77Uxj-107">
+          <mxGeometry x="219" y="40" width="40" height="330" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-100" value="HTTP API" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-99">
+          <mxGeometry x="-100.00000000000006" y="100" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-101" value="WebSocket&lt;div&gt;API&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-99">
+          <mxGeometry x="-25" y="265" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-103" value="Entry Model Stream on Net" style="whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-107">
+          <mxGeometry width="259" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-105" value="Wapper" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-107">
+          <mxGeometry x="-118" y="197.5" width="330" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-106" value="Wapper" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-107">
+          <mxGeometry x="47" y="198" width="330" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-75" value="" style="group;rotation=0;" vertex="1" connectable="0" parent="TKKuryZPwlHoQlq77Uxj-107">
+          <mxGeometry x="54.5" y="40" width="150" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-68" value="GroupMember" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;rotation=0;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-75">
+          <mxGeometry y="180" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-69" value="GroupMessage" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;rotation=0;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-75">
+          <mxGeometry y="150" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-71" value="FriendRequest" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;rotation=0;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-75">
+          <mxGeometry y="90" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-72" value="Freind" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;rotation=0;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-75">
+          <mxGeometry y="60" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-73" value="PrivateMessage" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;rotation=0;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-75">
+          <mxGeometry y="30" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-74" value="User" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;rotation=0;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-75">
+          <mxGeometry width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-67" value="GroupJoinRequest" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;rotation=0;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-75">
+          <mxGeometry y="210" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-70" value="Group" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;rotation=0;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-75">
+          <mxGeometry y="120" width="150" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
