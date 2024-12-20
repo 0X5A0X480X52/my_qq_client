@@ -1,14 +1,14 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (iPad; CPU OS 18_1_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) EdgiOS/131.0.2903.92 Version/18.0 Mobile/15E148 Safari/604.1" version="25.0.3">
   <diagram name="第 1 页" id="bxxxQVGhS8IFvsGaxlDZ">
-    <mxGraphModel dx="731" dy="591" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1542" dy="1247" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="TKKuryZPwlHoQlq77Uxj-60" value="SQL statement" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
-          <mxGeometry x="1050" y="354" width="330" height="40" as="geometry" />
+          <mxGeometry x="1027" y="355" width="330" height="40" as="geometry" />
         </mxCell>
         <mxCell id="TKKuryZPwlHoQlq77Uxj-94" value="" style="group" vertex="1" connectable="0" parent="1">
-          <mxGeometry x="3" y="180" width="310" height="370" as="geometry" />
+          <mxGeometry x="63" y="170" width="310" height="370" as="geometry" />
         </mxCell>
         <mxCell id="TKKuryZPwlHoQlq77Uxj-25" value="WebSocket&lt;div&gt;Client&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-94">
           <mxGeometry x="225" y="285" width="90" height="80" as="geometry" />
@@ -71,7 +71,7 @@
           <mxGeometry width="310" height="40" as="geometry" />
         </mxCell>
         <mxCell id="TKKuryZPwlHoQlq77Uxj-96" value="" style="group" vertex="1" connectable="0" parent="1">
-          <mxGeometry x="632" y="169" width="539" height="370" as="geometry" />
+          <mxGeometry x="632" y="171" width="539" height="370" as="geometry" />
         </mxCell>
         <mxCell id="TKKuryZPwlHoQlq77Uxj-46" value="Other Services" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-96">
           <mxGeometry x="124" y="185" width="330" height="40" as="geometry" />
@@ -173,7 +173,7 @@
           <mxGeometry width="539" height="40" as="geometry" />
         </mxCell>
         <mxCell id="TKKuryZPwlHoQlq77Uxj-97" value="" style="group" vertex="1" connectable="0" parent="1">
-          <mxGeometry x="1259" y="169" width="190" height="370" as="geometry" />
+          <mxGeometry x="1213" y="171" width="190" height="370" as="geometry" />
         </mxCell>
         <mxCell id="TKKuryZPwlHoQlq77Uxj-62" value="MySQL DataBase Server" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-97">
           <mxGeometry x="-145" y="185" width="330" height="40" as="geometry" />
@@ -208,14 +208,44 @@
         <mxCell id="TKKuryZPwlHoQlq77Uxj-55" value="GroupJoinRequest Table" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-79">
           <mxGeometry y="288.75" width="150" height="41.25" as="geometry" />
         </mxCell>
-        <mxCell id="TKKuryZPwlHoQlq77Uxj-104" value="" style="group" vertex="1" connectable="0" parent="1">
-          <mxGeometry x="366" y="180" width="230" height="371" as="geometry" />
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-107" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="373" y="170" width="259" height="371" as="geometry" />
         </mxCell>
-        <mxCell id="TKKuryZPwlHoQlq77Uxj-93" value="" style="group" vertex="1" connectable="0" parent="TKKuryZPwlHoQlq77Uxj-104">
-          <mxGeometry x="40" y="40" width="150" height="331" as="geometry" />
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-93" value="" style="group" vertex="1" connectable="0" parent="TKKuryZPwlHoQlq77Uxj-107">
+          <mxGeometry x="54" y="40" width="150" height="331" as="geometry" />
         </mxCell>
-        <mxCell id="TKKuryZPwlHoQlq77Uxj-75" value="" style="group;rotation=0;" vertex="1" connectable="0" parent="TKKuryZPwlHoQlq77Uxj-93">
-          <mxGeometry width="150" height="240" as="geometry" />
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-89" value="Message" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;rotation=0;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-93">
+          <mxGeometry y="240" width="150" height="91" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-98" value="" style="group" vertex="1" connectable="0" parent="TKKuryZPwlHoQlq77Uxj-107">
+          <mxGeometry y="40" width="40" height="330" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-21" value="HTTP API" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-98">
+          <mxGeometry x="-100.00000000000006" y="100" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-27" value="WebSocket&lt;div&gt;API&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-98">
+          <mxGeometry x="-25" y="265" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-99" value="" style="group" vertex="1" connectable="0" parent="TKKuryZPwlHoQlq77Uxj-107">
+          <mxGeometry x="219" y="40" width="40" height="330" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-100" value="HTTP API" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-99">
+          <mxGeometry x="-100.00000000000006" y="100" width="240" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-101" value="WebSocket&lt;div&gt;API&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-99">
+          <mxGeometry x="-25" y="265" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-103" value="Entry Model Stream on Net" style="whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-107">
+          <mxGeometry width="259" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-105" value="Wapper" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-107">
+          <mxGeometry x="-118" y="197.5" width="330" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-106" value="Wapper" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-107">
+          <mxGeometry x="47" y="198" width="330" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="TKKuryZPwlHoQlq77Uxj-75" value="" style="group;rotation=0;" vertex="1" connectable="0" parent="TKKuryZPwlHoQlq77Uxj-107">
+          <mxGeometry x="54.5" y="40" width="150" height="240" as="geometry" />
         </mxCell>
         <mxCell id="TKKuryZPwlHoQlq77Uxj-68" value="GroupMember" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;rotation=0;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-75">
           <mxGeometry y="180" width="150" height="30" as="geometry" />
@@ -240,30 +270,6 @@
         </mxCell>
         <mxCell id="TKKuryZPwlHoQlq77Uxj-70" value="Group" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;rotation=0;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-75">
           <mxGeometry y="120" width="150" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="TKKuryZPwlHoQlq77Uxj-89" value="Message(WebSocket)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;rotation=0;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-93">
-          <mxGeometry y="240" width="150" height="91" as="geometry" />
-        </mxCell>
-        <mxCell id="TKKuryZPwlHoQlq77Uxj-98" value="" style="group" vertex="1" connectable="0" parent="TKKuryZPwlHoQlq77Uxj-104">
-          <mxGeometry y="40" width="40" height="330" as="geometry" />
-        </mxCell>
-        <mxCell id="TKKuryZPwlHoQlq77Uxj-21" value="HTTP API" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-98">
-          <mxGeometry x="-100.00000000000006" y="100" width="240" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="TKKuryZPwlHoQlq77Uxj-27" value="WebSocket&lt;div&gt;API&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-98">
-          <mxGeometry x="-25" y="265" width="90" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="TKKuryZPwlHoQlq77Uxj-99" value="" style="group" vertex="1" connectable="0" parent="TKKuryZPwlHoQlq77Uxj-104">
-          <mxGeometry x="190" y="40" width="40" height="330" as="geometry" />
-        </mxCell>
-        <mxCell id="TKKuryZPwlHoQlq77Uxj-100" value="HTTP API" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-99">
-          <mxGeometry x="-100.00000000000006" y="100" width="240" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="TKKuryZPwlHoQlq77Uxj-101" value="WebSocket&lt;div&gt;API&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;rotation=-90;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-99">
-          <mxGeometry x="-25" y="265" width="90" height="40" as="geometry" />
-        </mxCell>
-        <mxCell id="TKKuryZPwlHoQlq77Uxj-103" value="Entry Model Stream on Net" style="whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="TKKuryZPwlHoQlq77Uxj-104">
-          <mxGeometry width="230" height="40" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
