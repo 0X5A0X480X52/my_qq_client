@@ -1,4 +1,4 @@
-# 简易 QQ 聊天系统
+# 简易 QQ 聊天系统（客户端）
 
 ## 项目简介
 
@@ -168,6 +168,11 @@
     ```sh
     mvn clean install
     mvn exec:java -Dexec.mainClass="cn.amatrix.Main"
+    ```
+
+    ```sh
+    mvn clean package
+    java -jar ./target/my_qq_client-1.0-SNAPSHOT-jar-with-dependencies.jar
     ```
 
 ## 使用说明

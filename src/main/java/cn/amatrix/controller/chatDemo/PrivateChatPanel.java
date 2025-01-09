@@ -222,7 +222,14 @@ public class PrivateChatPanel extends JPanel implements WebSocketReceiver {
         }
 
         URI uri = URI.create("ws://47.97.117.157:8080/demo_webapp/chat");
-        WebSocketClient client1 = new WebSocketClient(uri);
+        final WebSocketClient client1;
+        try {
+            client1 = new WebSocketClient(uri);
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "无法连接到服务器，请检查网络连接或服务器地址。", "错误", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
         SignInService signInService1 = new SignInService(client1);
         signInService1.submitSignInInformation("Anon", "3432900546@qq.com", "123456");

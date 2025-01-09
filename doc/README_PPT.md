@@ -50,6 +50,23 @@ footer: '第 {page} 页'
     ├── doc/ # 额外的说明文档
     ├── pom.xml # Maven 配置文件 
     └── README.md # 项目说明文件
+
+    my_qq_sserver/  
+    ├── src/ 
+    │ ├── main/ 
+    │ │ ├── java/cn/amatrix/ 
+    │ │ │ ├── controller/ # 控制器层，处理前端发回的请求 
+    │ │ │ ├── model/ # 数据模型层，定义实体类 
+    │ │ │ ├── service/ # 服务层，包含业务逻辑 
+    │ │ │ ├── DAO/ # 数据访问层，向数据库请求资源
+    │ │ │ └── util/ # 工具类 
+    │ │ ├── resources/ # 资源文件
+    │ │ └── webapp/ # 网络应用
+    │ └── test/ # 测试代码
+    ├── target/ # 导出的 jar 文件
+    ├── doc/ # 额外的说明文档
+    ├── pom.xml # Maven 配置文件 
+    └── README.md # 项目说明文件
 ```
 
 ---

@@ -18,7 +18,7 @@ public class MainChatFrame extends JFrame {
     public MainChatFrame(WebSocketClient webSocketClient, String email) {
         setTitle("OO —— 比 QQ 少亿点点的功能的实时通讯工具");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        setLocation(400,300);
         setSize(1000, 600);
         setMinimumSize(new Dimension(700, 500)); // 设置最小窗口大小
         setLayout(new BorderLayout());
@@ -30,7 +30,7 @@ public class MainChatFrame extends JFrame {
         aboutMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(MainChatFrame.this, "作者: Your Name", "关于", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(MainChatFrame.this, "作者: Amatrix\ndyf,zyh,ncx", "关于", JOptionPane.INFORMATION_MESSAGE);
             }
         });
         menu.add(aboutMenuItem);

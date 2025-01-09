@@ -163,6 +163,7 @@ cn\amatrix\DAO\users\Imp\PrivateMessageDAOImp.class
 cn\amatrix\service\signIn\SignInService$SignInCodeStatus.class
 cn\amatrix\utils\webSocketClient\receivedWebSocketMessage\ReceivedWebSocketMessageEventListener.class
 cn\amatrix\utils\configManager\managers\DataBaseConfigManager.class
+cn\amatrix\utils\webSocketClient\WebSocketClient$ConeccionStatus.class
 cn\amatrix\controller\friendRequest\friendRequestDemo$5.class
 cn\amatrix\controller\chatDemo\PrivateChatPanel$5.class
 cn\amatrix\Main.class

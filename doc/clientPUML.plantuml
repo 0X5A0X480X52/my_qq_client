@@ -1,0 +1,273 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class ChangeAvatar
+class ChangeGroupAvatar
+class ChangeGroupInfoPanel
+class ChangeInfoPanel
+class ChatDemo4
+class ChatDemo5
+class ChatMessageService
+class ConfigManager
+class CreateGroupDialog
+class DataBaseConfigManager
+class EmailVerficationService
+class Friend
+class FriendDAO
+class FriendDAO
+interface FriendDAOImp << interface >>
+class FriendDAOTest
+class FriendRequest
+class FriendRequestDAO
+class FriendRequestDAO
+interface FriendRequestDAOImp << interface >>
+class FriendRequestDAOTest
+class FunctionPanel
+class GetCaptcha
+class Group
+class GroupBriefInfoPanel
+class GroupChatPanel
+class GroupDAO
+class GroupDAO
+interface GroupDAOImp << interface >>
+class GroupDAOTest
+class GroupDAOTest
+class GroupDetailedInfoPanel
+class GroupInfoPanel
+class GroupJoinRequest
+class GroupJoinRequestDAO
+class GroupJoinRequestDAO
+interface GroupJoinRequestDAOImp << interface >>
+class GroupJoinRequestDAOTest
+class GroupJoinRequestDAOTest
+class GroupMember
+class GroupMemberDAO
+class GroupMemberDAO
+interface GroupMemberDAOImp << interface >>
+class GroupMemberDAOTest
+class GroupMemberDAOTest
+class GroupMessage
+class GroupMessageCache
+class GroupMessageCacheTest
+class GroupMessageDAO
+class GroupMessageDAO
+interface GroupMessageDAOImp << interface >>
+class GroupMessageDAOTest
+class GroupMessageDAOTest
+class GroupMessageHeap
+class GroupMessageHeapTest
+class GroupRequestDemo
+class GroupService
+class HandleRequestDialog
+class HandleRequestDialog
+class HttpConfigManager
+class HttpConnector
+class ImageManager
+class InfoPanel
+class InfoPanelList
+class InfoPanelLists
+class InputPanel
+class Instance01
+class Instance02
+class Instance03
+class LibraryManagementSystem
+class LoginGUI
+class Main
+class MainApp
+class MainChatFrame
+class Message
+class MessageCacheConfigManager
+class MessageCacheManager
+class MessageCacheService
+class MessageCacheServiceTest
+class MessagePanel
+class MySQLCRUD
+class MySQLConnector
+class PrivateChatPanel
+class PrivateMessage
+class PrivateMessageCache
+class PrivateMessageCacheTest
+class PrivateMessageDAO
+class PrivateMessageDAO
+interface PrivateMessageDAOImp << interface >>
+class PrivateMessageDAOTest
+class PrivateMessageHeap
+class PrivateMessageHeapTest
+class QQ
+class ReceivedWebSocketMessageEvent
+class ReceivedWebSocketMessageEventExample
+interface ReceivedWebSocketMessageEventListener << interface >>
+class ReceivedWebSocketMessageEventQueue
+class RetrievePassword
+class SendRequestDialog
+class SendRequestDialog
+class SignInService
+class SignUpExample
+class SignUpService
+class User
+class UserBriefInfoPanel
+class UserDAO
+class UserDAO
+interface UserDAOImp << interface >>
+class UserDAOTest
+class UserDetailedInfoPanel
+class UserInfoPanel
+class UserService
+class WebClientClass
+class WebClientExample
+class WebSocketClient
+class WebSocketConfigManager
+interface WebSocketReceiver << interface >>
+class chatDemo
+class chatDemo2
+class chatDemo3
+class friendRequestDemo
+
+ChangeAvatar                          "1" *-[#595959,plain]-> "user\n1" User                                  
+ChangeGroupAvatar                     "1" *-[#595959,plain]-> "group\n1" Group                                 
+ChangeGroupInfoPanel                  "1" *-[#595959,plain]-> "group\n1" Group                                 
+ChangeGroupInfoPanel                  "1" *-[#595959,plain]-> "groupService\n1" GroupService                          
+ChangeInfoPanel                       "1" *-[#595959,plain]-> "user\n1" User                                  
+ChangeInfoPanel                       "1" *-[#595959,plain]-> "userService\n1" UserService                           
+ChatDemo4                             "1" *-[#595959,plain]-> "chatMessageService\n1" ChatMessageService                    
+ChatDemo4                             "1" *-[#595959,plain]-> "inputPanel\n1" InputPanel                            
+ChatDemo4                             "1" *-[#595959,plain]-> "currentUser\n1" User                                  
+ChatDemo4                             "1" *-[#595959,plain]-> "webSocketClient\n1" WebSocketClient                       
+ChatDemo4                              -[#008200,dashed]-^  WebSocketReceiver                     
+ChatDemo5                             "1" *-[#595959,plain]-> "chatMessageService\n1" ChatMessageService                    
+ChatDemo5                             "1" *-[#595959,plain]-> "inputPanel\n1" InputPanel                            
+ChatDemo5                             "1" *-[#595959,plain]-> "currentUser\n1" User                                  
+ChatDemo5                             "1" *-[#595959,plain]-> "webSocketClient\n1" WebSocketClient                       
+ChatDemo5                              -[#008200,dashed]-^  WebSocketReceiver                     
+ChatMessageService                    "1" *-[#595959,plain]-> "messageCacheService\n1" MessageCacheService                   
+ChatMessageService                    "1" *-[#595959,plain]-> "client\n1" WebSocketClient                       
+CreateGroupDialog                     "1" *-[#595959,plain]-> "groupService\n1" GroupService                          
+EmailVerficationService               "1" *-[#595959,plain]-> "client\n1" WebSocketClient                       
+FriendDAO                              -[#008200,dashed]-^  FriendDAOImp                          
+FriendDAO                              -[#008200,dashed]-^  FriendDAOImp                          
+FriendDAO                             "1" *-[#595959,plain]-> "httpConnector\n1" HttpConnector                         
+FriendRequestDAO                       -[#008200,dashed]-^  FriendRequestDAOImp                   
+FriendRequestDAO                       -[#008200,dashed]-^  FriendRequestDAOImp                   
+FriendRequestDAO                      "1" *-[#595959,plain]-> "httpConnector\n1" HttpConnector                         
+FunctionPanel                         "1" *-[#595959,plain]-> "currentUser\n1" User                                  
+GetCaptcha                            "1" *-[#595959,plain]-> "emailVerficationService\n1" EmailVerficationService               
+GetCaptcha                            "1" *-[#595959,plain]-> "client\n1" WebSocketClient                       
+GetCaptcha                             -[#008200,dashed]-^  WebSocketReceiver                     
+GroupBriefInfoPanel                   "1" *-[#595959,plain]-> "targetGroup\n1" Group                                 
+GroupBriefInfoPanel                    -[#000082,plain]-^  InfoPanel                             
+GroupBriefInfoPanel                   "1" *-[#595959,plain]-> "currentUser\n1" User                                  
+GroupChatPanel                        "1" *-[#595959,plain]-> "chatMessageService\n1" ChatMessageService                    
+GroupChatPanel                        "1" *-[#595959,plain]-> "targetGroup\n1" Group                                 
+GroupChatPanel                        "1" *-[#595959,plain]-> "inputPanel\n1" InputPanel                            
+GroupChatPanel                        "1" *-[#595959,plain]-> "currentUser\n1" User                                  
+GroupChatPanel                        "1" *-[#595959,plain]-> "webSocketClient\n1" WebSocketClient                       
+GroupChatPanel                         -[#008200,dashed]-^  WebSocketReceiver                     
+GroupDAO                               -[#008200,dashed]-^  GroupDAOImp                           
+GroupDAO                               -[#008200,dashed]-^  GroupDAOImp                           
+GroupDAO                              "1" *-[#595959,plain]-> "httpConnector\n1" HttpConnector                         
+GroupDAOTest                          "1" *-[#595959,plain]-> "testGroup\n1" Group                                 
+GroupDAOTest                          "1" *-[#595959,plain]-> "groupDAO\n1" GroupDAO                              
+GroupDAOTest                          "1" *-[#595959,plain]-> "groupDAO\n1" GroupDAO                              
+GroupDetailedInfoPanel                "1" *-[#595959,plain]-> "group\n1" Group                                 
+GroupDetailedInfoPanel                "1" *-[#595959,plain]-> "currentUser\n1" User                                  
+GroupInfoPanel                        "1" *-[#595959,plain]-> "group\n1" Group                                 
+GroupInfoPanel                         -[#000082,plain]-^  InfoPanel                             
+GroupInfoPanel                        "1" *-[#595959,plain]-> "currentUser\n1" User                                  
+GroupJoinRequestDAO                    -[#008200,dashed]-^  GroupJoinRequestDAOImp                
+GroupJoinRequestDAO                    -[#008200,dashed]-^  GroupJoinRequestDAOImp                
+GroupJoinRequestDAO                   "1" *-[#595959,plain]-> "httpConnector\n1" HttpConnector                         
+GroupJoinRequestDAOTest               "1" *-[#595959,plain]-> "dao\n1" GroupJoinRequestDAO                   
+GroupJoinRequestDAOTest               "1" *-[#595959,plain]-> "groupJoinRequestDAO\n1" GroupJoinRequestDAO                   
+GroupMemberDAO                         -[#008200,dashed]-^  GroupMemberDAOImp                     
+GroupMemberDAO                         -[#008200,dashed]-^  GroupMemberDAOImp                     
+GroupMemberDAO                        "1" *-[#595959,plain]-> "httpConnector\n1" HttpConnector                         
+GroupMemberDAOTest                    "1" *-[#595959,plain]-> "groupMemberDAO\n1" GroupMemberDAO                        
+GroupMessageCache                     "1" *-[#595959,plain]-> "messages\n*" GroupMessage                          
+GroupMessageCacheTest                 "1" *-[#595959,plain]-> "message1\n1" GroupMessage                          
+GroupMessageCacheTest                 "1" *-[#595959,plain]-> "cache\n1" GroupMessageCache                     
+GroupMessageDAO                        -[#008200,dashed]-^  GroupMessageDAOImp                    
+GroupMessageDAO                        -[#008200,dashed]-^  GroupMessageDAOImp                    
+GroupMessageDAO                       "1" *-[#595959,plain]-> "httpConnector\n1" HttpConnector                         
+GroupMessageDAOTest                   "1" *-[#595959,plain]-> "groupMessageDAO\n1" GroupMessageDAO                       
+GroupRequestDemo                      "1" *-[#595959,plain]-> "groupService\n1" GroupService                          
+GroupRequestDemo                      "1" *-[#595959,plain]-> "currentUser\n1" User                                  
+GroupRequestDemo                      "1" *-[#595959,plain]-> "userService\n1" UserService                           
+GroupService                          "1" *-[#595959,plain]-> "groupDAO\n1" GroupDAOImp                           
+GroupService                          "1" *-[#595959,plain]-> "groupJoinRequestDAO\n1" GroupJoinRequestDAOImp                
+GroupService                          "1" *-[#595959,plain]-> "groupMemberDAO\n1" GroupMemberDAOImp                     
+GroupService                          "1" *-[#595959,plain]-> "groupMessageDAO\n1" GroupMessageDAOImp                    
+HandleRequestDialog                   "1" *-[#595959,plain]-> "groupService\n1" GroupService                          
+HandleRequestDialog                   "1" *-[#595959,plain]-> "currentUser\n1" User                                  
+HandleRequestDialog                   "1" *-[#595959,plain]-> "userService\n1" UserService                           
+HandleRequestDialog                   "1" *-[#595959,plain]-> "userService\n1" UserService                           
+InfoPanelList                         "1" *-[#595959,plain]-> "FriendList\n*" Friend                                
+InfoPanelList                         "1" *-[#595959,plain]-> "GroupMemberList\n*" GroupMember                           
+InfoPanelList                         "1" *-[#595959,plain]-> "groupService\n1" GroupService                          
+InfoPanelList                         "1" *-[#595959,plain]-> "contentPanel\n1" QQ                                    
+InfoPanelList                         "1" *-[#595959,plain]-> "currentUser\n1" User                                  
+InfoPanelList                         "1" *-[#595959,plain]-> "userService\n1" UserService                           
+InfoPanelList                         "1" *-[#595959,plain]-> "webSocketClient\n1" WebSocketClient                       
+InfoPanelLists                        "1" *-[#595959,plain]-> "FriendList\n*" Friend                                
+InfoPanelLists                        "1" *-[#595959,plain]-> "GroupMemberList\n*" GroupMember                           
+InfoPanelLists                        "1" *-[#595959,plain]-> "groupService\n1" GroupService                          
+InfoPanelLists                        "1" *-[#595959,plain]-> "currentUser\n1" User                                  
+InfoPanelLists                        "1" *-[#595959,plain]-> "userService\n1" UserService                           
+LibraryManagementSystem               "1" *-[#595959,plain]-> "connector\n1" MySQLCRUD                             
+LoginGUI                              "1" *-[#595959,plain]-> "webSocketClient\n1" WebSocketClient                       
+LoginGUI                               -[#008200,dashed]-^  WebSocketReceiver                     
+MessageCacheManager                   "1" *-[#595959,plain]-> "groupMessageCaches\n*" GroupMessageCache                     
+MessageCacheManager                   "1" *-[#595959,plain]-> "privateMessageCaches\n*" PrivateMessageCache                   
+MessageCacheService                   "1" *-[#595959,plain]-> "cacheManager\n1" MessageCacheManager                   
+MessageCacheServiceTest               "1" *-[#595959,plain]-> "service\n1" MessageCacheService                   
+PrivateChatPanel                      "1" *-[#595959,plain]-> "chatMessageService\n1" ChatMessageService                    
+PrivateChatPanel                      "1" *-[#595959,plain]-> "inputPanel\n1" InputPanel                            
+PrivateChatPanel                      "1" *-[#595959,plain]-> "currentUser\n1" User                                  
+PrivateChatPanel                      "1" *-[#595959,plain]-> "webSocketClient\n1" WebSocketClient                       
+PrivateChatPanel                       -[#008200,dashed]-^  WebSocketReceiver                     
+PrivateMessageCache                   "1" *-[#595959,plain]-> "messages\n*" PrivateMessage                        
+PrivateMessageDAO                     "1" *-[#595959,plain]-> "httpConnector\n1" HttpConnector                         
+PrivateMessageDAO                      -[#008200,dashed]-^  PrivateMessageDAOImp                  
+PrivateMessageDAO                      -[#008200,dashed]-^  PrivateMessageDAOImp                  
+QQ                                    "1" *-[#595959,plain]-> "functionPanel\n1" FunctionPanel                         
+QQ                                    "1" *-[#595959,plain]-> "infoPanelList\n1" InfoPanelList                         
+QQ                                    "1" *-[#595959,plain]-> "currentUser\n1" User                                  
+ReceivedWebSocketMessageEvent         "1" *-[#595959,plain]-> "message\n1" Message                               
+RetrievePassword                      "1" *-[#595959,plain]-> "emailVerficationService\n1" EmailVerficationService               
+RetrievePassword                      "1" *-[#595959,plain]-> "client\n1" WebSocketClient                       
+RetrievePassword                       -[#008200,dashed]-^  WebSocketReceiver                     
+SendRequestDialog                     "1" *-[#595959,plain]-> "groupService\n1" GroupService                          
+SendRequestDialog                     "1" *-[#595959,plain]-> "currentUser\n1" User                                  
+SignInService                         "1" *-[#595959,plain]-> "client\n1" WebSocketClient                       
+SignUpExample                         "1" *-[#595959,plain]-> "signUpService\n1" SignUpService                         
+SignUpExample                         "1" *-[#595959,plain]-> "client\n1" WebSocketClient                       
+SignUpExample                          -[#008200,dashed]-^  WebSocketReceiver                     
+SignUpService                         "1" *-[#595959,plain]-> "client\n1" WebSocketClient                       
+UserBriefInfoPanel                     -[#000082,plain]-^  InfoPanel                             
+UserBriefInfoPanel                    "1" *-[#595959,plain]-> "targetUser\n1" User                                  
+UserDAO                               "1" *-[#595959,plain]-> "httpConnector\n1" HttpConnector                         
+UserDAO                                -[#008200,dashed]-^  UserDAOImp                            
+UserDAO                                -[#008200,dashed]-^  UserDAOImp                            
+UserDetailedInfoPanel                 "1" *-[#595959,plain]-> "currentUser\n1" User                                  
+UserInfoPanel                          -[#000082,plain]-^  InfoPanel                             
+UserInfoPanel                         "1" *-[#595959,plain]-> "targetUser\n1" User                                  
+UserService                           "1" *-[#595959,plain]-> "friendDAO\n1" FriendDAOImp                          
+UserService                           "1" *-[#595959,plain]-> "friendRequestDAO\n1" FriendRequestDAOImp                   
+UserService                           "1" *-[#595959,plain]-> "privateMessageDAO\n1" PrivateMessageDAOImp                  
+UserService                           "1" *-[#595959,plain]-> "userDAO\n1" UserDAOImp                            
+WebClientClass                        "1" *-[#595959,plain]-> "listener\n1" ReceivedWebSocketMessageEventListener 
+WebClientClass                        "1" *-[#595959,plain]-> "eventQueue\n1" ReceivedWebSocketMessageEventQueue    
+chatDemo                              "1" *-[#595959,plain]-> "chatMessageService\n1" ChatMessageService                    
+chatDemo                              "1" *-[#595959,plain]-> "signInService\n1" SignInService                         
+chatDemo                              "1" *-[#595959,plain]-> "currentUser\n1" User                                  
+chatDemo                               -[#008200,dashed]-^  WebSocketReceiver                     
+chatDemo2                             "1" *-[#595959,plain]-> "chatMessageService\n1" ChatMessageService                    
+chatDemo2                             "1" *-[#595959,plain]-> "signInService\n1" SignInService                         
+chatDemo2                             "1" *-[#595959,plain]-> "currentUser\n1" User                                  
+chatDemo2                              -[#008200,dashed]-^  WebSocketReceiver                     
+chatDemo3                             "1" *-[#595959,plain]-> "inputPanel\n1" InputPanel                            
+friendRequestDemo                     "1" *-[#595959,plain]-> "currentUser\n1" User                                  
+friendRequestDemo                     "1" *-[#595959,plain]-> "userService\n1" UserService                           
+@enduml

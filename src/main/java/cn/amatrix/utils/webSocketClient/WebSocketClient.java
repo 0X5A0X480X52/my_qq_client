@@ -1,5 +1,6 @@
 package cn.amatrix.utils.webSocketClient;
 
+import javax.swing.JOptionPane;
 import javax.websocket.ClientEndpoint;
 import javax.websocket.CloseReason;
 import javax.websocket.ContainerProvider;
@@ -24,6 +25,15 @@ public class WebSocketClient {
 
     private Session userSession = null;
 
+    public enum ConeccionStatus {
+        SUCCESS, FAILED
+    }
+    private ConeccionStatus coneccionStatus = ConeccionStatus.FAILED;
+
+    public ConeccionStatus getConeccionStatus() {
+        return coneccionStatus;
+    }
+
     /**
      * 构造方法，初始化 WebSocket 客户端并连接到指定的 URI。
      *
@@ -33,8 +43,10 @@ public class WebSocketClient {
         try {
             WebSocketContainer container = ContainerProvider.getWebSocketContainer();
             container.connectToServer(this, endpointURI);
+            coneccionStatus = ConeccionStatus.SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "无法连接到服务器，请检查网络连接或服务器地址。", "错误", JOptionPane.ERROR_MESSAGE);
         }
 
         new ReceivedWebSocketMessageEventQueue();
@@ -116,7 +128,14 @@ public class WebSocketClient {
      */
     public static void main(String[] args) {
         URI uri = URI.create("ws://localhost:1145/demo_webapp/chat");
-        WebSocketClient client = new WebSocketClient(uri);
+        
+        WebSocketClient client = null;
+        try {
+            client = new WebSocketClient(uri);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
         client.sendMessage("Hello WebSocket");
 
         Scanner reader = new Scanner(System.in);

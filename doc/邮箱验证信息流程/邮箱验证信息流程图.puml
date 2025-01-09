@@ -4,11 +4,15 @@ participant Controller
 participant Service
 participant WebSocketClient
 participant Server
+database Database
 
 User -> Controller: 点击 "Send Captcha"
 Controller -> Service: getVerificationCode(email)
 Service -> WebSocketClient: sendMessage(message.toJson())
 WebSocketClient -> Server: 发送验证码请求
+
+Server -> Database: 查询用户是否存在
+Database -> Server: 返回查询结果
 
 Server -> WebSocketClient: 返回验证码状态
 WebSocketClient -> Service: handleWebSocketResponse(message)
@@ -19,6 +23,9 @@ User -> Controller: 点击 "Sign Up"
 Controller -> Service: submitSignUpInformation(...)
 Service -> WebSocketClient: sendMessage(message.toJson())
 WebSocketClient -> Server: 发送注册信息
+
+Server -> Server: 验证注册信息并继续相关操作
+Server -> Database: 保存注册信息
 
 Server -> WebSocketClient: 返回注册状态
 WebSocketClient -> Service: handleWebSocketResponse(message)

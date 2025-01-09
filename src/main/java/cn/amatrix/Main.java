@@ -21,6 +21,10 @@ public class Main {
         String uriStr = WebSocketConfigManager.getURI();
         URI uri = URI.create(uriStr);
         WebSocketClient client = new WebSocketClient(uri);
-        SwingUtilities.invokeLater(() -> new LoginGUI(client));
+
+        if (client.getConeccionStatus() == WebSocketClient.ConeccionStatus.SUCCESS) {
+            System.out.println("连接成功");
+            SwingUtilities.invokeLater(() -> new LoginGUI(client));
+        }
     }
 }

@@ -1,0 +1,16 @@
+@startuml WebSocket的事件分发与捕获
+
+participant "WebSocket" as ws
+queue "事件队列" as queue
+participant "事件处理器" as handler
+
+ws -> queue: onopen
+activate queue
+ws -> queue: onmessage \n add Event
+queue -> queue: dispatch Event
+queue -> handler: trigger EventListener
+
+ws -> queue: onclose
+deactivate queue
+
+@enduml

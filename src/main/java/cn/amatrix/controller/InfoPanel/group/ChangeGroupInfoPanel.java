@@ -126,7 +126,7 @@ public class ChangeGroupInfoPanel extends JPanel {
     private void saveChanges() {
         String newGroupName = groupNameField.getText();
         group.setGroupName(newGroupName);
-        groupService.updateGroup(group, group.getGroupId());
+        groupService.updateGroup(group);
         JOptionPane.showMessageDialog(this, "信息已更新");
         refreshPanel();
     }
